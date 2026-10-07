@@ -142,23 +142,32 @@
             RESPONSIVE REGELS VOOR MOBIEL & TABLET
            ========================================== */
         @media (max-width: 1000px) {
-            /* Header aanpassing voor mobiel zodat het logo gecentreerd is en het menu in twee rijen komt */
             header {
                 flex-direction: column;
                 padding: 15px 20px;
-                gap: 12px;
+                gap: 10px;
             }
 
+            /* Geforceerd menu in twee rijen: 2 items per rij */
             header nav ul {
                 display: flex;
                 flex-wrap: wrap;
                 justify-content: center;
-                gap: 15px 25px;
+                gap: 10px 20px;
+                width: 100%;
+                padding: 0;
+            }
+
+            header nav ul li {
+                flex: 0 0 42%; /* Elk item neemt ongeveer de helft van de breedte in */
+                text-align: center;
             }
 
             header nav ul li a {
                 font-size: 0.85rem;
                 letter-spacing: 1px;
+                display: block;
+                padding: 5px 0;
             }
 
             .hero-section {
@@ -321,7 +330,7 @@
         </div>
     </div>
 
-    <!-- JavaScript voor de YouTube Pop-up, Klik-menu, Timer en Scroll-logica -->
+    <!-- JavaScript voor de YouTube Pop-up, Klik-menu, Timer en Touch/Scroll-logica -->
     <script>
         var youtubeVideoId = "BR2MBug7Xc8"; 
 
@@ -373,15 +382,18 @@
             }
         }, 3000);
 
-        // Op mobiel: laat de foto weer verschijnen zodra er wordt gescrolld
-        window.addEventListener('scroll', function() {
+        // Op mobiel: zodra je het scherm aanraakt (touchstart) of scrollt, komt de foto direct terug
+        function showPhotoAgain() {
             if (isMobile()) {
                 var photoFrame = document.getElementById("photoFrame");
                 if (photoFrame) {
                     photoFrame.classList.remove("faded");
                 }
             }
-        });
+        }
+
+        window.addEventListener('scroll', showPhotoAgain);
+        window.addEventListener('touchstart', showPhotoAgain);
     </script>
 
 </body>
