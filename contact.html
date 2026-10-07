@@ -81,6 +81,13 @@
             color: #e74c3c;
         }
 
+        /* Zorgt dat social links netjes onder elkaar staan */
+        .social-links-list {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
         .contact-form {
             display: flex;
             flex-direction: column;
@@ -157,7 +164,7 @@
 
         #success-message h3 {
             font-size: 1.8rem;
-            color: #2ecc71; /* Mooie frisse groene kleur voor succes */
+            color: #2ecc71;
             margin-bottom: 15px;
             font-weight: 400;
             letter-spacing: 1px;
@@ -254,9 +261,9 @@
 
                 <div class="info-block">
                     <span class="label">Social Media</span>
-                    <span class="value">
+                    <span class="value social-links-list">
                         <a href="https://www.youtube.com/@barthfaber3272" target="_blank" rel="noopener noreferrer">YouTube</a>
-                        <a href="https://www.instagram.com/barthfaber/" target="_blank" rel="noopener noreferrer">Instagram</a><br>
+                        <a href="https://www.instagram.com/barthfaber/" target="_blank" rel="noopener noreferrer">Instagram</a>
                         <a href="https://www.facebook.com/profile.php?id=100090867703374" target="_blank" rel="noopener noreferrer">Facebook</a>
                     </span>
                 </div>
@@ -291,7 +298,7 @@
             </form>
 
             <!-- SUCCES SCHERMPJE (Wordt pas getoond na verzending) -->
-<div id="success-message">
+            <div id="success-message">
                 <h3>Message Sent</h3>
                 <p>
                     Bedankt voor je bericht. Ik neem snel contact met je op.<br><br>
@@ -331,7 +338,6 @@
                 .then(async (response) => {
                     let jsonResponse = await response.json();
                     if (response.status == 200) {
-                        // Toon het stijlvolle donkere succes-schermpje
                         successMessage.style.display = 'flex';
                     } else {
                         alert(jsonResponse.message);
