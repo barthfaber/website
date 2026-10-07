@@ -129,7 +129,13 @@
             border: none;
         }
 
-        /* Extra styling voor mobiele social links (standaard verborgen op desktop) */
+        /* Dropdown achtergrondkleur gelijk getrokken aan het hoofdmenu */
+        header nav ul li.has-dropdown .dropdown-menu {
+            background-color: #111111; /* Zelfde donkere kleur als de header/navigatie */
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* Extra styling voor mobiele social links */
         .mobile-socials {
             display: none;
         }
@@ -183,12 +189,10 @@
                 margin-bottom: 25px;
             }
 
-            /* Verberg de desktop zijbalk op mobiel */
             .social-sidebar {
                 display: none;
             }
 
-            /* Toon de social links netjes onderaan op mobiel */
             .mobile-socials {
                 display: flex;
                 justify-content: center;
@@ -210,14 +214,11 @@
                 color: #e74c3c;
             }
 
-            /* Maak het dropdown menu klikbaar i.p.v. hover op mobiel */
             header nav ul li.has-dropdown .dropdown-menu {
                 display: none;
                 position: static;
-                background-color: rgba(0, 0, 0, 0.5);
                 box-shadow: none;
                 margin-top: 10px;
-                border: 1px solid rgba(255, 255, 255, 0.1);
             }
 
             header nav ul li.has-dropdown.open .dropdown-menu {
@@ -236,12 +237,11 @@
         <div class="video-overlay"></div>
     </div>
 
-    <!-- Navigatie (Bovenbalk) -->
+    <!-- Navigatie (Bovenbalk zonder Home-knop) -->
     <header>
         <div class="logo"><a href="index.html">Barth Faber</a></div>
         <nav>
             <ul>
-                <li><a href="index.html" class="active">Home</a></li>
                 <li class="has-dropdown" id="dropdownToggle">
                     <a href="javascript:void(0)" onclick="toggleDropdown(event)">Showreel &#9662;</a>
                     <ul class="dropdown-menu">
@@ -332,14 +332,12 @@
             }
         }
 
-        // Functie om het Showreel-menu open te klikken op mobiel
         function toggleDropdown(event) {
             event.stopPropagation();
             var dropdown = document.getElementById('dropdownToggle');
             dropdown.classList.toggle('open');
         }
 
-        // Sluit het menu als er ergens anders op de pagina geklikt wordt
         document.addEventListener('click', function() {
             var dropdown = document.getElementById('dropdownToggle');
             if (dropdown) {
