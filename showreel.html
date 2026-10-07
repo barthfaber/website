@@ -47,6 +47,75 @@
             border: none;
         }
 
+        /* Dropdown achtergrondkleur exact gelijk aan het hoofdmenu */
+        header nav ul li.has-dropdown .dropdown-menu {
+            background-color: #111111;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* ==========================================
+            RESPONSIVE REGELS VOOR MOBIEL & TABLET
+           ========================================== */
+        @media (max-width: 1000px) {
+            header {
+                flex-direction: column;
+                padding: 12px 15px;
+                gap: 8px;
+            }
+
+            @media (orientation: portrait) {
+                header nav ul {
+                    display: flex;
+                    flex-wrap: nowrap;
+                    justify-content: center;
+                    gap: 12px;
+                    width: 100%;
+                }
+
+                header nav ul li {
+                    flex: unset;
+                }
+
+                header nav ul li a {
+                    font-size: 0.75rem;
+                    letter-spacing: 0.2px;
+                    white-space: nowrap;
+                }
+            }
+
+            @media (orientation: landscape) {
+                header nav ul {
+                    display: flex;
+                    flex-wrap: nowrap;
+                    justify-content: center;
+                    gap: 20px;
+                }
+            }
+
+            .social-sidebar {
+                display: none;
+            }
+
+            header nav ul li.has-dropdown {
+                position: relative;
+            }
+
+            header nav ul li.has-dropdown .dropdown-menu {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 50%;
+                transform: translateX(-50%);
+                min-width: 140px;
+                box-shadow: 0 10px 25px rgba(0,0,0,0.9);
+                z-index: 100;
+            }
+
+            header nav ul li.has-dropdown.open .dropdown-menu {
+                display: block;
+            }
+        }
+
         @media (max-width: 900px) {
             .page-section {
                 padding-left: 20px;
@@ -66,14 +135,14 @@
         <div class="logo"><a href="index.html">Barth Faber</a></div>
         <nav>
             <ul>
-		<!-- Showreel met Dropdown -->
-       		<li class="has-dropdown">
-            		<a href="showreel.html">Showreel &#9662;</a>
-           		 <ul class="dropdown-menu">
-                <li><a href="showreel.html">Acting Reels</a></li>
-                <li><a href="showreel-voice.html">Voice Reels</a></li>
-            </ul>
-        </li>
+                <!-- Showreel met Dropdown -->
+                <li class="has-dropdown" id="dropdownToggle">
+                    <a href="javascript:void(0)" onclick="toggleDropdown(event)">Showreel &#9662;</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="showreel.html">Acting Reels</a></li>
+                        <li><a href="showreel-voice.html">Voice Reels</a></li>
+                    </ul>
+                </li>
                 <li><a href="gallery.html">Gallery</a></li>
                 <li><a href="resume.html">Resume</a></li>
                 <li><a href="contact.html">Contact</a></li>
@@ -99,6 +168,21 @@
     <footer>
         <p>&copy; 2026 Barth Faber. Alle rechten voorbehouden.</p>
     </footer>
+
+    <script>
+        function toggleDropdown(event) {
+            event.stopPropagation();
+            var dropdown = document.getElementById('dropdownToggle');
+            dropdown.classList.toggle('open');
+        }
+
+        document.addEventListener('click', function() {
+            var dropdown = document.getElementById('dropdownToggle');
+            if (dropdown) {
+                dropdown.classList.remove('open');
+            }
+        });
+    </script>
 
 </body>
 </html>
