@@ -129,13 +129,12 @@
             border: none;
         }
 
-        /* Dropdown achtergrondkleur gelijk getrokken aan het hoofdmenu */
+        /* Dropdown achtergrondkleur gelijk aan het hoofdmenu */
         header nav ul li.has-dropdown .dropdown-menu {
-            background-color: #111111; /* Zelfde donkere kleur als de header/navigatie */
+            background-color: #111111;
             border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
-        /* Extra styling voor mobiele social links */
         .mobile-socials {
             display: none;
         }
@@ -144,6 +143,16 @@
             RESPONSIVE REGELS VOOR MOBIEL & TABLET
            ========================================== */
         @media (max-width: 1000px) {
+            /* Maak het menu compacter zodat alle 4 de opties naast elkaar passen */
+            header nav ul {
+                gap: 12px;
+            }
+
+            header nav ul li a {
+                font-size: 0.78rem;
+                letter-spacing: 0.5px;
+            }
+
             .hero-section {
                 flex-direction: column;
                 justify-content: center;
@@ -216,9 +225,10 @@
 
             header nav ul li.has-dropdown .dropdown-menu {
                 display: none;
-                position: static;
-                box-shadow: none;
-                margin-top: 10px;
+                position: absolute; /* Zorgt dat het uitklapt over de content heen i.p.v. de rest weg te duwen */
+                right: 20px;
+                top: 60px;
+                box-shadow: 0 10px 25px rgba(0,0,0,0.8);
             }
 
             header nav ul li.has-dropdown.open .dropdown-menu {
