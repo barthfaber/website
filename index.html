@@ -83,36 +83,29 @@
         }
 
         /* ==========================================
-            DESKTOP HEADER MET LOGO IN HET MIDDEN
+            DESKTOP HEADER: MENU EN LOGO DICHT BIJ ELKAAR IN HET MIDDEN
            ========================================== */
         @media (min-width: 1001px) {
             header {
-                display: grid;
-                grid-template-columns: 1fr auto 1fr;
+                display: flex;
+                justify-content: center; /* Zet de hele groep strak in het midden van het scherm */
                 align-items: center;
-                padding: 20px 60px;
+                gap: 40px; /* Ruimte tussen de linker menu-items, het logo en de rechter menu-items */
+                padding: 20px 40px;
             }
 
-            /* Linkste menu-helft (Showreel & Gallery) */
-            .nav-left {
+            .nav-left, .nav-right {
                 display: flex;
                 list-style: none;
-                gap: 30px;
-                justify-content: flex-start;
+                gap: 25px; /* Tussenruimte tussen de woorden onderling */
+                align-items: center;
             }
 
-            /* Het middelste logo */
             header .logo {
-                text-align: center;
-                justify-self: center;
-            }
-
-            /* Rechtste menu-helft (Resume & Contact) */
-            .nav-right {
-                display: flex;
-                list-style: none;
-                gap: 30px;
-                justify-content: flex-end;
+                font-weight: bold;
+                letter-spacing: 3px;
+                font-size: 1.1rem;
+                white-space: nowrap;
             }
 
             header nav ul li {
@@ -204,7 +197,6 @@
                 gap: 8px;
             }
 
-            /* Op mobiel zetten we de lijsten weer achter elkaar zodat ze netjes in twee rijen / één rij passen */
             header nav {
                 width: 100%;
             }
@@ -215,7 +207,7 @@
             }
 
             .nav-left, .nav-right {
-                display: contents !important; /* Zorgt dat op mobiel alle li's los van elkaar worden behandeld voor de flexbox */
+                display: contents !important;
             }
 
             /* Verticaal: alle 4 opties naast elkaar op één rij */
@@ -348,9 +340,9 @@
         <div class="video-overlay"></div>
     </div>
 
-    <!-- Navigatie (Logo in het midden, links en rechts verdeeld) -->
+    <!-- Navigatie: Menu en Logo knus bij elkaar in het midden -->
     <header>
-        <!-- Linkse menu-helft -->
+        <!-- Linkse menu-items (Showreel & Gallery) -->
         <nav>
             <ul class="nav-left">
                 <li class="has-dropdown" id="dropdownToggle">
@@ -364,10 +356,10 @@
             </ul>
         </nav>
 
-        <!-- Logo in het midden -->
+        <!-- Jouw naam in het midden -->
         <div class="logo"><a href="index.html">Barth Faber</a></div>
 
-        <!-- Rechtste menu-helft -->
+        <!-- Rechtse menu-items (Resume & Contact) -->
         <nav>
             <ul class="nav-right">
                 <li><a href="resume.html">Resume</a></li>
