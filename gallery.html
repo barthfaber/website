@@ -75,7 +75,6 @@
             transition: filter 0.3s ease;
         }
 
-        /* Subtiel onderschrift / credit onder de foto op de grid */
         .gallery-caption {
             position: absolute;
             bottom: 0;
@@ -141,7 +140,6 @@
             display: block;
         }
 
-        /* Tekst onder de foto in de Lightbox */
         #lightbox-caption {
             color: #ffffff;
             margin-top: 15px;
@@ -198,7 +196,75 @@
             to { opacity: 1; }
         }
 
-        /* RESPONSIVE MOBIEL */
+        /* Dropdown achtergrondkleur exact gelijk aan het hoofdmenu */
+        header nav ul li.has-dropdown .dropdown-menu {
+            background-color: #111111;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* ==========================================
+            RESPONSIVE REGELS VOOR MOBIEL & TABLET
+           ========================================== */
+        @media (max-width: 1000px) {
+            header {
+                flex-direction: column;
+                padding: 12px 15px;
+                gap: 8px;
+            }
+
+            @media (orientation: portrait) {
+                header nav ul {
+                    display: flex;
+                    flex-wrap: nowrap;
+                    justify-content: center;
+                    gap: 12px;
+                    width: 100%;
+                }
+
+                header nav ul li {
+                    flex: unset;
+                }
+
+                header nav ul li a {
+                    font-size: 0.75rem;
+                    letter-spacing: 0.2px;
+                    white-space: nowrap;
+                }
+            }
+
+            @media (orientation: landscape) {
+                header nav ul {
+                    display: flex;
+                    flex-wrap: nowrap;
+                    justify-content: center;
+                    gap: 20px;
+                }
+            }
+
+            .social-sidebar {
+                display: none;
+            }
+
+            header nav ul li.has-dropdown {
+                position: relative;
+            }
+
+            header nav ul li.has-dropdown .dropdown-menu {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 50%;
+                transform: translateX(-50%);
+                min-width: 140px;
+                box-shadow: 0 10px 25px rgba(0,0,0,0.9);
+                z-index: 100;
+            }
+
+            header nav ul li.has-dropdown.open .dropdown-menu {
+                display: block;
+            }
+        }
+
         @media (max-width: 900px) {
             .page-section { padding: 20px 20px 40px 20px; }
             .page-title { font-size: 2rem; margin-bottom: 25px; }
@@ -216,8 +282,8 @@
         <div class="logo"><a href="index.html">Barth Faber</a></div>
         <nav>
             <ul>
-                <li class="has-dropdown">
-                    <a href="showreel.html">Showreel &#9662;</a>
+                <li class="has-dropdown" id="dropdownToggle">
+                    <a href="javascript:void(0)" onclick="toggleDropdown(event)">Showreel &#9662;</a>
                     <ul class="dropdown-menu">
                         <li><a href="showreel.html">Acting Reels</a></li>
                         <li><a href="showreel-voice.html">Voice Reels</a></li>
@@ -239,7 +305,6 @@
     <section class="page-section">
         <h1 class="page-title">Gallery</h1>
         
-        <!-- Categorie 1: Headshots -->
         <div class="gallery-category" id="headshots">
             <div class="category-header">
                 <h2 class="category-title">Headshots & Casting</h2>
@@ -248,7 +313,6 @@
             <div class="gallery-grid" id="grid-headshots"></div>
         </div>
 
-        <!-- Categorie 2: Modeling -->
         <div class="gallery-category" id="modeling">
             <div class="category-header">
                 <h2 class="category-title">Modeling</h2>
@@ -257,7 +321,6 @@
             <div class="gallery-grid" id="grid-modeling"></div>
         </div>
 
-        <!-- Categorie 3: Film Stills -->
         <div class="gallery-category" id="filmstills">
             <div class="category-header">
                 <h2 class="category-title">Film Stills</h2>
@@ -265,10 +328,8 @@
             </div>
             <div class="gallery-grid" id="grid-filmstills"></div>
         </div>
-
     </section>
 
-    <!-- Lightbox -->
     <div id="lightbox" class="lightbox" onclick="closeLightboxOnBg(event)">
         <span class="lightbox-close" onclick="closeLightbox()">&times;</span>
         <div class="lightbox-arrow lightbox-prev" onclick="changeSlide(-1); event.stopPropagation();">&#10094;</div>
@@ -286,8 +347,6 @@
     </footer>
 
     <script>
-        // JE FOTO'S VERDEELD OVER DRIE APARTE MAPJES
-        
         const headshots = [
             { file: "foto1.webp", text: "" },
             { file: "foto2.webp", text: "" },
@@ -315,8 +374,8 @@
             { file: "ComplotinNapels2.jpg", text: "Complot in Napels (Dir: Jan Melkebeek)" },
             { file: "ComplotinNapels3.jpg", text: "Complot in Napels (Dir: Jan Melkebeek)" },
             { file: "Machina.jpg", text: "Machina (Dir: Rinor Qerkini)" },
-            { file: "GebrokenWit.jpg", text: "	Gebroken Wit (Dir: Yoran van den Berg)" },
-            { file: "GebrokenWit2.jpg", text: "	Gebroken Wit (Dir: Yoran van den Berg)" },
+            { file: "GebrokenWit.jpg", text: "Gebroken Wit (Dir: Yoran van den Berg)" },
+            { file: "GebrokenWit2.jpg", text: "Gebroken Wit (Dir: Yoran van den Berg)" },
             { file: "Insusceptible2.jpg", text: "Insusceptible (Dir: Keshavi Jaharia)" },
             { file: "Insusceptible3.jpg", text: "Insusceptible (Dir: Keshavi Jaharia)" },
             { file: "Excessen.jpg", text: "Excessen (Dir: Daan Verhulst)" },
@@ -338,19 +397,16 @@
             { file: "OudZeer4.jpg", text: "Oud Zeer (Dir: Jeroen Berends)" },
         ];
         
-        // De drie unieke mappenstructuren
         const headshotsFolder = "images/gallery/headshots/";
         const modelingFolder = "images/gallery/modeling/";
         const stillsFolder = "images/gallery/filmstills/";
         
-        // Maak één totale lijst voor de Lightbox functionaliteit
         const allItems = [
             ...headshots.map(item => ({ path: headshotsFolder + item.file, text: item.text })),
             ...modeling.map(item => ({ path: modelingFolder + item.file, text: item.text })),
             ...filmStills.map(item => ({ path: stillsFolder + item.file, text: item.text }))
         ];
 
-        // Hulpfunctie om de categorieën in te laden op de pagina
         function renderCategory(containerId, itemsArray, folderPath, startIndex) {
             const container = document.getElementById(containerId);
             itemsArray.forEach((item, index) => {
@@ -360,19 +416,17 @@
                 
                 container.innerHTML += `
                     <div class="gallery-item" onclick="openLightbox(${globalIndex})">
-                        <img src="${fullPath}" alt="Barth Faber Portfolio" oncontextmenu="return false;" draggable="false">
+                        <img src="${fullPath}" alt="Barth Faber Portfolio" loading="lazy" oncontextmenu="return false;" draggable="false">
                         ${captionHtml}
                     </div>
                 `;
             });
         }
 
-        // Bouw de 3 secties op met hun eigen map
         renderCategory('grid-headshots', headshots, headshotsFolder, 0);
         renderCategory('grid-modeling', modeling, modelingFolder, headshots.length);
         renderCategory('grid-filmstills', filmStills, stillsFolder, headshots.length + modeling.length);
         
-        // Lightbox logica
         let currentIndex = 0;
 
         function openLightbox(index) {
@@ -408,6 +462,19 @@
             lightboxImg.src = allItems[currentIndex].path;
             lightboxCaption.textContent = allItems[currentIndex].text;
         }
+
+        function toggleDropdown(event) {
+            event.stopPropagation();
+            var dropdown = document.getElementById('dropdownToggle');
+            dropdown.classList.toggle('open');
+        }
+
+        document.addEventListener('click', function() {
+            var dropdown = document.getElementById('dropdownToggle');
+            if (dropdown) {
+                dropdown.classList.remove('open');
+            }
+        });
 
         document.addEventListener('keydown', function(event) {
             const lightbox = document.getElementById('lightbox');
