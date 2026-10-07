@@ -83,6 +83,60 @@
         }
 
         /* ==========================================
+            DESKTOP HEADER MET LOGO IN HET MIDDEN
+           ========================================== */
+        @media (min-width: 1001px) {
+            header {
+                display: grid;
+                grid-template-columns: 1fr auto 1fr;
+                align-items: center;
+                padding: 20px 60px;
+            }
+
+            /* Linkste menu-helft (Showreel & Gallery) */
+            .nav-left {
+                display: flex;
+                list-style: none;
+                gap: 30px;
+                justify-content: flex-start;
+            }
+
+            /* Het middelste logo */
+            header .logo {
+                text-align: center;
+                justify-self: center;
+            }
+
+            /* Rechtste menu-helft (Resume & Contact) */
+            .nav-right {
+                display: flex;
+                list-style: none;
+                gap: 30px;
+                justify-content: flex-end;
+            }
+
+            header nav ul li {
+                position: relative;
+            }
+
+            header nav ul li a {
+                color: #e0e0e0;
+                text-decoration: none;
+                font-size: 0.85rem;
+                letter-spacing: 1px;
+                text-transform: uppercase;
+                opacity: 0.8;
+                transition: opacity 0.3s, color 0.3s;
+            }
+
+            header nav ul li a:hover, 
+            header nav ul li a.active {
+                opacity: 1;
+                color: #e74c3c;
+            }
+        }
+
+        /* ==========================================
             FOTO PRESENTATIE MET ZWART KADER
            ========================================== */
         .hero-image {
@@ -144,15 +198,29 @@
            ========================================== */
         @media (max-width: 1000px) {
             header {
+                display: flex;
                 flex-direction: column;
                 padding: 12px 15px;
                 gap: 8px;
             }
 
+            /* Op mobiel zetten we de lijsten weer achter elkaar zodat ze netjes in twee rijen / één rij passen */
+            header nav {
+                width: 100%;
+            }
+
+            header nav ul {
+                display: flex;
+                list-style: none;
+            }
+
+            .nav-left, .nav-right {
+                display: contents !important; /* Zorgt dat op mobiel alle li's los van elkaar worden behandeld voor de flexbox */
+            }
+
             /* Verticaal: alle 4 opties naast elkaar op één rij */
             @media (orientation: portrait) {
                 header nav ul {
-                    display: flex;
                     flex-wrap: nowrap;
                     justify-content: center;
                     gap: 12px;
@@ -173,7 +241,6 @@
             /* Horizontaal */
             @media (orientation: landscape) {
                 header nav ul {
-                    display: flex;
                     flex-wrap: nowrap;
                     justify-content: center;
                     gap: 20px;
@@ -250,7 +317,6 @@
                 color: #e74c3c;
             }
 
-            /* Zorg dat het dropdown menu op mobiel absoluut over de content zweeft zodat het klikbaar blijft */
             header nav ul li.has-dropdown {
                 position: relative;
             }
@@ -282,11 +348,11 @@
         <div class="video-overlay"></div>
     </div>
 
-    <!-- Navigatie (Bovenbalk zonder Home-knop) -->
+    <!-- Navigatie (Logo in het midden, links en rechts verdeeld) -->
     <header>
-        <div class="logo"><a href="index.html">Barth Faber</a></div>
+        <!-- Linkse menu-helft -->
         <nav>
-            <ul>
+            <ul class="nav-left">
                 <li class="has-dropdown" id="dropdownToggle">
                     <a href="javascript:void(0)" onclick="toggleDropdown(event)">Showreel &#9662;</a>
                     <ul class="dropdown-menu">
@@ -295,6 +361,15 @@
                     </ul>
                 </li>
                 <li><a href="gallery.html">Gallery</a></li>
+            </ul>
+        </nav>
+
+        <!-- Logo in het midden -->
+        <div class="logo"><a href="index.html">Barth Faber</a></div>
+
+        <!-- Rechtste menu-helft -->
+        <nav>
+            <ul class="nav-right">
                 <li><a href="resume.html">Resume</a></li>
                 <li><a href="contact.html">Contact</a></li>
             </ul>
