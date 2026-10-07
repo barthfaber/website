@@ -129,6 +129,7 @@
             border: none;
         }
 
+        /* Dropdown achtergrondkleur exact gelijk aan het hoofdmenu */
         header nav ul li.has-dropdown .dropdown-menu {
             background-color: #111111;
             border: 1px solid rgba(255, 255, 255, 0.1);
@@ -144,30 +145,39 @@
         @media (max-width: 1000px) {
             header {
                 flex-direction: column;
-                padding: 15px 20px;
-                gap: 10px;
+                padding: 12px 15px;
+                gap: 8px;
             }
 
-            /* Geforceerd menu in twee rijen: 2 items per rij */
-            header nav ul {
-                display: flex;
-                flex-wrap: wrap;
-                justify-content: center;
-                gap: 10px 20px;
-                width: 100%;
-                padding: 0;
+            /* Als de mobiel verticaal (portrait) wordt gehouden: alle 4 opties op één rij */
+            @media (orientation: portrait) {
+                header nav ul {
+                    display: flex;
+                    flex-wrap: nowrap;
+                    justify-content: center;
+                    gap: 12px;
+                    width: 100%;
+                }
+
+                header nav ul li {
+                    flex: unset;
+                }
+
+                header nav ul li a {
+                    font-size: 0.75rem;
+                    letter-spacing: 0.2px;
+                    white-space: nowrap;
+                }
             }
 
-            header nav ul li {
-                flex: 0 0 42%; /* Elk item neemt ongeveer de helft van de breedte in */
-                text-align: center;
-            }
-
-            header nav ul li a {
-                font-size: 0.85rem;
-                letter-spacing: 1px;
-                display: block;
-                padding: 5px 0;
+            /* Als de mobiel horizontaal (landscape) wordt gehouden */
+            @media (orientation: landscape) {
+                header nav ul {
+                    display: flex;
+                    flex-wrap: nowrap;
+                    justify-content: center;
+                    gap: 20px;
+                }
             }
 
             .hero-section {
@@ -262,7 +272,7 @@
         <div class="video-overlay"></div>
     </div>
 
-    <!-- Navigatie (Bovenbalk) -->
+    <!-- Navigatie (Bovenbalk zonder Home-knop) -->
     <header>
         <div class="logo"><a href="index.html">Barth Faber</a></div>
         <nav>
@@ -360,41 +370,4 @@
         function toggleDropdown(event) {
             event.stopPropagation();
             var dropdown = document.getElementById('dropdownToggle');
-            dropdown.classList.toggle('open');
-        }
-
-        document.addEventListener('click', function() {
-            var dropdown = document.getElementById('dropdownToggle');
-            if (dropdown) {
-                dropdown.classList.remove('open');
-            }
-        });
-
-        function isMobile() {
-            return window.innerWidth <= 1000;
-        }
-
-        // Laat de foto op zowel PC als mobiel na 3 seconden verdwijnen
-        setTimeout(function() {
-            var photoFrame = document.getElementById("photoFrame");
-            if (photoFrame) {
-                photoFrame.classList.add("faded");
-            }
-        }, 3000);
-
-        // Op mobiel: zodra je het scherm aanraakt (touchstart) of scrollt, komt de foto direct terug
-        function showPhotoAgain() {
-            if (isMobile()) {
-                var photoFrame = document.getElementById("photoFrame");
-                if (photoFrame) {
-                    photoFrame.classList.remove("faded");
-                }
-            }
-        }
-
-        window.addEventListener('scroll', showPhotoAgain);
-        window.addEventListener('touchstart', showPhotoAgain);
-    </script>
-
-</body>
-</html>
+            dropdown.classList.
