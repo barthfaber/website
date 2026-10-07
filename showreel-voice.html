@@ -31,7 +31,6 @@
             margin-bottom: 50px;
         }
 
-        /* Categorie Container */
         .reel-category {
             background-color: #2a2a2a;
             padding: 35px;
@@ -60,7 +59,6 @@
             margin-top: 5px;
         }
 
-        /* Subkoppen voor talen */
         .language-heading {
             font-size: 1rem;
             letter-spacing: 1px;
@@ -79,7 +77,6 @@
             background-color: rgba(255, 255, 255, 0.1);
         }
 
-        /* Compacte Audio Lijst */
         .audio-list {
             display: flex;
             flex-direction: column;
@@ -110,7 +107,75 @@
             width: 100%;
         }
 
-        /* Responsive Mobiel */
+        /* Dropdown achtergrondkleur exact gelijk aan het hoofdmenu */
+        header nav ul li.has-dropdown .dropdown-menu {
+            background-color: #111111;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* ==========================================
+            RESPONSIVE REGELS VOOR MOBIEL & TABLET
+           ========================================== */
+        @media (max-width: 1000px) {
+            header {
+                flex-direction: column;
+                padding: 12px 15px;
+                gap: 8px;
+            }
+
+            @media (orientation: portrait) {
+                header nav ul {
+                    display: flex;
+                    flex-wrap: nowrap;
+                    justify-content: center;
+                    gap: 12px;
+                    width: 100%;
+                }
+
+                header nav ul li {
+                    flex: unset;
+                }
+
+                header nav ul li a {
+                    font-size: 0.75rem;
+                    letter-spacing: 0.2px;
+                    white-space: nowrap;
+                }
+            }
+
+            @media (orientation: landscape) {
+                header nav ul {
+                    display: flex;
+                    flex-wrap: nowrap;
+                    justify-content: center;
+                    gap: 20px;
+                }
+            }
+
+            .social-sidebar {
+                display: none;
+            }
+
+            header nav ul li.has-dropdown {
+                position: relative;
+            }
+
+            header nav ul li.has-dropdown .dropdown-menu {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 50%;
+                transform: translateX(-50%);
+                min-width: 140px;
+                box-shadow: 0 10px 25px rgba(0,0,0,0.9);
+                z-index: 100;
+            }
+
+            header nav ul li.has-dropdown.open .dropdown-menu {
+                display: block;
+            }
+        }
+
         @media (max-width: 700px) {
             .page-section {
                 padding: 20px 20px 60px 20px;
@@ -133,13 +198,12 @@
 </head>
 <body>
 
-    <!-- Navigatie -->
     <header>
         <div class="logo"><a href="index.html">Barth Faber</a></div>
         <nav>
             <ul>
-                <li class="has-dropdown">
-                    <a href="showreel.html" class="active">Showreel &#9662;</a>
+                <li class="has-dropdown" id="dropdownToggle">
+                    <a href="javascript:void(0)" onclick="toggleDropdown(event)">Showreel &#9662;</a>
                     <ul class="dropdown-menu">
                         <li><a href="showreel.html">Acting Reels</a></li>
                         <li><a href="showreel-voice.html">Voice Reels</a></li>
@@ -152,19 +216,16 @@
         </nav>
     </header>
 
-    <!-- Social Sidebar -->
     <div class="social-sidebar">
         <a href="https://www.youtube.com/@barthfaber3272" target="_blank" rel="noopener noreferrer">Youtube</a>
         <a href="https://www.instagram.com/barthfaber/" target="_blank" rel="noopener noreferrer">Instagram</a>
         <a href="https://www.facebook.com/profile.php?id=100090867703374" target="_blank" rel="noopener noreferrer">Facebook</a>
     </div>
 
-    <!-- Page Content -->
     <section class="page-section">
         <h1 class="page-title">Voice Demos</h1>
         <p class="page-subtitle">Audiobook narration, voice acting, voice over and commercial reels.</p>
 
-        <!-- CATEGORIE 1: AUDIOBOOKS & NARRATION -->
         <div class="reel-category">
             <div class="category-header">
                 <h2 class="category-title">Audiobook & Narration Samples</h2>
@@ -175,7 +236,6 @@
                 
                 <h3 class="language-heading">Nederlands (Dutch)</h3>
 
-                <!-- Track 1 -->
                 <div class="compact-audio-card">
                     <span class="audio-title">Drama & Roman (Sample)</span>
                     <audio controls controlsList="nodownload">
@@ -205,7 +265,6 @@
 
                 <h3 class="language-heading">English</h3>
 
-                <!-- Track 2 -->
                 <div class="compact-audio-card">
                     <span class="audio-title">Fantasy & Fiction (Sample)</span>
                     <audio controls controlsList="nodownload">
@@ -216,7 +275,6 @@
             </div>
         </div>
 
-        <!-- CATEGORIE 2: COMMERCIALS & VOICE ACTING -->
         <div class="reel-category">
             <div class="category-header">
                 <h2 class="category-title">Commercial & Character Reels</h2>
@@ -225,7 +283,6 @@
 
             <div class="audio-list">
                 
-                <!-- Track 3 -->
                 <div class="compact-audio-card">
                     <span class="audio-title">Voice Acting & Characters Reel</span>
                     <audio controls controlsList="nodownload">
@@ -244,10 +301,24 @@
 
     </section>
 
-    <!-- Footer -->
     <footer>
         <p>&copy; 2026 Barth Faber. Alle rechten voorbehouden.</p>
     </footer>
+
+    <script>
+        function toggleDropdown(event) {
+            event.stopPropagation();
+            var dropdown = document.getElementById('dropdownToggle');
+            dropdown.classList.toggle('open');
+        }
+
+        document.addEventListener('click', function() {
+            var dropdown = document.getElementById('dropdownToggle');
+            if (dropdown) {
+                dropdown.classList.remove('open');
+            }
+        });
+    </script>
 
 </body>
 </html>
