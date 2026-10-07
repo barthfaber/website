@@ -83,53 +83,6 @@
         }
 
         /* ==========================================
-            DESKTOP HEADER: MENU EN LOGO DICHT BIJ ELKAAR IN HET MIDDEN
-           ========================================== */
-        @media (min-width: 1001px) {
-            header {
-                display: flex;
-                justify-content: center; /* Zet de hele groep strak in het midden van het scherm */
-                align-items: center;
-                gap: 40px; /* Ruimte tussen de linker menu-items, het logo en de rechter menu-items */
-                padding: 20px 40px;
-            }
-
-            .nav-left, .nav-right {
-                display: flex;
-                list-style: none;
-                gap: 25px; /* Tussenruimte tussen de woorden onderling */
-                align-items: center;
-            }
-
-            header .logo {
-                font-weight: bold;
-                letter-spacing: 3px;
-                font-size: 1.1rem;
-                white-space: nowrap;
-            }
-
-            header nav ul li {
-                position: relative;
-            }
-
-            header nav ul li a {
-                color: #e0e0e0;
-                text-decoration: none;
-                font-size: 0.85rem;
-                letter-spacing: 1px;
-                text-transform: uppercase;
-                opacity: 0.8;
-                transition: opacity 0.3s, color 0.3s;
-            }
-
-            header nav ul li a:hover, 
-            header nav ul li a.active {
-                opacity: 1;
-                color: #e74c3c;
-            }
-        }
-
-        /* ==========================================
             FOTO PRESENTATIE MET ZWART KADER
            ========================================== */
         .hero-image {
@@ -191,28 +144,15 @@
            ========================================== */
         @media (max-width: 1000px) {
             header {
-                display: flex;
                 flex-direction: column;
                 padding: 12px 15px;
                 gap: 8px;
             }
 
-            header nav {
-                width: 100%;
-            }
-
-            header nav ul {
-                display: flex;
-                list-style: none;
-            }
-
-            .nav-left, .nav-right {
-                display: contents !important;
-            }
-
             /* Verticaal: alle 4 opties naast elkaar op één rij */
             @media (orientation: portrait) {
                 header nav ul {
+                    display: flex;
                     flex-wrap: nowrap;
                     justify-content: center;
                     gap: 12px;
@@ -233,6 +173,7 @@
             /* Horizontaal */
             @media (orientation: landscape) {
                 header nav ul {
+                    display: flex;
                     flex-wrap: nowrap;
                     justify-content: center;
                     gap: 20px;
@@ -340,11 +281,11 @@
         <div class="video-overlay"></div>
     </div>
 
-    <!-- Navigatie: Menu en Logo knus bij elkaar in het midden -->
+    <!-- Navigatie (Vertrouwd: Logo links, Menu rechts) -->
     <header>
-        <!-- Linkse menu-items (Showreel & Gallery) -->
+        <div class="logo"><a href="index.html">Barth Faber</a></div>
         <nav>
-            <ul class="nav-left">
+            <ul>
                 <li class="has-dropdown" id="dropdownToggle">
                     <a href="javascript:void(0)" onclick="toggleDropdown(event)">Showreel &#9662;</a>
                     <ul class="dropdown-menu">
@@ -353,15 +294,6 @@
                     </ul>
                 </li>
                 <li><a href="gallery.html">Gallery</a></li>
-            </ul>
-        </nav>
-
-        <!-- Jouw naam in het midden -->
-        <div class="logo"><a href="index.html">Barth Faber</a></div>
-
-        <!-- Rechtse menu-items (Resume & Contact) -->
-        <nav>
-            <ul class="nav-right">
                 <li><a href="resume.html">Resume</a></li>
                 <li><a href="contact.html">Contact</a></li>
             </ul>
