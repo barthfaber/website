@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Barth Faber - Actor & Model</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* ==========================================
+           SPECIFIEKE HOMEPAGE HERO STIJLEN (PERFECT GEBALANCEERD)
+           ========================================== */
+        .hero-section {
+            position: relative;
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding-left: 140px;
+            padding-right: 100px;
+            width: 100%;
+            min-height: calc(100vh - 140px);
+            z-index: 5;
+            pointer-events: none; /* Zorgt ervoor dat klikken op lege ruimtes de achtergrondvideo bedient */
+        }
+
+        .hero-content, .hero-image {
+            pointer-events: auto; /* Zorgt dat knoppen en de foto klikbaar blijven */
+        }
+
+        .hero-content {
+            max-width: 550px; /* Mooie tussenmaat voor het tekstblok */
+            z-index: 5;
+        }
+
+        .hero-content h1 {
+            font-size: 5.4rem; /* Ietsje kleiner en fijner gebalanceerd */
+            font-weight: 400;
+            line-height: 0.93;
+            letter-spacing: -1px;
+            margin-bottom: 16px;
+            text-transform: uppercase;
+            color: #ffffff;
+        }
+
+        .hero-content h2 {
+            font-size: 2rem; /* Perfect formaat voor je subtitle */
+            font-weight: 300;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            margin-bottom: 14px;
+            color: #e74c3c;
+        }
+
+        .hero-tagline {
+            font-size: 0.9rem;
+            font-weight: 300;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: #bbbbbb;
+            margin-bottom: 35px;
+        }
+
+        .showreel-link {
+            display: inline-block;
+            color: #ffffff;
+            background-color: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            padding: 15px 30px;
+            text-decoration: none;
+            font-size: 0.88rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            font-weight: bold;
+            border-radius: 2px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .showreel-link:hover {
+            background-color: #e74c3c;
+            border-color: #e74c3c;
+            color: #ffffff;
+            box-shadow: 0px 10px 25px rgba(231, 76, 60, 0.4);
+        }
+
+        /* ==========================================
+           FOTO PRESENTATIE MET ZWART KADER
+           ========================================== */
+        .hero-image {
+            position: relative;
+            width: 700px;
+            max-width: 45%;
+            z-index: 2;
+            margin-right: 0px;
+        }
+
+        .frame-container {
+            position: relative;
+            border: 2px solid #000000;
+            padding: 8px;
+            background-color: #000000;
+            outline: none;
+            border-radius: 3px;
+            transform: rotate(0deg);
+            box-shadow: 0px 25px 60px rgba(0, 0, 0, 0.85);
+            opacity: 1;
+            transition: opacity 0.8s ease, box-shadow 0.4s ease;
+        }
+
+        /* Foto verdwijnt na 3 seconden */
+        .frame-container.faded {
+            opacity: 0;
+            pointer-events: auto;
+        }
+
+        /* Bij mouseover verschijnt de foto direct weer */
+        .frame-container:hover,
+        .hero-image:hover .frame-container {
+            opacity: 1 !important;
+            box-shadow: 0px 30px 70px rgba(0, 0, 0, 0.95);
+        }
+
+        .frame-container img {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 2px;
+            object-fit: cover;
+        }
+
+        /* ==========================================
+           POP-UP IFRAME STIJLEN (YOUTUBE EMBED)
+           ========================================== */
+        .video-modal-content iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        /* RESPONSIVE REGELS VOOR MOBIEL & TABLET */
+        @media (max-width: 1000px) {
+            .hero-section {
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                text-align: center;
+                padding-left: 20px;
+                padding-right: 20px;
+                padding-top: 30px;
+                padding-bottom: 30px;
+            }
+
+            .hero-content {
+                max-width: 100%;
+                margin-top: 20px;
+                padding-bottom: 30px;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .hero-image {
+                width: 85%;
+                max-width: 340px;
+                order: -1;
+                margin-right: 0;
+            }
+
+            .frame-container {
+                transform: rotate(0deg);
+            }
+        }
+
+        @media (max-width: 600px) {
+            .hero-content h1 { font-size: 3.4rem; }
+            .hero-content h2 { font-size: 1.3rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Geruisloze Achtergrond Video -->
+    <div class="video-background-container" onclick="openShowreel()">
+        <video autoplay loop muted playsinline id="bgVideo">
+            <source src="videos/Showreel 2026(No sound).mp4" type="video/mp4">
+        </video>
+        <div class="video-overlay"></div>
+    </div>
+
+    <!-- Navigatie (Bovenbalk) -->
+    <header>
+        <div class="logo"><a href="index.html">Barth Faber</a></div>
+        <nav>
+            <ul>
+                <li><a href="index.html" class="active">Home</a></li>
+                <li class="has-dropdown">
+                    <a href="showreel.html">Showreel &#9662;</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="showreel.html">Acting Reels</a></li>
+                        <li><a href="showreel-voice.html">Voice Reels</a></li>
+                    </ul>
+                </li>
+                <li><a href="gallery.html">Gallery</a></li>
+                <li><a href="resume.html">Resume</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Socials Sidebar -->
+    <div class="social-sidebar">
+        <a href="https://www.youtube.com/@barthfaber3272" target="_blank" rel="noopener noreferrer">Youtube</a>
+        <a href="https://www.instagram.com/barthfaber/" target="_blank" rel="noopener noreferrer">Instagram</a>
+        <a href="https://www.facebook.com/profile.php?id=100090867703374" target="_blank" rel="noopener noreferrer">Facebook</a>
+    </div>
+
+    <!-- Hero Sectie -->
+    <section class="hero-section">
+        <div class="hero-content">
+            <h1>Barth Faber</h1>
+            <h2>Actor & Model</h2>
+            <p class="hero-tagline">Based in The Netherlands &mdash; Available Worldwide</p>
+            <a href="javascript:void(0)" class="showreel-link" onclick="openShowreel()">&#9658; Bekijk Showreel</a>
+        </div>
+
+        <!-- Enkele Foto Presentatie met Zwart Kader -->
+        <div class="hero-image">
+            <div class="frame-container" id="photoFrame">
+                <img src="images/gallery/headshots/foto1.jpg" alt="Barth Faber - Actor & Model">
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer (Onderbalk) -->
+    <footer>
+        <p>&copy; 2026 Barth Faber. Alle rechten voorbehouden.</p>
+    </footer>
+
+    <!-- Fullscreen Showreel Pop-up (YouTube Embed) -->
+    <div id="videoModal" class="video-modal">
+        <div class="video-modal-content">
+            <span class="close-modal" onclick="closeShowreel()">&times;</span>
+            <iframe id="fullVideo" 
+                    src="" 
+                    title="Barth Faber - Showreel 2026" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                    allowfullscreen>
+            </iframe>
+        </div>
+    </div>
+
+    <!-- JavaScript voor de YouTube Pop-up & 3-seconden timer -->
+    <script>
+        // Jouw YouTube Video ID
+        var youtubeVideoId = "BR2MBug7Xc8"; 
+
+        function openShowreel() {
+            var modal = document.getElementById("videoModal");
+            var iframe = document.getElementById("fullVideo");
+            
+            // Laadt de YouTube video met Autoplay bij openen van de pop-up
+            iframe.src = "https://www.youtube.com/embed/" + youtubeVideoId + "?autoplay=1&rel=0&enablejsapi=1";
+            modal.style.display = "flex";
+        }
+
+        function closeShowreel() {
+            var modal = document.getElementById("videoModal");
+            var iframe = document.getElementById("fullVideo");
+            
+            // Stopt de video direct bij het sluiten
+            iframe.src = "";
+            modal.style.display = "none";
+        }
+
+        // Sluit de pop-up als er op het donkere scherm buiten de video geklikt wordt
+        window.onclick = function(event) {
+            var modal = document.getElementById("videoModal");
+            if (event.target == modal) {
+                closeShowreel();
+            }
+        }
+
+        // Laat de foto na 3 seconden (3000ms) automatisch verdwijnen
+        setTimeout(function() {
+            var photoFrame = document.getElementById("photoFrame");
+            if (photoFrame) {
+                photoFrame.classList.add("faded");
+            }
+        }, 3000);
+    </script>
+
+</body>
+</html>

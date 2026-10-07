@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="referrer" content="strict-origin-when-cross-origin">
+    <title>Showreel - Barth Faber</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Specifieke stijlen voor de Showreel-pagina */
+        .page-section {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 20px 40px 120px;
+            width: 100%;
+        }
+
+        .page-title {
+            font-size: 2.5rem;
+            font-weight: 400;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 40px;
+            text-align: center;
+        }
+
+        .video-container {
+            position: relative;
+            width: 100%;
+            max-width: 900px;
+            aspect-ratio: 16 / 9;
+            background-color: #000000;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.7);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        @media (max-width: 900px) {
+            .page-section {
+                padding-left: 20px;
+                padding-right: 20px;
+            }
+
+            .page-title {
+                font-size: 2rem;
+                margin-bottom: 25px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo"><a href="index.html">Barth Faber</a></div>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+		<!-- Showreel met Dropdown -->
+       		<li class="has-dropdown">
+            		<a href="showreel.html">Showreel &#9662;</a>
+           		 <ul class="dropdown-menu">
+                <li><a href="showreel.html">Acting Reels</a></li>
+                <li><a href="showreel-voice.html">Voice Reels</a></li>
+            </ul>
+        </li>
+                <li><a href="gallery.html">Gallery</a></li>
+                <li><a href="resume.html">Resume</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="social-sidebar">
+        <a href="https://www.youtube.com/@barthfaber3272" target="_blank" rel="noopener noreferrer">Youtube</a>
+        <a href="https://www.instagram.com/barthfaber/" target="_blank" rel="noopener noreferrer">Instagram</a>
+        <a href="https://www.facebook.com/profile.php?id=100090867703374" target="_blank" rel="noopener noreferrer">Facebook</a>
+    </div>
+
+    <section class="page-section">
+        <h1 class="page-title">Showreel</h1>
+        
+        <h2 style="font-size: 1.2rem; font-weight: 300; margin-bottom: 15px; letter-spacing: 1px; color: #cccccc;">Nederlandse Reel</h2>
+        <div class="video-container" style="margin-bottom: 50px;">
+            <iframe src="https://www.youtube.com/embed/BR2MBug7Xc8?si=2bCl9qEg2S7VAD_6" title="Nederlandse Reel" referrerpolicy="strict-origin-when-cross-origin" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 Barth Faber. Alle rechten voorbehouden.</p>
+    </footer>
+
+</body>
+</html>

@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact - Barth Faber</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .page-section {
+            flex: 1;
+            padding: 40px 40px 80px 120px;
+            width: 100%;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .page-title {
+            font-size: 2.5rem;
+            font-weight: 400;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .page-subtitle {
+            text-align: center;
+            color: #888888;
+            font-size: 0.95rem;
+            letter-spacing: 1px;
+            margin-bottom: 50px;
+        }
+
+        .contact-container {
+            display: grid;
+            grid-template-columns: 1fr 1.5fr;
+            gap: 50px;
+            background-color: #1a1a1a;
+            padding: 40px;
+            border-radius: 4px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .contact-info h3 {
+            font-size: 1.2rem;
+            font-weight: 400;
+            letter-spacing: 1px;
+            color: #e74c3c;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+        }
+
+        .info-block {
+            margin-bottom: 25px;
+        }
+
+        .info-block .label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #888888;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .info-block .value {
+            font-size: 0.95rem;
+            color: #ffffff;
+            line-height: 1.5;
+        }
+
+        .info-block .value a {
+            color: #ffffff;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .info-block .value a:hover {
+            color: #e74c3c;
+        }
+
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .form-group label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #888888;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            background-color: #111111;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 12px 15px;
+            color: #ffffff;
+            font-family: inherit;
+            font-size: 0.9rem;
+            border-radius: 2px;
+            transition: border-color 0.3s, outline 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #e74c3c;
+        }
+
+        .submit-btn {
+            background-color: #e74c3c;
+            color: #ffffff;
+            border: none;
+            padding: 14px 28px;
+            font-size: 0.85rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            font-weight: bold;
+            cursor: pointer;
+            border-radius: 2px;
+            transition: background-color 0.3s;
+            align-self: flex-start;
+        }
+
+        .submit-btn:hover {
+            background-color: #ff5252;
+        }
+
+        /* SUCCES MELDING STIJL (Schermpje) */
+        #success-message {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 40px 20px;
+            background-color: #1a1a1a;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 10;
+        }
+
+        #success-message h3 {
+            font-size: 1.8rem;
+            color: #2ecc71; /* Mooie frisse groene kleur voor succes */
+            margin-bottom: 15px;
+            font-weight: 400;
+            letter-spacing: 1px;
+        }
+
+        #success-message p {
+            color: #cccccc;
+            font-size: 1rem;
+            line-height: 1.6;
+            max-width: 400px;
+            margin-bottom: 25px;
+        }
+
+        .reset-btn {
+            background-color: transparent;
+            color: #ffffff;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            padding: 10px 20px;
+            font-size: 0.8rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            cursor: pointer;
+            border-radius: 2px;
+            transition: border-color 0.3s, background-color 0.3s;
+        }
+
+        .reset-btn:hover {
+            border-color: #ffffff;
+            background-color: rgba(255, 255, 255, 0.05);
+        }
+
+        @media (max-width: 900px) {
+            .page-section {
+                padding: 20px 20px 60px 20px;
+            }
+
+            .contact-container {
+                grid-template-columns: 1fr;
+                gap: 40px;
+                padding: 25px;
+            }
+
+            .submit-btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo"><a href="index.html">Barth Faber</a></div>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li class="has-dropdown">
+                    <a href="showreel.html">Showreel &#9662;</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="showreel.html">Acting Reels</a></li>
+                        <li><a href="showreel-voice.html">Voice Reels</a></li>
+                    </ul>
+                </li>
+                <li><a href="gallery.html">Gallery</a></li>
+                <li><a href="resume.html">Resume</a></li>
+                <li><a href="contact.html" class="active">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="social-sidebar">
+        <a href="https://www.youtube.com/@barthfaber3272" target="_blank" rel="noopener noreferrer">Youtube</a>
+        <a href="https://www.instagram.com/barthfaber/" target="_blank" rel="noopener noreferrer">Instagram</a>
+        <a href="https://www.facebook.com/profile.php?id=100090867703374" target="_blank" rel="noopener noreferrer">Facebook</a>
+    </div>
+
+    <section class="page-section">
+        <h1 class="page-title">Get In Touch</h1>
+        <p class="page-subtitle">For bookings, casting inquiries, or collaboration opportunities.</p>
+
+        <div class="contact-container">
+            
+            <!-- Directe Info -->
+            <div class="contact-info">
+                <h3>Contact Info</h3>
+
+                <div class="info-block">
+                    <span class="label">Location</span>
+                    <span class="value">The Netherlands (Available Worldwide)</span>
+                </div>
+
+                <div class="info-block">
+                    <span class="label">Direct E-mail</span>
+                    <span class="value"><a href="mailto:faberbarth@gmail.com">faberbarth@gmail.com</a></span>
+                </div>
+
+                <div class="info-block">
+                    <span class="label">Social Media</span>
+                    <span class="value">
+                        <a href="https://www.instagram.com/barthfaber/" target="_blank" rel="noopener noreferrer">Instagram</a><br>
+                        <a href="https://www.youtube.com/@barthfaber3272" target="_blank" rel="noopener noreferrer">YouTube</a>
+                    </span>
+                </div>
+            </div>
+
+            <!-- Formulier -->
+            <form id="form" class="contact-form">
+                
+                <input type="hidden" name="access_key" value="82d34f5b-3cc5-44cc-b659-5b7542027b30">
+
+                <div class="form-group">
+                    <label for="name">Your Name / Agency</label>
+                    <input type="text" id="name" name="name" required placeholder="bijv. Jan de Vries / TopCasting">
+                </div>
+
+                <div class="form-group">
+                    <label for="email">E-mail Address</label>
+                    <input type="email" id="email" name="email" required placeholder="naam@voorbeeld.nl">
+                </div>
+
+                <div class="form-group">
+                    <label for="subject">Subject</label>
+                    <input type="text" id="subject" name="subject" placeholder="Casting / Booking / Inquiries">
+                </div>
+
+                <div class="form-group">
+                    <label for="message">Message</label>
+                    <textarea id="message" name="message" rows="5" required placeholder="Schrijf hier je bericht..."></textarea>
+                </div>
+
+                <button type="submit" id="submit-btn" class="submit-btn">Send Message</button>
+            </form>
+
+            <!-- SUCCES SCHERMPJE (Wordt pas getoond na verzending) -->
+            <div id="success-message">
+                <h3>Bericht Verzonden!</h3>
+                <p>Bedankt voor je bericht. Je aanvraag is succesvol verstuurd en komt direct in mijn mailbox binnen. Ik neem snel contact met je op.</p>
+                <button type="button" class="reset-btn" onclick="resetForm()">Nieuw bericht versturen</button>
+            </div>
+
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 Barth Faber. Alle rechten voorbehouden.</p>
+    </footer>
+
+    <script>
+        const form = document.getElementById('form');
+        const successMessage = document.getElementById('success-message');
+        const submitBtn = document.getElementById('submit-btn');
+
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            submitBtn.textContent = 'Verzenden...';
+
+            const formData = new FormData(form);
+            const object = Object.fromEntries(formData);
+            const json = JSON.stringify(object);
+
+            fetch('https://api.web3forms.com/submit', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    },
+                    body: json
+                })
+                .then(async (response) => {
+                    let jsonResponse = await response.json();
+                    if (response.status == 200) {
+                        // Toon het stijlvolle donkere succes-schermpje
+                        successMessage.style.display = 'flex';
+                    } else {
+                        alert(jsonResponse.message);
+                        submitBtn.textContent = 'Send Message';
+                    }
+                })
+                .catch(error => {
+                    console.log(error);
+                    alert("Oeps, er ging iets mis bij het verzenden.");
+                    submitBtn.textContent = 'Send Message';
+                });
+        });
+
+        function resetForm() {
+            form.reset();
+            successMessage.style.display = 'none';
+            submitBtn.textContent = 'Send Message';
+        }
+    </script>
+
+</body>
+</html>

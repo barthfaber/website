@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="referrer" content="strict-origin-when-cross-origin">
+    <title>Gallery - Barth Faber</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Specifieke stijlen voor de Galerie-pagina */
+        .page-section {
+            flex: 1;
+            padding: 40px 40px 60px 110px;
+            width: 100%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .page-title {
+            font-size: 2.5rem;
+            font-weight: 400;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 50px;
+            text-align: center;
+        }
+
+        .gallery-category {
+            margin-bottom: 60px;
+        }
+
+        .category-header {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 10px;
+            margin-bottom: 25px;
+        }
+
+        .category-title {
+            font-size: 1.5rem;
+            font-weight: 400;
+            letter-spacing: 1px;
+            color: #e74c3c;
+            text-transform: uppercase;
+        }
+
+        .category-desc {
+            font-size: 0.9rem;
+            color: #888888;
+            margin-top: 5px;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .gallery-item {
+            position: relative;
+            aspect-ratio: 3 / 4;
+            overflow: hidden;
+            background-color: #ffffff;
+            padding: 10px;
+            border-radius: 2px;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: filter 0.3s ease;
+        }
+
+        /* Subtiel onderschrift / credit onder de foto op de grid */
+        .gallery-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0, 0, 0, 0.75);
+            color: #ffffff;
+            font-size: 0.8rem;
+            padding: 8px 10px;
+            text-align: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .gallery-item:hover .gallery-caption {
+            opacity: 1;
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.7);
+        }
+
+        .gallery-item:hover img {
+            filter: brightness(1.05);
+        }
+
+        /* LIGHTBOX STIJLEN */
+        .lightbox {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.92);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .lightbox-container {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            max-width: 90%;
+            max-height: 85vh;
+        }
+
+        .lightbox-content {
+            max-width: 100%;
+            max-height: 75vh;
+            object-fit: contain;
+            background-color: #ffffff;
+            padding: 12px;
+            border-radius: 2px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.9);
+            pointer-events: none;
+            display: block;
+        }
+
+        /* Tekst onder de foto in de Lightbox */
+        #lightbox-caption {
+            color: #ffffff;
+            margin-top: 15px;
+            font-size: 0.95rem;
+            letter-spacing: 0.5px;
+            text-align: center;
+            min-height: 20px;
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: 25px;
+            right: 35px;
+            color: #ffffff;
+            font-size: 2.5rem;
+            font-weight: 300;
+            cursor: pointer;
+            transition: color 0.3s;
+            user-select: none;
+            z-index: 1010;
+        }
+
+        .lightbox-close:hover {
+            color: #e74c3c;
+        }
+
+        .lightbox-arrow {
+            position: fixed;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(0, 0, 0, 0.6);
+            color: #ffffff;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            font-size: 2rem;
+            padding: 12px 16px;
+            cursor: pointer;
+            z-index: 1010;
+            border-radius: 3px;
+            transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+            user-select: none;
+        }
+
+        .lightbox-arrow:hover {
+            background-color: rgba(231, 76, 60, 0.9);
+            border-color: #e74c3c;
+            color: #ffffff;
+        }
+
+        .lightbox-prev { left: 40px; }
+        .lightbox-next { right: 40px; }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* RESPONSIVE MOBIEL */
+        @media (max-width: 900px) {
+            .page-section { padding: 20px 20px 40px 20px; }
+            .page-title { font-size: 2rem; margin-bottom: 25px; }
+            .gallery-grid { grid-template-columns: repeat(auto-fill, minmax(100%, 1fr)); gap: 20px; }
+            .lightbox-close { top: 15px; right: 20px; }
+            .lightbox-arrow { padding: 8px 12px; font-size: 1.5rem; }
+            .lightbox-prev { left: 10px; }
+            .lightbox-next { right: 10px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo"><a href="index.html">Barth Faber</a></div>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li class="has-dropdown">
+                    <a href="showreel.html">Showreel &#9662;</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="showreel.html">Acting Reels</a></li>
+                        <li><a href="showreel-voice.html">Voice Reels</a></li>
+                    </ul>
+                </li>
+                <li><a href="gallery.html" class="active">Gallery</a></li>
+                <li><a href="resume.html">Resume</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="social-sidebar">
+        <a href="https://www.youtube.com/@barthfaber3272" target="_blank" rel="noopener noreferrer">Youtube</a>
+        <a href="https://www.instagram.com/barthfaber/" target="_blank" rel="noopener noreferrer">Instagram</a>
+        <a href="https://www.facebook.com/profile.php?id=100090867703374" target="_blank" rel="noopener noreferrer">Facebook</a>
+    </div>
+
+    <section class="page-section">
+        <h1 class="page-title">Gallery</h1>
+        
+        <!-- Categorie 1: Headshots -->
+        <div class="gallery-category" id="headshots">
+            <div class="category-header">
+                <h2 class="category-title">Headshots & Casting</h2>
+                <p class="category-desc"></p>
+            </div>
+            <div class="gallery-grid" id="grid-headshots"></div>
+        </div>
+
+        <!-- Categorie 2: Modeling -->
+        <div class="gallery-category" id="modeling">
+            <div class="category-header">
+                <h2 class="category-title">Modeling</h2>
+                <p class="category-desc"></p>
+            </div>
+            <div class="gallery-grid" id="grid-modeling"></div>
+        </div>
+
+        <!-- Categorie 3: Film Stills -->
+        <div class="gallery-category" id="filmstills">
+            <div class="category-header">
+                <h2 class="category-title">Film Stills</h2>
+                <p class="category-desc"></p>
+            </div>
+            <div class="gallery-grid" id="grid-filmstills"></div>
+        </div>
+
+    </section>
+
+    <!-- Lightbox -->
+    <div id="lightbox" class="lightbox" onclick="closeLightboxOnBg(event)">
+        <span class="lightbox-close" onclick="closeLightbox()">&times;</span>
+        <div class="lightbox-arrow lightbox-prev" onclick="changeSlide(-1); event.stopPropagation();">&#10094;</div>
+        
+        <div class="lightbox-container">
+            <img id="lightbox-img" class="lightbox-content" src="" alt="Vergrote foto" oncontextmenu="return false;" draggable="false">
+            <div id="lightbox-caption"></div>
+        </div>
+        
+        <div class="lightbox-arrow lightbox-next" onclick="changeSlide(1); event.stopPropagation();">&#10095;</div>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 Barth Faber. Alle rechten voorbehouden.</p>
+    </footer>
+
+    <script>
+        // JE FOTO'S VERDEELD OVER DRIE APARTE MAPJES
+        
+        const headshots = [
+            { file: "foto1.jpg", text: "" },
+            { file: "foto2.jpg", text: "" },
+            { file: "foto3.jpg", text: "" },
+            { file: "foto4.jpg", text: "" },
+        ];
+
+        const modeling = [
+            { file: "foto.jpg", text: "Photographer: Barth Faber" },
+            { file: "foto5.jpg", text: "Photographer: Barth Faber" },
+            { file: "foto9.jpg", text: "Photographer: Barth Faber" },
+            { file: "PaulinaWesołowska1.jpeg", text: "Photographer: Paulina Wesołowska" },
+            { file: "PaulinaWesołowska2.jpeg", text: "Photographer: Paulina Wesołowska" },
+            { file: "PaulinaWesołowska3.jpeg", text: "Photographer: Paulina Wesołowska" },
+            { file: "PaulinaWesołowska4.jpeg", text: "Photographer: Paulina Wesołowska" },
+            { file: "PaulinaWesołowska5.jpeg", text: "Photographer: Paulina Wesołowska" },
+            { file: "BramvanDal1.jpg", text: "Photographer: Bram van Dal" },
+            { file: "BramvanDal2.jpg", text: "Photographer: Bram van Dal" },
+            { file: "BramvanDal3.jpg", text: "Photographer: Bram van Dal" },
+            { file: "BramvanDal4.jpg", text: "Photographer: Bram van Dal" },
+            { file: "BramvanDal5.jpg", text: "Photographer: Bram van Dal" },
+        ];
+
+        const filmStills = [
+            { file: "ComplotinNapels2.jpg", text: "Complot in Napels (Dir: Jan Melkebeek)" },
+            { file: "ComplotinNapels3.jpg", text: "Complot in Napels (Dir: Jan Melkebeek)" },
+            { file: "Machina.jpg", text: "Machina (Dir: Rinor Qerkini)" },
+            { file: "GebrokenWit.jpg", text: "	Gebroken Wit (Dir: Yoran van den Berg)" },
+            { file: "GebrokenWit2.jpg", text: "	Gebroken Wit (Dir: Yoran van den Berg)" },
+            { file: "Insusceptible2.jpg", text: "Insusceptible (Dir: Keshavi Jaharia)" },
+            { file: "Insusceptible3.jpg", text: "Insusceptible (Dir: Keshavi Jaharia)" },
+            { file: "Excessen.jpg", text: "Excessen (Dir: Daan Verhulst)" },
+            { file: "HandenvanZilver.jpg", text: "Handen van Zilver (Dir: Mathijs Klingeman)" },
+            { file: "Abraham.jpg", text: "Abraham (Dir: Tobias Kooijman / Roel Mathijssen)" },
+            { file: "Abraham2.jpg", text: "Abraham (Dir: Tobias Kooijman / Roel Mathijssen)" },
+            { file: "Routine.jpg", text: "Routine (Dir: Bas van der Steen)" },
+            { file: "HetAfscheid.jpg", text: "Het Afscheid (Dir: Milan van Helvoort)" },
+            { file: "HetAfscheid3.jpg", text: "Het Afscheid (Dir: Milan van Helvoort)" },
+            { file: "David.jpg", text: "David (Dir: Tijn Severin)" },
+            { file: "David2.jpg", text: "David (Dir: Tijn Severin)" },
+            { file: "VaneenAnderPerspectief.jpg", text: "Van een Ander Perspectief (Dir: Julian de Bock)" },
+            { file: "VaneenAnderPerspectief2.jpg", text: "Van een Ander Perspectief (Dir: Julian de Bock)" },
+            { file: "GoedHoor.jpg", text: "Goed Hoor (Dir: Dylan Geurts)" },
+            { file: "HauntingVoice.jpg", text: "Haunting Voice (Dir: Madelief Bakker)" },
+            { file: "GevallenofGevlogen.jpg", text: "Gevallen of Gevlogen (Dir: E. Hoogstrate, T. Kooijman, J. Castelijns)" },
+            { file: "Oudzeer1.jpg", text: "Oud Zeer (Dir: Jeroen Berends)" },
+            { file: "Oudzeer3.jpg", text: "Oud Zeer (Dir: Jeroen Berends)" },
+            { file: "Oudzeer4.jpg", text: "Oud Zeer (Dir: Jeroen Berends)" },
+        ];
+        
+        // De drie unieke mappenstructuren
+        const headshotsFolder = "images/gallery/headshots/";
+        const modelingFolder = "images/gallery/modeling/";
+        const stillsFolder = "images/gallery/filmstills/";
+        
+        // Maak één totale lijst voor de Lightbox functionaliteit
+        const allItems = [
+            ...headshots.map(item => ({ path: headshotsFolder + item.file, text: item.text })),
+            ...modeling.map(item => ({ path: modelingFolder + item.file, text: item.text })),
+            ...filmStills.map(item => ({ path: stillsFolder + item.file, text: item.text }))
+        ];
+
+        // Hulpfunctie om de categorieën in te laden op de pagina
+        function renderCategory(containerId, itemsArray, folderPath, startIndex) {
+            const container = document.getElementById(containerId);
+            itemsArray.forEach((item, index) => {
+                const globalIndex = startIndex + index; 
+                const fullPath = folderPath + item.file;
+                const captionHtml = item.text ? `<div class="gallery-caption">${item.text}</div>` : '';
+                
+                container.innerHTML += `
+                    <div class="gallery-item" onclick="openLightbox(${globalIndex})">
+                        <img src="${fullPath}" alt="Barth Faber Portfolio" oncontextmenu="return false;" draggable="false">
+                        ${captionHtml}
+                    </div>
+                `;
+            });
+        }
+
+        // Bouw de 3 secties op met hun eigen map
+        renderCategory('grid-headshots', headshots, headshotsFolder, 0);
+        renderCategory('grid-modeling', modeling, modelingFolder, headshots.length);
+        renderCategory('grid-filmstills', filmStills, stillsFolder, headshots.length + modeling.length);
+        
+        // Lightbox logica
+        let currentIndex = 0;
+
+        function openLightbox(index) {
+            currentIndex = index;
+            updateLightboxContent();
+            document.getElementById('lightbox').style.display = 'flex';
+        }
+
+        function closeLightbox() {
+            document.getElementById('lightbox').style.display = 'none';
+        }
+
+        function closeLightboxOnBg(event) {
+            if (event.target.id === 'lightbox') {
+                closeLightbox();
+            }
+        }
+
+        function changeSlide(direction) {
+            currentIndex += direction;
+            if (currentIndex >= allItems.length) {
+                currentIndex = 0;
+            } else if (currentIndex < 0) {
+                currentIndex = allItems.length - 1;
+            }
+            updateLightboxContent();
+        }
+
+        function updateLightboxContent() {
+            const lightboxImg = document.getElementById('lightbox-img');
+            const lightboxCaption = document.getElementById('lightbox-caption');
+            
+            lightboxImg.src = allItems[currentIndex].path;
+            lightboxCaption.textContent = allItems[currentIndex].text;
+        }
+
+        document.addEventListener('keydown', function(event) {
+            const lightbox = document.getElementById('lightbox');
+            if (lightbox.style.display === 'flex') {
+                if (event.key === 'ArrowLeft') changeSlide(-1);
+                else if (event.key === 'ArrowRight') changeSlide(1);
+                else if (event.key === 'Escape') closeLightbox();
+            }
+        });
+    </script>
+
+</body>
+</html>

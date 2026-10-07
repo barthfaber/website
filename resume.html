@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resume - Barth Faber</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .page-section {
+            flex: 1;
+            padding: 40px 40px 80px 120px;
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .page-title {
+            font-size: 2.5rem;
+            font-weight: 400;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        /* Download Knop */
+        .download-btn {
+            display: inline-block;
+            background-color: #e74c3c;
+            color: #ffffff;
+            padding: 12px 25px;
+            text-decoration: none;
+            font-size: 0.85rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            font-weight: bold;
+            border-radius: 4px;
+            transition: background 0.3s;
+        }
+
+        .download-btn:hover {
+            background-color: #ff5252;
+        }
+
+        /* Awards Container */
+        .awards-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .award-badge {
+            background: linear-gradient(135deg, #252525 0%, #1a1a1a 100%);
+            border-left: 3px solid #e74c3c;
+            padding: 12px 20px;
+            border-radius: 2px;
+            font-size: 0.9rem;
+            flex: 1;
+            min-width: 250px;
+        }
+
+        .award-badge strong {
+            color: #ffffff;
+            display: block;
+            font-weight: 400;
+        }
+
+        .award-badge span {
+            color: #888888;
+            font-size: 0.8rem;
+        }
+
+        /* Gecombineerde header layout voor Foto + Specs */
+        .resume-header-grid {
+            display: flex;
+            gap: 25px;
+            margin-bottom: 40px;
+            align-items: stretch;
+        }
+
+        .photo-column {
+            flex: 0 0 220px;
+        }
+
+        .resume-headshot {
+            width: 100%;
+            height: 100%;
+            min-height: 280px;
+            object-fit: cover;
+            border-radius: 4px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Specs Grid geïntegreerd */
+        .resume-header-grid .specs-grid {
+            flex: 1;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 25px;
+            background-color: #1a1a1a;
+            padding: 30px;
+            border-radius: 4px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .specs-column h3 {
+            font-size: 1.1rem;
+            font-weight: 400;
+            letter-spacing: 1px;
+            margin-bottom: 15px;
+            color: #ffffff;
+            border-bottom: 2px solid #e74c3c;
+            display: inline-block;
+            padding-bottom: 4px;
+        }
+
+        .spec-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            font-size: 0.9rem;
+        }
+
+        .spec-item .label {
+            color: #888888;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.8rem;
+        }
+
+        .spec-item .value {
+            color: #ffffff;
+            text-align: right;
+            font-weight: 300;
+        }
+
+        /* Sectie koppen */
+        .resume-section-title {
+            font-size: 1.4rem;
+            font-weight: 400;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: #e74c3c;
+            margin: 50px 0 20px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 8px;
+        }
+
+        /* Tabellen voor ervaring */
+        .experience-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        .experience-table tr {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            transition: background-color 0.2s;
+        }
+
+        .experience-table tr:hover {
+            background-color: rgba(255, 255, 255, 0.02);
+        }
+
+        .experience-table td {
+            padding: 12px 10px;
+            font-size: 0.9rem;
+            vertical-align: top;
+        }
+
+        .col-year {
+            width: 80px;
+            color: #e74c3c;
+            font-weight: bold;
+        }
+
+        .col-title {
+            color: #ffffff;
+            font-weight: 400;
+        }
+
+        .col-title .sub-info {
+            display: block;
+            font-size: 0.8rem;
+            color: #888888;
+            margin-top: 2px;
+        }
+
+        .col-role {
+            color: #cccccc;
+        }
+
+        .col-director {
+            color: #888888;
+            text-align: right;
+        }
+
+        .courses-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .course-tag {
+            background-color: #1a1a1a;
+            color: #cccccc;
+            padding: 8px 16px;
+            font-size: 0.85rem;
+            border-radius: 2px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        /* Responsive Mobiel */
+        @media (max-width: 900px) {
+            .page-section {
+                padding: 20px 20px 60px 20px;
+            }
+
+            .resume-header-grid {
+                flex-direction: column;
+            }
+
+            .photo-column {
+                flex: none;
+                width: 100%;
+                max-width: 240px;
+                margin: 0 auto;
+            }
+
+            .resume-header-grid .specs-grid {
+                padding: 20px;
+                grid-template-columns: 1fr;
+            }
+
+            .experience-table td {
+                display: block;
+                width: 100%;
+                padding: 4px 0;
+            }
+
+            .experience-table tr {
+                padding: 12px 0;
+                display: block;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            }
+
+            .col-director {
+                text-align: left;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigatie -->
+    <header>
+        <div class="logo"><a href="index.html">Barth Faber</a></div>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li class="has-dropdown">
+                    <a href="showreel.html">Showreel &#9662;</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="showreel.html">Acting Reels</a></li>
+                        <li><a href="showreel-voice.html">Voice Reels</a></li>
+                    </ul>
+                </li>
+                <li><a href="gallery.html">Gallery</a></li>
+                <li><a href="resume.html" class="active">Resume</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Social Sidebar -->
+    <div class="social-sidebar">
+        <a href="https://www.youtube.com/@barthfaber3272" target="_blank" rel="noopener noreferrer">Youtube</a>
+        <a href="https://www.instagram.com/barthfaber/" target="_blank" rel="noopener noreferrer">Instagram</a>
+        <a href="https://www.facebook.com/profile.php?id=100090867703374" target="_blank" rel="noopener noreferrer">Facebook</a>
+    </div>
+
+    <!-- Resume Inhoud -->
+    <section class="page-section">
+        <h1 class="page-title">Curriculum Vitae</h1>
+
+        <!-- Download knop -->
+        <div style="text-align: center; margin-bottom: 35px;">
+            <a href="downloads/Barth_Faber_CV.pdf" download class="download-btn">&#128190; Download CV (PDF)</a>
+        </div>
+
+        <!-- Prijzen & Awards -->
+        <div class="awards-container">
+            <div class="award-badge">
+                <strong>Best Actor</strong>
+                <span>Nova Film Festival (2024)</span>
+            </div>
+            <div class="award-badge">
+                <strong>Best Actor</strong>
+                <span>Nova Film Festival (2023)</span>
+            </div>
+            <div class="award-badge">
+                <strong>Publieksprijs</strong>
+                <span>Dialogen Festival (2015)</span>
+            </div>
+        </div>
+
+        <!-- Layout: Profielfoto links geïntegreerd met de gegevens -->
+        <div class="resume-header-grid">
+            <div class="photo-column">
+                <img src="images/gallery/headshots/foto1.jpg" alt="Barth Faber Headshot" class="resume-headshot" oncontextmenu="return false;" draggable="false">
+            </div>
+
+            <div class="specs-grid">
+                <div class="specs-column">
+                    <h3>Personalia</h3>
+                    <div class="spec-item"><span class="label">Naam</span><span class="value">Barth Faber</span></div>
+                    <div class="spec-item"><span class="label">Leeftijd</span><span class="value">25 - 35 jaar</span></div>
+                    <div class="spec-item"><span class="label">Nationaliteit</span><span class="value">Nederlandse</span></div>
+                    <div class="spec-item"><span class="label">Vakgebieden</span><span class="value">Acteren | Modellenwerk | Cabaret |</span></div>
+                    <div class="spec-item"><span class="label">Rijbewijs</span><span class="value">Ja (B)</span></div>
+                    <div class="spec-item"><span class="label">Vaardigheden</span><span class="value">Jongleren</span></div>
+                </div>
+
+                <div class="specs-column">
+                    <h3>Uiterlijk</h3>
+                    <div class="spec-item"><span class="label">Lengte</span><span class="value">1,86 m / 6′ 1″</span></div>
+                    <div class="spec-item"><span class="label">Gewicht</span><span class="value">86 kg</span></div>
+                    <div class="spec-item"><span class="label">Postuur</span><span class="value">Slank / Sportief</span></div>
+                    <div class="spec-item"><span class="label">Ogen</span><span class="value">Grijs / Blauw</span></div>
+                    <div class="spec-item"><span class="label">Haar</span><span class="value">Bruin</span></div>
+                </div>
+
+                <div class="specs-column">
+                    <h3>Talen & Accenten</h3>
+                    <div class="spec-item"><span class="label">Moedertaal</span><span class="value">Nederlands</span></div>
+                    <div class="spec-item"><span class="label">Talen</span><span class="value">Engels (Vloeiend)</span></div>
+                    <div class="spec-item"><span class="label">Accenten (Goed)</span><span class="value">ABN, Rotterdams, Amerikaans</span></div>
+                    <div class="spec-item"><span class="label">Accenten (Redelijk)</span><span class="value">Haags, Limburgs, Schots</span></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Filmografie -->
+        <h2 class="resume-section-title">Film & Shorts</h2>
+        <table class="experience-table">
+            <tr>
+                <td class="col-year">2026</td>
+                <td class="col-title">School Ruig <span class="sub-info">(Pre-Productie)</span></td>
+                <td class="col-role">Rol: Koen</td>
+                <td class="col-director">Regie: Maurice Schaalje</td>
+            </tr>
+            <tr>
+                <td class="col-year">2026</td>
+                <td class="col-title">Chef’s Special 2 <span class="sub-info">(In Productie)</span></td>
+                <td class="col-role">Rol: Mathijs</td>
+                <td class="col-director">Regie: Joey Kugelmann</td>
+            </tr>
+            <tr>
+                <td class="col-year">2025</td>
+                <td class="col-title">Complot in Napels <span class="sub-info">Prijzen: Beste short film (Moonville & MTPIFF)</span></td>
+                <td class="col-role">Rol: Riccardo Pastiso</td>
+                <td class="col-director">Regie: Jan Melkebeek</td>
+            </tr>
+            <tr>
+                <td class="col-year">2025</td>
+                <td class="col-title">Erased <span class="sub-info">(Post-Productie)</span></td>
+                <td class="col-role">Rol: TV Host</td>
+                <td class="col-director">Regie: Andrei Ciobanu</td>
+            </tr>
+            <tr>
+                <td class="col-year">2025</td>
+                <td class="col-title">The Valley at Dusk <span class="sub-info">(Post-Productie)</span></td>
+                <td class="col-role">Rol: Thomas</td>
+                <td class="col-director">Regie: Witold Greda</td>
+            </tr>
+            <tr>
+                <td class="col-year">2025</td>
+                <td class="col-title">Over Mijn Dijk <span class="sub-info">(48 Hour Noord)</span></td>
+                <td class="col-role">Rol: Niels</td>
+                <td class="col-director">Regie: Lucas van Oostrum</td>
+            </tr>
+            <tr>
+                <td class="col-year">2025</td>
+                <td class="col-title">Detective Anders en de verdwenen kermisbaas <span class="sub-info">(Post-Productie)</span></td>
+                <td class="col-role">Rol: Rico</td>
+                <td class="col-director">Regie: Joey Kugelmann</td>
+            </tr>
+            <tr>
+                <td class="col-year">2025</td>
+                <td class="col-title">Machina</td>
+                <td class="col-role">Rol: Linus</td>
+                <td class="col-director">Regie: Rinor Qerkini</td>
+            </tr>
+            <tr>
+                <td class="col-year">2025</td>
+                <td class="col-title">Gebroken Wit</td>
+                <td class="col-role">Rol: Pim van Doorn</td>
+                <td class="col-director">Regie: Yoran van den Berg</td>
+            </tr>
+            <tr>
+                <td class="col-year">2025</td>
+                <td class="col-title">Phantom Hunters <span class="sub-info">(Post-productie)</span></td>
+                <td class="col-role">Rol: Garret Graves</td>
+                <td class="col-director">Regie: Paul Kalkhoven</td>
+            </tr>
+            <tr>
+                <td class="col-year">2025</td>
+                <td class="col-title">Insuceptible</td>
+                <td class="col-role">Rol: Aron</td>
+                <td class="col-director">Regie: Keshavi Jaharia</td>
+            </tr>
+            <tr>
+                <td class="col-year">2025</td>
+                <td class="col-title">Excessen</td>
+                <td class="col-role">Rol: Felix</td>
+                <td class="col-director">Regie: Daan Verhulst</td>
+            </tr>
+            <tr>
+                <td class="col-year">2024</td>
+                <td class="col-title">Handen van Zilver</td>
+                <td class="col-role">Rol: Charlie de Vries</td>
+                <td class="col-director">Regie: Mathijs Klingeman</td>
+            </tr>
+            <tr>
+                <td class="col-year">2024</td>
+                <td class="col-title">Abraham <span class="sub-info">(48 Hour Eindhoven)</span></td>
+                <td class="col-role">Rol: Adam</td>
+                <td class="col-director">Regie: Tobias Kooijman / Roel Mathijssen</td>
+            </tr>
+            <tr>
+                <td class="col-year">2024</td>
+                <td class="col-title">Routine</td>
+                <td class="col-role">Rol: Joris</td>
+                <td class="col-director">Regie: Bas van der Steen</td>
+            </tr>
+            <tr>
+                <td class="col-year">2024</td>
+                <td class="col-title">Vast</td>
+                <td class="col-role">Rol: Jan</td>
+                <td class="col-director">Regie: Maurice Schaalje</td>
+            </tr>
+            <tr>
+                <td class="col-year">2024</td>
+                <td class="col-title">Bedankt Pappa <span class="sub-info">(48 Hour Rotterdam)</span></td>
+                <td class="col-role">Rol: Jules Waarden</td>
+                <td class="col-director">Regie: Tobias Kooijman</td>
+            </tr>
+            <tr>
+                <td class="col-year">2024</td>
+                <td class="col-title">Swartz Experiment</td>
+                <td class="col-role">Rol: Professor Swartz</td>
+                <td class="col-director">-</td>
+            </tr>
+            <tr>
+                <td class="col-year">2024</td>
+                <td class="col-title">Het Afscheid</td>
+                <td class="col-role">Rol: Dennis</td>
+                <td class="col-director">Regie: Milan van Helvoort</td>
+            </tr>
+            <tr>
+                <td class="col-year">2024</td>
+                <td class="col-title">Spectrofobie</td>
+                <td class="col-role">Rol: Mark</td>
+                <td class="col-director">Regie: Dirk van Eekelen</td>
+            </tr>
+            <tr>
+                <td class="col-year">2024</td>
+                <td class="col-title">Greedy Curiosities</td>
+                <td class="col-role">Rol: Blingo</td>
+                <td class="col-director">Regie: Danny van Ravesteijn</td>
+            </tr>
+            <tr>
+                <td class="col-year">2024</td>
+                <td class="col-title">David</td>
+                <td class="col-role">Rol: David</td>
+                <td class="col-director">Regie: Tijn Severin</td>
+            </tr>
+            <tr>
+                <td class="col-year">2024</td>
+                <td class="col-title">Van een ander perspectief</td>
+                <td class="col-role">Rol: David Holleman</td>
+                <td class="col-director">Regie: Julian de Bock</td>
+            </tr>
+            <tr>
+                <td class="col-year">2023</td>
+                <td class="col-title">Creep</td>
+                <td class="col-role">Rol: Matthew</td>
+                <td class="col-director">Regie: Jelmar van Ommen</td>
+            </tr>
+            <tr>
+                <td class="col-year">2023</td>
+                <td class="col-title">Goed Hoor</td>
+                <td class="col-role">Rol: Rob</td>
+                <td class="col-director">Regie: Dylan Geurts</td>
+            </tr>
+            <tr>
+                <td class="col-year">2023</td>
+                <td class="col-title">En God Lacht <span class="sub-info">(48hour Rotterdam)</span></td>
+                <td class="col-role">Rol: Francis</td>
+                <td class="col-director">Regie: Paul Joosse</td>
+            </tr>
+            <tr>
+                <td class="col-year">2023</td>
+                <td class="col-title">Haunting Voice</td>
+                <td class="col-role">Rol: Mike Smith</td>
+                <td class="col-director">Regie: Madelief Bakker</td>
+            </tr>
+            <tr>
+                <td class="col-year">2023</td>
+                <td class="col-title">AILive</td>
+                <td class="col-role">Rol: AI Jip</td>
+                <td class="col-director">Regie: Merijn Stojansek</td>
+            </tr>
+            <tr>
+                <td class="col-year">2023</td>
+                <td class="col-title">Gevallen of Gevlogen</td>
+                <td class="col-role">Rol: David Lodewijk Molenaar</td>
+                <td class="col-director">Regie: E. Hoogstrate, T. Kooijman, J. Castelijns</td>
+            </tr>
+            <tr>
+                <td class="col-year">2023</td>
+                <td class="col-title">Baked</td>
+                <td class="col-role">Rol: Joshua</td>
+                <td class="col-director">Regie: Edie Kouwenberg</td>
+            </tr>
+            <tr>
+                <td class="col-year">2023</td>
+                <td class="col-title">MindCaged</td>
+                <td class="col-role">Rol: Benson/Scarsin</td>
+                <td class="col-director">Regie: Cai Booi</td>
+            </tr>
+            <tr>
+                <td class="col-year">2023</td>
+                <td class="col-title">Oud Zeer <span class="sub-info">Prijzen: Best Shortmovie (Indie Movies Spark & Novafilmfestival), Best Actor (Novafilmfestival)</span></td>
+                <td class="col-role">Rol: Ralf van Beek</td>
+                <td class="col-director">Regie: Jeroen Berends</td>
+            </tr>
+            <tr>
+                <td class="col-year">2022</td>
+                <td class="col-title">Vergeet mij niet <span class="sub-info">(48hour Rotterdam)</span></td>
+                <td class="col-role">Rol: Kevin de Jager</td>
+                <td class="col-director">Regie: Paul Joosse</td>
+            </tr>
+            <tr>
+                <td class="col-year">2015</td>
+                <td class="col-title">The wrong chase</td>
+                <td class="col-role">Rol: Charlie</td>
+                <td class="col-director">Regie: Yasin Maddamin</td>
+            </tr>
+            <tr>
+                <td class="col-year">2015</td>
+                <td class="col-title">Klikspaan</td>
+                <td class="col-role">Rol: Paul</td>
+                <td class="col-director">Regie: Thomas van der Heijden</td>
+            </tr>
+            <tr>
+                <td class="col-year">2014</td>
+                <td class="col-title">Hello, my name is</td>
+                <td class="col-role">Rol: Andy</td>
+                <td class="col-director">Regie: Thomas Stoffer</td>
+            </tr>
+        </table>
+
+        <!-- Theater & Cabaret -->
+        <h2 class="resume-section-title">Theater & Cabaret</h2>
+        <table class="experience-table">
+            <tr>
+                <td class="col-year">18 / 19</td>
+                <td class="col-title">De hulp</td>
+                <td class="col-role">Rol: Arnie</td>
+                <td class="col-director">Regie: Lenny de Raaij / Huub Hermans</td>
+            </tr>
+            <tr>
+                <td class="col-year">18 / 19</td>
+                <td class="col-title">Een drie apart</td>
+                <td class="col-role">Cabaret</td>
+                <td class="col-director">-</td>
+            </tr>
+            <tr>
+                <td class="col-year">17 / 18</td>
+                <td class="col-title">Op bezoek bij meneer Green</td>
+                <td class="col-role">Rol: Ross Gardiner</td>
+                <td class="col-director">Regie: Lenny de Raaij / Huub Hermans</td>
+            </tr>
+            <tr>
+                <td class="col-year">2016</td>
+                <td class="col-title">Romeo & Julia</td>
+                <td class="col-role">Rol: Lord Capuletti</td>
+                <td class="col-director">Regie: Hans Keijzer</td>
+            </tr>
+            <tr>
+                <td class="col-year">2016</td>
+                <td class="col-title">Familie</td>
+                <td class="col-role">Rol: Vondel</td>
+                <td class="col-director">Regie: René Roza</td>
+            </tr>
+            <tr>
+                <td class="col-year">2015</td>
+                <td class="col-title">Meer volk dan gisteren</td>
+                <td class="col-role">Rol: Bacon</td>
+                <td class="col-director">Regie: Fabian Smit</td>
+            </tr>
+            <tr>
+                <td class="col-year">2015</td>
+                <td class="col-title">Kroeglopen</td>
+                <td class="col-role">Rol: Kees Braksemeyer</td>
+                <td class="col-director">Regie: Stephen W. Zeedijk</td>
+            </tr>
+            <tr>
+                <td class="col-year">2015</td>
+                <td class="col-title">Hamlet</td>
+                <td class="col-role">Rol: Rozencranz</td>
+                <td class="col-director">Regie: Gerard van Rijnstra</td>
+            </tr>
+            <tr>
+                <td class="col-year">2014</td>
+                <td class="col-title">Flood Inc.</td>
+                <td class="col-role">Rol: Nick Seesing</td>
+                <td class="col-director">Regie: Fabian Smit</td>
+            </tr>
+            <tr>
+                <td class="col-year">2014</td>
+                <td class="col-title">Het geheugen van Rotterdam</td>
+                <td class="col-role">Rol: Onderduiker</td>
+                <td class="col-director">Regie: Erik-Ward Geerlings</td>
+            </tr>
+            <tr>
+                <td class="col-year">2014</td>
+                <td class="col-title">De vloer op</td>
+                <td class="col-role">Improvisatie</td>
+                <td class="col-director">-</td>
+            </tr>
+            <tr>
+                <td class="col-year">2014</td>
+                <td class="col-title">Angst</td>
+                <td class="col-role">Cabaret</td>
+                <td class="col-director">-</td>
+            </tr>
+            <tr>
+                <td class="col-year">2013</td>
+                <td class="col-title">Test</td>
+                <td class="col-role">Cabaret</td>
+                <td class="col-director">-</td>
+            </tr>
+            <tr>
+                <td class="col-year">2013</td>
+                <td class="col-title">April</td>
+                <td class="col-role">Rol: Durk</td>
+                <td class="col-director">Regie: Stephen W. Zeedijk</td>
+            </tr>
+            <tr>
+                <td class="col-year">2012</td>
+                <td class="col-title">Oudejaarsconference</td>
+                <td class="col-role">Cabaret</td>
+                <td class="col-director">-</td>
+            </tr>
+        </table>
+
+        <!-- Commercials, Campagnes & TV -->
+        <h2 class="resume-section-title">Commercials, Campagnes & TV</h2>
+        <table class="experience-table">
+            <tr>
+                <td class="col-year">2024</td>
+                <td class="col-title">DES Energy Solutions <span class="sub-info">(Campagne)</span></td>
+                <td class="col-role">Rol: Hulp Monteur</td>
+                <td class="col-director">Regie: Niels Bonten</td>
+            </tr>
+            <tr>
+                <td class="col-year">2024</td>
+                <td class="col-title">Je neus groeit <span class="sub-info">(TV Panelshow)</span></td>
+                <td class="col-role">Rol: Mezelf</td>
+                <td class="col-director">-</td>
+            </tr>
+            <tr>
+                <td class="col-year">2014</td>
+                <td class="col-title">Halls <span class="sub-info">(Commercial)</span></td>
+                <td class="col-role">Rol: Vriendje</td>
+                <td class="col-director">Regie: Gerard Groebroeks</td>
+            </tr>
+            <tr>
+                <td class="col-year">2014</td>
+                <td class="col-title">Vifit <span class="sub-info">(Commercial)</span></td>
+                <td class="col-role">Rol: Student</td>
+                <td class="col-director">-</td>
+            </tr>
+        </table>
+
+        <!-- Opleidingen & Cursussen -->
+        <h2 class="resume-section-title">Opleiding & Cursussen</h2>
+        <div style="background-color: #1a1a1a; padding: 25px; border-radius: 4px; margin-bottom: 20px;">
+            <h3 style="font-size: 1.1rem; font-weight: 400; color: #ffffff; margin-bottom: 10px;">Hoofdopleiding</h3>
+            <p style="color: #cccccc; font-size: 0.95rem; margin-bottom: 20px;">Theaterschool De Trap</p>
+            
+            <h3 style="font-size: 1.1rem; font-weight: 400; color: #ffffff; margin-bottom: 15px;">Workshops & Cursussen</h3>
+            <div class="courses-grid">
+                <span class="course-tag">Masterclass Camera Acteren</span>
+                <span class="course-tag">Meisner Techniek</span>
+                <span class="course-tag">Intensieve Acteer Training</span>
+                <span class="course-tag">Workshop Scenografie</span>
+                <span class="course-tag">Orientatie Cursus AHK</span>
+                <span class="course-tag">Klucht</span>
+                <span class="course-tag">Workshop Stagefight</span>
+                <span class="course-tag">Workshop Creatief Spel</span>
+                <span class="course-tag">Improvisatie</span>
+                <span class="course-tag">Workshop View-Points</span>
+                <span class="course-tag">Camera Acteren (SKVR)</span>
+                <span class="course-tag">Productie Cabaret (SKVR)</span>
+                <span class="course-tag">Toneel I & II (SKVR)</span>
+                <span class="course-tag">Cabaret (SKVR)</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2026 Barth Faber. Alle rechten voorbehouden.</p>
+    </footer>
+
+</body>
+</html>

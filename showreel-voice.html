@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Voice Demos - Barth Faber</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .page-section {
+            flex: 1;
+            padding: 40px 40px 80px 120px;
+            width: 100%;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .page-title {
+            font-size: 2.5rem;
+            font-weight: 400;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .page-subtitle {
+            text-align: center;
+            color: #888888;
+            font-size: 0.95rem;
+            letter-spacing: 1px;
+            margin-bottom: 50px;
+        }
+
+        /* Categorie Container */
+        .reel-category {
+            background-color: #2a2a2a;
+            padding: 35px;
+            border-radius: 4px;
+            margin-bottom: 40px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+        }
+
+        .category-header {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 15px;
+            margin-bottom: 25px;
+        }
+
+        .category-title {
+            font-size: 1.3rem;
+            font-weight: 400;
+            letter-spacing: 1px;
+            color: #e74c3c;
+            text-transform: uppercase;
+        }
+
+        .category-desc {
+            font-size: 0.85rem;
+            color: #888888;
+            margin-top: 5px;
+        }
+
+        /* Subkoppen voor talen */
+        .language-heading {
+            font-size: 1rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: #ffffff;
+            margin: 20px 0 15px 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .language-heading::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        /* Compacte Audio Lijst */
+        .audio-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .compact-audio-card {
+            background-color: #222222;
+            padding: 12px 18px;
+            border-radius: 4px;
+            border-left: 3px solid #e74c3c;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 15px;
+        }
+
+        .audio-title {
+            font-size: 0.95rem;
+            color: #ffffff;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+        }
+
+        .compact-audio-card audio {
+            height: 32px;
+            max-width: 350px;
+            width: 100%;
+        }
+
+        /* Responsive Mobiel */
+        @media (max-width: 700px) {
+            .page-section {
+                padding: 20px 20px 60px 20px;
+            }
+
+            .reel-category {
+                padding: 20px;
+            }
+
+            .compact-audio-card {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .compact-audio-card audio {
+                max-width: none;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigatie -->
+    <header>
+        <div class="logo"><a href="index.html">Barth Faber</a></div>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li class="has-dropdown">
+                    <a href="showreel.html" class="active">Showreel &#9662;</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="showreel.html">Acting Reels</a></li>
+                        <li><a href="showreel-voice.html">Voice Reels</a></li>
+                    </ul>
+                </li>
+                <li><a href="gallery.html">Gallery</a></li>
+                <li><a href="resume.html">Resume</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Social Sidebar -->
+    <div class="social-sidebar">
+        <a href="https://www.youtube.com/@barthfaber3272" target="_blank" rel="noopener noreferrer">Youtube</a>
+        <a href="https://www.instagram.com/barthfaber/" target="_blank" rel="noopener noreferrer">Instagram</a>
+        <a href="https://www.facebook.com/profile.php?id=100090867703374" target="_blank" rel="noopener noreferrer">Facebook</a>
+    </div>
+
+    <!-- Page Content -->
+    <section class="page-section">
+        <h1 class="page-title">Voice Demos</h1>
+        <p class="page-subtitle">Audiobook narration, voice acting, voice over and commercial reels.</p>
+
+        <!-- CATEGORIE 1: AUDIOBOOKS & NARRATION -->
+        <div class="reel-category">
+            <div class="category-header">
+                <h2 class="category-title">Audiobook & Narration Samples</h2>
+                <p class="category-desc">Style & tone samples (~1 min) for publishers and authors.</p>
+            </div>
+
+            <div class="audio-list">
+                
+                <h3 class="language-heading">Nederlands (Dutch)</h3>
+
+                <!-- Track 1 -->
+                <div class="compact-audio-card">
+                    <span class="audio-title">Drama & Roman (Sample)</span>
+                    <audio controls controlsList="nodownload">
+                        <source src="audio/audiobook-dutch-Drama.mp3" type="audio/mpeg">
+                    </audio>
+                </div>
+
+                <div class="compact-audio-card">
+                    <span class="audio-title">Fantasy & Sci-fi (Sample)</span>
+                    <audio controls controlsList="nodownload">
+                        <source src="audio/audiobook-dutch-Fantasy.mp3" type="audio/mpeg">
+                    </audio>
+                </div>
+
+                <div class="compact-audio-card">
+                    <span class="audio-title">Spanning & Thriller (Sample)</span>
+                    <audio controls controlsList="nodownload">
+                        <source src="audio/audiobook-dutch-Thriller.mp3" type="audio/mpeg">
+                    </audio>
+                </div>
+                <div class="compact-audio-card">
+                    <span class="audio-title">Kinderboeken (Sample)</span>
+                    <audio controls controlsList="nodownload">
+                        <source src="audio/audiobook-dutch-Kinder.mp3" type="audio/mpeg">
+                    </audio>
+                </div>
+
+                <h3 class="language-heading">English</h3>
+
+                <!-- Track 2 -->
+                <div class="compact-audio-card">
+                    <span class="audio-title">Fantasy & Fiction (Sample)</span>
+                    <audio controls controlsList="nodownload">
+                        <source src="audio/audiobook-english-1.mp3" type="audio/mpeg">
+                    </audio>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- CATEGORIE 2: COMMERCIALS & VOICE ACTING -->
+        <div class="reel-category">
+            <div class="category-header">
+                <h2 class="category-title">Commercial & Character Reels</h2>
+                <p class="category-desc">Fast-paced compilations for commercials, animation, and video games.</p>
+            </div>
+
+            <div class="audio-list">
+                
+                <!-- Track 3 -->
+                <div class="compact-audio-card">
+                    <span class="audio-title">Voice Acting & Characters Reel</span>
+                    <audio controls controlsList="nodownload">
+                        <source src="audio/voice-acting-reel.mp3" type="audio/mpeg">
+                    </audio>
+                </div>
+                <div class="compact-audio-card">
+                    <span class="audio-title">Corporate (Sample)</span>
+                    <audio controls controlsList="nodownload">
+                        <source src="audio/audiobook-dutch-Corporate.mp3" type="audio/mpeg">
+                    </audio>
+                </div>
+
+            </div>
+        </div>
+
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2026 Barth Faber. Alle rechten voorbehouden.</p>
+    </footer>
+
+</body>
+</html>
