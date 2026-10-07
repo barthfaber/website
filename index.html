@@ -129,7 +129,6 @@
             border: none;
         }
 
-        /* Dropdown achtergrondkleur gelijk aan het hoofdmenu */
         header nav ul li.has-dropdown .dropdown-menu {
             background-color: #111111;
             border: 1px solid rgba(255, 255, 255, 0.1);
@@ -143,7 +142,6 @@
             RESPONSIVE REGELS VOOR MOBIEL & TABLET
            ========================================== */
         @media (max-width: 1000px) {
-            /* Maak het menu compacter zodat alle 4 de opties naast elkaar passen */
             header nav ul {
                 gap: 12px;
             }
@@ -225,7 +223,7 @@
 
             header nav ul li.has-dropdown .dropdown-menu {
                 display: none;
-                position: absolute; /* Zorgt dat het uitklapt over de content heen i.p.v. de rest weg te duwen */
+                position: absolute;
                 right: 20px;
                 top: 60px;
                 box-shadow: 0 10px 25px rgba(0,0,0,0.8);
@@ -315,7 +313,7 @@
         </div>
     </div>
 
-    <!-- JavaScript voor de YouTube Pop-up, Klik-menu en Timer -->
+    <!-- JavaScript voor de YouTube Pop-up, Klik-menu en Scroll/Timer logica -->
     <script>
         var youtubeVideoId = "BR2MBug7Xc8"; 
 
@@ -355,12 +353,31 @@
             }
         });
 
+        // Controleer of het scherm op mobiel formaat is (<= 1000px)
+        function isMobile() {
+            return window.innerWidth <= 1000;
+        }
+
+        // Laat de foto na 3 seconden verdwijnen (ALLEEN OP MOBIEL)
         setTimeout(function() {
-            var photoFrame = document.getElementById("photoFrame");
-            if (photoFrame) {
-                photoFrame.classList.add("faded");
+            if (isMobile()) {
+                var photoFrame = document.getElementById("photoFrame");
+                if (photoFrame) {
+                    photoFrame.classList.add("faded");
+                }
             }
         }, 3000);
+
+        // Laat de foto weer verschijnen zodra de gebruiker op mobiel scrollt
+        window.addEventListener('scroll', function() {
+            if (isMobile()) {
+                var photoFrame = document.getElementById("photoFrame");
+                if (photoFrame) {
+                    // Als er gescrolld wordt, halen we 'faded' weg zodat de foto weer tevoorschijn komt
+                    photoFrame.classList.remove("faded");
+                }
+            }
+        });
     </script>
 
 </body>
