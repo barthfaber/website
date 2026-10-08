@@ -433,6 +433,11 @@
 
         window.addEventListener('scroll', handleUserActivity);
         window.addEventListener('touchstart', handleUserActivity);
+
+        // EXTRA: Blokkeer de rechtermuisknop op het fotokader
+        document.getElementById('photoFrame').addEventListener('contextmenu', function(e) {
+            e.preventDefault();
+        });
     </script>
 
 </body>
