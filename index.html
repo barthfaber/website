@@ -64,7 +64,7 @@
             margin-bottom: 35px;
         }
 
-        /* Container voor de knoppen zodat ze mooi gegroepeerd staan */
+        /* Container voor de knoppen */
         .hero-buttons {
             display: flex;
             flex-wrap: wrap;
@@ -239,6 +239,11 @@
                 margin-bottom: 25px;
             }
 
+            /* Verberg de extra knoppen (Resume en Contact) op mobiel, behoud alleen de Showreel-knop */
+            .desktop-only-btn {
+                display: none !important;
+            }
+
             .social-sidebar {
                 display: none;
             }
@@ -328,11 +333,11 @@
             <h2>Actor & Model</h2>
             <p class="hero-tagline">Based in The Netherlands &mdash; Available Worldwide</p>
             
-            <!-- Knoppen-groep (Showreel, Resume, Contact) -->
+            <!-- Knoppen-groep (Showreel altijd zichtbaar, Resume & Contact alleen op desktop via .desktop-only-btn) -->
             <div class="hero-buttons">
                 <a href="showreel.html" class="action-btn">&#9658; Showreel</a>
-                <a href="resume.html" class="action-btn">Resume</a>
-                <a href="contact.html" class="action-btn">Contact</a>
+                <a href="resume.html" class="action-btn desktop-only-btn">Resume</a>
+                <a href="contact.html" class="action-btn desktop-only-btn">Contact</a>
             </div>
             
             <!-- Socials zichtbaar op mobiel -->
