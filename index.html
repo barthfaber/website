@@ -1,479 +1,887 @@
 <!DOCTYPE html>
+
 <html lang="nl">
+
 <head>
+
     <meta charset="UTF-8">
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Barth Faber - Actor & Model</title>
+
     
+
     <!-- PRELOAD: Zorg dat de browser deze zwaardere bestanden direct ophaalt -->
+
     <link rel="preload" href="images/gallery/headshots/foto1.webp" as="image">
+
     <link rel="preload" href="videos/Showreel 2026(No sound).mp4" as="video" type="video/mp4">
 
+
+
     <link rel="stylesheet" href="style.css">
+
     <style>
+
         /* ==========================================
+
             SPECIFIEKE HOMEPAGE HERO STIJLEN
+
            ========================================== */
-        body {
-            position: relative;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-        }
 
         .hero-section {
+
             position: relative;
+
             flex: 1;
+
             display: flex;
+
             align-items: center;
+
             justify-content: space-between;
+
             padding-left: 120px;
+
             padding-right: 60px;
+
             width: 100%;
+
             min-height: calc(100vh - 100px);
+
             z-index: 5;
+
         }
+
+
 
         .hero-content, .hero-image {
+
             pointer-events: auto;
+
         }
+
+
 
         .hero-content {
+
             max-width: 550px;
+
             z-index: 5;
-            position: relative;
-            padding-bottom: 40px; /* Ruimte voor de socials eronder */
+
         }
+
+
 
         .hero-content h1 {
+
             font-size: 5.4rem;
+
             font-weight: 400;
+
             line-height: 0.93;
+
             letter-spacing: -1px;
+
             margin-bottom: 16px;
+
             text-transform: uppercase;
+
             color: #ffffff;
+
         }
+
+
 
         .hero-content h2 {
+
             font-size: 2rem;
+
             font-weight: 300;
+
             letter-spacing: 4px;
+
             text-transform: uppercase;
+
             margin-bottom: 14px;
+
             color: #e74c3c;
+
         }
+
+
 
         .hero-tagline {
+
             font-size: 0.9rem;
+
             font-weight: 300;
+
             letter-spacing: 2px;
+
             text-transform: uppercase;
+
             color: #bbbbbb;
+
             margin-bottom: 35px;
+
         }
+
+
 
         .showreel-link {
+
             display: inline-block;
+
             color: #ffffff;
+
             background-color: rgba(255, 255, 255, 0.08);
+
             border: 1px solid rgba(255, 255, 255, 0.3);
+
             padding: 15px 30px;
+
             text-decoration: none;
+
             font-size: 0.88rem;
+
             letter-spacing: 2px;
+
             text-transform: uppercase;
+
             font-weight: bold;
+
             border-radius: 2px;
+
             cursor: pointer;
+
             transition: all 0.3s ease;
+
         }
+
+
 
         .showreel-link:hover {
+
             background-color: #e74c3c;
+
             border-color: #e74c3c;
+
             color: #ffffff;
+
             box-shadow: 0px 10px 25px rgba(231, 76, 60, 0.4);
+
         }
+
+
 
         /* ==========================================
-            SOCIALS SIDEBAR (Nets uitgelijnd bij de content)
-           ========================================== */
-        .social-sidebar {
-            position: absolute;
-            left: 120px;
-            bottom: 30px;
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-            z-index: 10;
-        }
 
-        .social-sidebar a {
-            color: #888888;
-            text-decoration: none;
-            font-size: 0.8rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            transition: color 0.3s ease;
-        }
-
-        .social-sidebar a:hover {
-            color: #e74c3c;
-        }
-
-        /* ==========================================
             FOTO PRESENTATIE MET ZWART KADER & FADE-IN
+
            ========================================== */
+
         .hero-image {
+
             position: relative;
+
             width: 700px;
+
             max-width: 42%;
+
             z-index: 2;
+
         }
+
+
 
         .frame-container {
+
             position: relative;
+
             border: 2px solid #000000;
+
             padding: 8px;
+
             background-color: #000000;
+
             outline: none;
+
             border-radius: 3px;
+
             box-shadow: 0px 25px 60px rgba(0, 0, 0, 0.85);
+
             opacity: 1;
+
             transition: opacity 0.8s ease, box-shadow 0.4s ease;
+
         }
+
+
 
         .frame-container.faded {
+
             opacity: 0;
+
             pointer-events: auto;
+
         }
+
+
 
         .frame-container:hover,
+
         .hero-image:hover .frame-container {
+
             opacity: 1 !important;
+
             box-shadow: 0px 30px 70px rgba(0, 0, 0, 0.95);
+
         }
+
+
 
         .frame-container img {
+
             width: 100%;
+
             height: auto;
+
             display: block;
+
             border-radius: 2px;
+
             object-fit: cover;
+
             animation: fadeInAsset 0.6s ease-in-out;
+
         }
+
+
 
         .video-background-container video {
+
             animation: fadeInAsset 0.6s ease-in-out;
+
         }
+
+
 
         @keyframes fadeInAsset {
+
             from { opacity: 0; }
+
             to { opacity: 1; }
+
         }
+
+
 
         .video-modal-content iframe {
+
             width: 100%;
+
             height: 100%;
+
             border: none;
+
         }
+
+
 
         /* Dropdown achtergrondkleur exact gelijk aan het hoofdmenu */
+
         header nav ul li.has-dropdown .dropdown-menu {
+
             background-color: #111111;
+
             border: 1px solid rgba(255, 255, 255, 0.1);
+
         }
+
+
 
         .mobile-socials {
+
             display: none;
+
         }
+
+
 
         /* ==========================================
+
             RESPONSIVE REGELS VOOR MOBIEL & TABLET
+
            ========================================== */
+
         @media (max-width: 1000px) {
+
             header {
+
                 flex-direction: column;
+
                 padding: 12px 15px;
+
                 gap: 8px;
+
             }
+
+
 
             @media (orientation: portrait) {
+
                 header nav ul {
+
                     display: flex;
+
                     flex-wrap: nowrap;
+
                     justify-content: center;
+
                     gap: 12px;
+
                     width: 100%;
+
                 }
+
+
 
                 header nav ul li {
+
                     flex: unset;
+
                 }
+
+
 
                 header nav ul li a {
+
                     font-size: 0.75rem;
+
                     letter-spacing: 0.2px;
+
                     white-space: nowrap;
+
                 }
+
             }
+
+
 
             @media (orientation: landscape) {
+
                 header nav ul {
+
                     display: flex;
+
                     flex-wrap: nowrap;
+
                     justify-content: center;
+
                     gap: 20px;
+
                 }
+
             }
+
+
 
             .hero-section {
+
                 flex-direction: column;
+
                 justify-content: center;
+
                 align-items: center;
+
                 text-align: center;
+
                 padding-left: 20px;
+
                 padding-right: 20px;
+
                 padding-top: 20px;
+
                 padding-bottom: 30px;
+
                 min-height: auto;
+
             }
+
+
 
             .hero-content {
+
                 max-width: 100%;
+
                 margin-top: 15px;
+
                 padding-bottom: 20px;
+
                 display: flex;
+
                 flex-direction: column;
+
                 align-items: center;
+
             }
+
+
 
             .hero-image {
+
                 width: 75%;
+
                 max-width: 260px;
+
                 order: -1;
+
                 margin-right: 0;
+
                 margin-bottom: 10px;
+
             }
+
+
 
             .hero-content h1 {
+
                 font-size: 3rem;
+
                 line-height: 1.1;
+
             }
+
+
 
             .hero-content h2 {
+
                 font-size: 1.3rem;
+
                 letter-spacing: 2px;
+
             }
+
+
 
             .hero-tagline {
+
                 font-size: 0.8rem;
+
                 letter-spacing: 1px;
+
                 margin-bottom: 25px;
+
             }
+
+
 
             .social-sidebar {
+
                 display: none;
+
             }
+
+
 
             .mobile-socials {
+
                 display: flex;
+
                 justify-content: center;
+
                 gap: 20px;
+
                 margin-top: 20px;
+
                 margin-bottom: 10px;
+
             }
+
+
 
             .mobile-socials a {
+
                 color: #888888;
+
                 text-decoration: none;
+
                 font-size: 0.85rem;
+
                 text-transform: uppercase;
+
                 letter-spacing: 1px;
+
                 transition: color 0.3s;
+
             }
+
+
 
             .mobile-socials a:hover {
+
                 color: #e74c3c;
+
             }
+
+
 
             header nav ul li.has-dropdown {
+
                 position: relative;
+
             }
+
+
 
             header nav ul li.has-dropdown .dropdown-menu {
+
                 display: none;
+
                 position: absolute;
+
                 top: 100%;
+
                 left: 50%;
+
                 transform: translateX(-50%);
+
                 min-width: 140px;
+
                 box-shadow: 0 10px 25px rgba(0,0,0,0.9);
+
                 z-index: 100;
+
             }
+
+
 
             header nav ul li.has-dropdown.open .dropdown-menu {
+
                 display: block;
+
             }
+
         }
+
     </style>
+
 </head>
+
 <body>
 
+
+
     <!-- Geruisloze Achtergrond Video -->
+
     <div class="video-background-container" onclick="openShowreel()">
+
         <video autoplay loop muted playsinline id="bgVideo">
+
             <source src="videos/Showreel 2026(No sound).mp4" type="video/mp4">
+
         </video>
+
         <div class="video-overlay"></div>
+
     </div>
+
+
 
     <!-- Navigatie -->
+
     <header>
+
         <div class="logo"><a href="/">Barth Faber</a></div>
+
         <nav>
+
             <ul>
+
                 <li class="has-dropdown" id="dropdownToggle">
+
                     <a href="javascript:void(0)" onclick="toggleDropdown(event)">Showreel &#9662;</a>
+
                     <ul class="dropdown-menu">
+
                         <li><a href="showreel.html">Acting Reels</a></li>
+
                         <li><a href="showreel-voice.html">Voice Reels</a></li>
+
                     </ul>
+
                 </li>
+
                 <li><a href="gallery.html">Gallery</a></li>
+
                 <li><a href="resume.html">Resume</a></li>
+
                 <li><a href="contact.html">Contact</a></li>
+
             </ul>
+
         </nav>
+
     </header>
 
-    <!-- Hero Sectie -->
-    <section class="hero-section">
-        <div class="hero-content">
-            <h1>Barth Faber</h1>
-            <h2>Actor & Model</h2>
-            <p class="hero-tagline">Based in The Netherlands &mdash; Available Worldwide</p>
-            <a href="javascript:void(0)" class="showreel-link" onclick="openShowreel()">&#9658; Play Showreel</a>
-            
-            <!-- Socials Sidebar (Desktop) - Nu netjes verankerd onder de content -->
-            <div class="social-sidebar">
-                <a href="https://www.youtube.com/@barthfaber3272" target="_blank" rel="noopener noreferrer">Youtube</a>
-                <a href="https://www.instagram.com/barthfaber/" target="_blank" rel="noopener noreferrer">Instagram</a>
-                <a href="https://www.facebook.com/profile.php?id=100090867703374" target="_blank" rel="noopener noreferrer">Facebook</a>
-            </div>
 
-            <!-- Socials zichtbaar op mobiel -->
-            <div class="mobile-socials">
-                <a href="https://www.youtube.com/@barthfaber3272" target="_blank" rel="noopener noreferrer">Youtube</a>
-                <a href="https://www.instagram.com/barthfaber/" target="_blank" rel="noopener noreferrer">Instagram</a>
-                <a href="https://www.facebook.com/profile.php?id=100090867703374" target="_blank" rel="noopener noreferrer">Facebook</a>
-            </div>
-        </div>
 
-        <!-- Enkele Foto Presentatie met Zwart Kader -->
-        <div class="hero-image">
-            <div class="frame-container" id="photoFrame">
-                <img src="images/gallery/headshots/foto1.webp" alt="Barth Faber - Actor & Model">
-            </div>
-        </div>
-    </section>
+    <!-- Socials Sidebar (Desktop) -->
 
-    <!-- Footer -->
-    <footer>
-        <p>&copy; 2026 Barth Faber. Alle rechten voorbehouden.</p>
-    </footer>
+    <div class="social-sidebar">
 
-    <!-- Fullscreen Showreel Pop-up -->
-    <div id="videoModal" class="video-modal">
-        <div class="video-modal-content">
-            <span class="close-modal" onclick="closeShowreel()">&times;</span>
-            <iframe id="fullVideo" 
-                    src="" 
-                    title="Barth Faber - Showreel 2026" 
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-                    allowfullscreen>
-            </iframe>
-        </div>
+        <a href="https://www.youtube.com/@barthfaber3272" target="_blank" rel="noopener noreferrer">Youtube</a>
+
+        <a href="https://www.instagram.com/barthfaber/" target="_blank" rel="noopener noreferrer">Instagram</a>
+
+        <a href="https://www.facebook.com/profile.php?id=100090867703374" target="_blank" rel="noopener noreferrer">Facebook</a>
+
     </div>
 
+
+
+    <!-- Hero Sectie -->
+
+    <section class="hero-section">
+
+        <div class="hero-content">
+
+            <h1>Barth Faber</h1>
+
+            <h2>Actor & Model</h2>
+
+            <p class="hero-tagline">Based in The Netherlands &mdash; Available Worldwide</p>
+
+            <a href="javascript:void(0)" class="showreel-link" onclick="openShowreel()">&#9658; Play Showreel</a>
+
+            
+
+            <!-- Socials zichtbaar op mobiel -->
+
+            <div class="mobile-socials">
+
+                <a href="https://www.youtube.com/@barthfaber3272" target="_blank" rel="noopener noreferrer">Youtube</a>
+
+                <a href="https://www.instagram.com/barthfaber/" target="_blank" rel="noopener noreferrer">Instagram</a>
+
+                <a href="https://www.facebook.com/profile.php?id=100090867703374" target="_blank" rel="noopener noreferrer">Facebook</a>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- Enkele Foto Presentatie met Zwart Kader -->
+
+        <div class="hero-image">
+
+            <div class="frame-container" id="photoFrame">
+
+                <img src="images/gallery/headshots/foto1.webp" alt="Barth Faber - Actor & Model">
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- Footer -->
+
+    <footer>
+
+        <p>&copy; 2026 Barth Faber. Alle rechten voorbehouden.</p>
+
+    </footer>
+
+
+
+    <!-- Fullscreen Showreel Pop-up -->
+
+    <div id="videoModal" class="video-modal">
+
+        <div class="video-modal-content">
+
+            <span class="close-modal" onclick="closeShowreel()">&times;</span>
+
+            <iframe id="fullVideo" 
+
+                    src="" 
+
+                    title="Barth Faber - Showreel 2026" 
+
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+
+                    allowfullscreen>
+
+            </iframe>
+
+        </div>
+
+    </div>
+
+
+
     <!-- JavaScript -->
+
     <script>
+
         var youtubeVideoId = "BR2MBug7Xc8"; 
 
+
+
         function openShowreel() {
+
             var modal = document.getElementById("videoModal");
+
             var iframe = document.getElementById("fullVideo");
+
             
+
             iframe.src = "https://www.youtube.com/embed/" + youtubeVideoId + "?autoplay=1&rel=0&enablejsapi=1";
+
             modal.style.display = "flex";
+
         }
+
+
 
         function closeShowreel() {
+
             var modal = document.getElementById("videoModal");
+
             var iframe = document.getElementById("fullVideo");
+
             
+
             iframe.src = "";
+
             modal.style.display = "none";
+
         }
+
+
 
         window.onclick = function(event) {
+
             var modal = document.getElementById("videoModal");
+
             if (event.target == modal) {
+
                 closeShowreel();
+
             }
+
         }
+
+
 
         function toggleDropdown(event) {
+
             event.stopPropagation();
+
             var dropdown = document.getElementById('dropdownToggle');
+
             dropdown.classList.toggle('open');
+
         }
+
+
 
         document.addEventListener('click', function() {
+
             var dropdown = document.getElementById('dropdownToggle');
+
             if (dropdown) {
+
                 dropdown.classList.remove('open');
+
             }
+
         });
 
+
+
         function isMobile() {
+
             return window.innerWidth <= 1000;
+
         }
+
+
 
         var fadeTimer;
 
+
+
         function startFadeTimer(duration) {
+
             clearTimeout(fadeTimer);
+
             fadeTimer = setTimeout(function() {
+
                 var photoFrame = document.getElementById("photoFrame");
+
                 if (photoFrame) {
+
                     photoFrame.classList.add("faded");
+
                 }
+
             }, duration);
+
         }
+
+
 
         // Bij laden: 2.5 seconden zichtbaar
+
         startFadeTimer(2500);
 
+
+
         function handleUserActivity() {
+
             if (isMobile()) {
+
                 var photoFrame = document.getElementById("photoFrame");
+
                 if (photoFrame) {
+
                     photoFrame.classList.remove("faded");
+
                     startFadeTimer(1500);
+
                 }
+
             }
+
         }
 
+
+
         window.addEventListener('scroll', handleUserActivity);
+
         window.addEventListener('touchstart', handleUserActivity);
 
+
+
         // EXTRA: Blokkeer de rechtermuisknop op het fotokader
+
         document.getElementById('photoFrame').addEventListener('contextmenu', function(e) {
+
             e.preventDefault();
+
         });
+
     </script>
 
+
+
 </body>
+
 </html>
