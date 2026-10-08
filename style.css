@@ -1,270 +1,625 @@
 /* ==========================================
+
    ALGEMENE STIJLEN & THEMA
+
    ========================================== */
+
 * {
+
     margin: 0;
+
     padding: 0;
+
     box-sizing: border-box;
+
 }
+
+
 
 body {
+
     background-color: #0d0c0c;
+
     color: #f0f0f0;
+
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+
     min-height: 100vh;
+
     overflow-x: hidden;
+
     display: flex;
+
     flex-direction: column;
+
     justify-content: space-between;
+
 }
 
+
+
 /* ==========================================
+
    ACHTERGROND VIDEO & OVERLAY
+
    ========================================== */
+
 .video-background-container {
+
     position: fixed;
+
     top: 0;
+
     left: 0;
+
     width: 100vw;
+
     height: 100vh;
+
     z-index: 0;
+
     overflow: hidden;
+
     cursor: pointer;
+
 }
+
+
 
 .video-background-container video {
+
     width: 100%;
+
     height: 100%;
+
     object-fit: cover;
+
     pointer-events: none;
+
 }
+
+
 
 /* Donkere transparante overlay voor een sfeervol verloop en goed leesbare tekst */
+
 .video-overlay {
+
     position: absolute;
+
     top: 0;
+
     left: 0;
+
     width: 100%;
+
     height: 100%;
+
     background: radial-gradient(circle at 65% 45%, rgba(34, 32, 31, 0.75) 0%, rgba(20, 19, 18, 0.88) 60%, rgba(13, 12, 12, 0.95) 100%);
+
     pointer-events: none;
+
 }
 
+
+
 /* ==========================================
+
    BOVENBALK (HEADER BAR)
+
    ========================================== */
+
 header {
+
     display: flex;
+
     justify-content: space-between;
+
     align-items: center;
+
     padding: 20px 60px;
+
     width: 100%;
+
     z-index: 100;
+
     background-color: rgba(15, 14, 14, 0.85);
+
     backdrop-filter: blur(8px);
+
     border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+
 }
+
+
 
 .logo {
+
     font-weight: bold;
+
     letter-spacing: 3px;
+
     font-size: 1.1rem;
+
 }
+
+
 
 .logo a {
+
     color: #ffffff;
+
     text-decoration: none;
+
 }
+
+
 
 nav ul {
+
     display: flex;
+
     list-style: none;
+
     gap: 30px;
+
 }
+
+
 
 nav ul li {
+
     position: relative;
+
 }
+
+
 
 nav ul li a {
+
     color: #e0e0e0;
+
     text-decoration: none;
+
     font-size: 0.85rem;
+
     letter-spacing: 1px;
+
     text-transform: uppercase;
+
     opacity: 0.8;
+
     transition: opacity 0.3s, color 0.3s;
+
 }
+
+
 
 nav ul li a:hover, 
+
 nav ul li a.active {
+
     opacity: 1;
+
     color: #e74c3c;
+
 }
+
+
 
 /* Dropdown-menu instellingen */
+
 .dropdown-menu {
+
     display: none;
+
     position: absolute;
+
     top: 100%;
+
     left: 0;
-    background-color: #1a1a1a;
-    min-width: 180px;
+
+    background-color: #111111; /* Gelijkgetrokken met de header */
+
+    min-width: 160px;
+
     padding: 10px 0;
+
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+
+    border: 1px solid rgba(255, 255, 255, 0.1);
+
     border-radius: 4px;
+
     z-index: 1000;
+
 }
+
+
 
 .dropdown-menu li {
+
     width: 100%;
+
 }
+
+
 
 .dropdown-menu li a {
+
     display: block;
+
     padding: 10px 20px;
+
     font-size: 0.75rem;
+
     color: #cccccc;
+
     text-transform: uppercase;
+
     letter-spacing: 1px;
+
     white-space: nowrap;
+
     opacity: 0.9;
+
     transition: background-color 0.3s, color 0.3s;
+
 }
+
+
 
 .dropdown-menu li a:hover {
+
     background-color: #252525;
+
     color: #e74c3c;
+
     opacity: 1;
+
 }
 
-nav ul li:hover .dropdown-menu {
-    display: block;
+
+
+/* Op desktop opent het menu bij hover */
+
+@media (min-width: 1001px) {
+
+    nav ul li:hover .dropdown-menu {
+
+        display: block;
+
+    }
+
 }
+
+
 
 /* ==========================================
+
    SOCIAL SIDEBAR (LINKS)
+
    ========================================== */
+
 .social-sidebar {
+
     position: absolute;
+
     left: 40px;
+
     top: 55%;
+
     transform: translateY(-50%);
+
     display: flex;
+
     flex-direction: column;
+
     gap: 25px;
+
     z-index: 10;
+
 }
+
+
 
 .social-sidebar a {
+
     color: #ffffff;
+
     text-decoration: none;
+
     font-size: 0.75rem;
+
     letter-spacing: 2px;
+
     text-transform: uppercase;
+
     writing-mode: vertical-rl;
+
     transform: rotate(180deg);
+
     opacity: 0.6;
+
     transition: opacity 0.3s;
+
 }
+
+
 
 .social-sidebar a:hover {
+
     opacity: 1;
+
 }
 
+
+
 /* ==========================================
+
    ONDERBALK (FOOTER BAR)
+
    ========================================== */
+
 footer {
+
     width: 100%;
+
     padding: 20px;
+
     text-align: center;
+
     font-size: 0.75rem;
+
     color: #888888;
+
     letter-spacing: 1px;
+
     background-color: rgba(15, 14, 14, 0.85);
+
     border-top: 1px solid rgba(255, 255, 255, 0.08);
+
     z-index: 5;
+
 }
 
+
+
 /* ==========================================
+
    FULLSCREEN VIDEO POP-UP (LIGHTBOX)
+
    ========================================== */
+
 .video-modal {
+
     display: none;
+
     position: fixed;
+
     top: 0;
+
     left: 0;
+
     width: 100vw;
+
     height: 100vh;
+
     background-color: rgba(0, 0, 0, 0.92);
+
     z-index: 2000;
+
     justify-content: center;
+
     align-items: center;
+
     backdrop-filter: blur(10px);
+
 }
+
+
 
 .video-modal-content {
+
     position: relative;
+
     width: 85%;
+
     max-width: 1100px;
+
     aspect-ratio: 16 / 9;
+
     box-shadow: 0px 0px 50px rgba(0, 0, 0, 0.9);
+
     border: 1px solid rgba(255, 255, 255, 0.1);
+
 }
+
+
 
 .video-modal-content video {
+
     width: 100%;
+
     height: 100%;
+
     object-fit: contain;
+
     background-color: #000;
+
 }
+
+
 
 .close-modal {
+
     position: absolute;
+
     top: -45px;
+
     right: 0;
+
     color: #ffffff;
+
     font-size: 2rem;
+
     font-weight: bold;
+
     cursor: pointer;
+
     transition: color 0.3s;
+
 }
+
+
 
 .close-modal:hover {
+
     color: #e74c3c;
+
 }
 
+
+
 /* ==========================================
-   ALGEMENE RESPONSIVE REGELS
+
+   ALGEMENE RESPONSIVE REGELS (MOBIEL & TABLET)
+
    ========================================== */
-@media (max-width: 900px) {
+
+@media (max-width: 1000px) {
+
     header {
-        padding: 20px;
+
+        padding: 12px 15px;
+
         flex-direction: column;
-        gap: 15px;
+
+        gap: 8px;
+
     }
 
-    nav ul {
-        gap: 15px;
-        flex-wrap: wrap;
-        justify-content: center;
+
+
+    /* Als de mobiel verticaal (portrait) wordt gehouden: alles strak op één rij dicht bij elkaar */
+
+    @media (orientation: portrait) {
+
+        header nav ul {
+
+            display: flex;
+
+            flex-wrap: nowrap;
+
+            justify-content: center;
+
+            gap: 12px;
+
+            width: 100%;
+
+        }
+
+
+
+        header nav ul li {
+
+            flex: unset;
+
+        }
+
+
+
+        header nav ul li a {
+
+            font-size: 0.75rem;
+
+            letter-spacing: 0.2px;
+
+            white-space: nowrap;
+
+        }
+
     }
+
+
+
+    /* Als de mobiel horizontaal (landscape) wordt gehouden */
+
+    @media (orientation: landscape) {
+
+        header nav ul {
+
+            display: flex;
+
+            flex-wrap: nowrap;
+
+            justify-content: center;
+
+            gap: 20px;
+
+        }
+
+    }
+
+
 
     .social-sidebar {
+
         display: none;
+
     }
 
-    .dropdown-menu {
-        position: static;
-        box-shadow: none;
-        background-color: transparent;
-        padding: 5px 0 0 0;
-        text-align: center;
+
+
+    /* Dropdown menu op mobiel (klikt open via JavaScript .open klasse) */
+
+    header nav ul li.has-dropdown {
+
+        position: relative;
+
     }
+
+
+
+    header nav ul li.has-dropdown .dropdown-menu {
+
+        display: none;
+
+        position: absolute;
+
+        top: 100%;
+
+        left: 50%;
+
+        transform: translateX(-50%);
+
+        min-width: 140px;
+
+        background-color: #111111;
+
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.9);
+
+        padding: 8px 0;
+
+        z-index: 100;
+
+    }
+
+
+
+    header nav ul li.has-dropdown.open .dropdown-menu {
+
+        display: block;
+
+    }
+
+
 
     .dropdown-menu li a {
-        padding: 5px 0;
+
+        padding: 8px 15px;
+
         font-size: 0.7rem;
+
     }
+
 }
