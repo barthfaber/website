@@ -16,7 +16,6 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    position: relative;
 }
 
 /* ==========================================
@@ -109,11 +108,10 @@ nav ul li a.active {
     position: absolute;
     top: 100%;
     left: 0;
-    background-color: #111111; /* Gelijkgetrokken met de header */
-    min-width: 160px;
+    background-color: #1a1a1a;
+    min-width: 180px;
     padding: 10px 0;
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
-    border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 4px;
     z-index: 1000;
 }
@@ -140,11 +138,8 @@ nav ul li a.active {
     opacity: 1;
 }
 
-/* Op desktop opent het menu bij hover */
-@media (min-width: 1001px) {
-    nav ul li:hover .dropdown-menu {
-        display: block;
-    }
+nav ul li:hover .dropdown-menu {
+    display: block;
 }
 
 /* ==========================================
@@ -152,25 +147,29 @@ nav ul li a.active {
    ========================================== */
 .social-sidebar {
     position: absolute;
-    left: 120px;
-    bottom: 40px;
+    left: 40px;
+    top: 55%;
+    transform: translateY(-50%);
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 25px;
     z-index: 10;
 }
 
 .social-sidebar a {
-    color: #888888;
+    color: #ffffff;
     text-decoration: none;
-    font-size: 0.8rem;
+    font-size: 0.75rem;
     letter-spacing: 2px;
     text-transform: uppercase;
-    transition: color 0.3s ease;
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+    opacity: 0.6;
+    transition: opacity 0.3s;
 }
 
 .social-sidebar a:hover {
-    color: #e74c3c;
+    opacity: 1;
 }
 
 /* ==========================================
@@ -237,74 +236,35 @@ footer {
 }
 
 /* ==========================================
-   ALGEMENE RESPONSIVE REGELS (MOBIEL & TABLET)
+   ALGEMENE RESPONSIVE REGELS
    ========================================== */
-@media (max-width: 1000px) {
+@media (max-width: 900px) {
     header {
-        padding: 12px 15px;
+        padding: 20px;
         flex-direction: column;
-        gap: 8px;
+        gap: 15px;
     }
 
-    /* Als de mobiel verticaal (portrait) wordt gehouden: alles strak op één rij dicht bij elkaar */
-    @media (orientation: portrait) {
-        header nav ul {
-            display: flex;
-            flex-wrap: nowrap;
-            justify-content: center;
-            gap: 12px;
-            width: 100%;
-        }
-
-        header nav ul li {
-            flex: unset;
-        }
-
-        header nav ul li a {
-            font-size: 0.75rem;
-            letter-spacing: 0.2px;
-            white-space: nowrap;
-        }
-    }
-
-    /* Als de mobiel horizontaal (landscape) wordt gehouden */
-    @media (orientation: landscape) {
-        header nav ul {
-            display: flex;
-            flex-wrap: nowrap;
-            justify-content: center;
-            gap: 20px;
-        }
+    nav ul {
+        gap: 15px;
+        flex-wrap: wrap;
+        justify-content: center;
     }
 
     .social-sidebar {
         display: none;
     }
 
-    /* Dropdown menu op mobiel (klikt open via JavaScript .open klasse) */
-    header nav ul li.has-dropdown {
-        position: relative;
-    }
-
-    header nav ul li.has-dropdown .dropdown-menu {
-        display: none;
-        position: absolute;
-        top: 100%;
-        left: 50%;
-        transform: translateX(-50%);
-        min-width: 140px;
-        background-color: #111111;
-        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.9);
-        padding: 8px 0;
-        z-index: 100;
-    }
-
-    header nav ul li.has-dropdown.open .dropdown-menu {
-        display: block;
+    .dropdown-menu {
+        position: static;
+        box-shadow: none;
+        background-color: transparent;
+        padding: 5px 0 0 0;
+        text-align: center;
     }
 
     .dropdown-menu li a {
-        padding: 8px 15px;
+        padding: 5px 0;
         font-size: 0.7rem;
     }
 }
