@@ -16,6 +16,7 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    position: relative;
 }
 
 /* ==========================================
@@ -151,29 +152,25 @@ nav ul li a.active {
    ========================================== */
 .social-sidebar {
     position: absolute;
-    left: 40px;
-    top: 55%;
-    transform: translateY(-50%);
+    left: 120px;
+    bottom: 40px;
     display: flex;
     flex-direction: column;
-    gap: 25px;
+    gap: 10px;
     z-index: 10;
 }
 
 .social-sidebar a {
-    color: #ffffff;
+    color: #888888;
     text-decoration: none;
-    font-size: 0.75rem;
+    font-size: 0.8rem;
     letter-spacing: 2px;
     text-transform: uppercase;
-    writing-mode: vertical-rl;
-    transform: rotate(180deg);
-    opacity: 0.6;
-    transition: opacity 0.3s;
+    transition: color 0.3s ease;
 }
 
 .social-sidebar a:hover {
-    opacity: 1;
+    color: #e74c3c;
 }
 
 /* ==========================================
