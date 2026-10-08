@@ -5,6 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="referrer" content="strict-origin-when-cross-origin">
     <title>Gallery - Barth Faber</title>
+    
+    <!-- PRELOAD: Laad de allereerste headshot direct in -->
+    <link rel="preload" href="images/gallery/headshots/foto1.webp" as="image">
+    <link rel="preload" href="images/gallery/headshots/foto2.webp" as="image">
+    <link rel="preload" href="images/gallery/headshots/foto3.webp" as="image">
+    <link rel="preload" href="images/gallery/headshots/foto4.webp" as="image">
+
     <link rel="stylesheet" href="style.css">
     <style>
         /* Specifieke stijlen voor de Galerie-pagina */
@@ -414,9 +421,12 @@
                 const fullPath = folderPath + item.file;
                 const captionHtml = item.text ? `<div class="gallery-caption">${item.text}</div>` : '';
                 
+                // De eerste 4 foto's laden we direct in (eager), de rest pas bij scrollen (lazy)
+                const loadingAttr = globalIndex < 4 ? 'eager' : 'lazy';
+                
                 container.innerHTML += `
                     <div class="gallery-item" onclick="openLightbox(${globalIndex})">
-                        <img src="${fullPath}" alt="Barth Faber Portfolio" loading="lazy" oncontextmenu="return false;" draggable="false">
+                        <img src="${fullPath}" alt="Barth Faber Portfolio" loading="${loadingAttr}" oncontextmenu="return false;" draggable="false">
                         ${captionHtml}
                     </div>
                 `;
