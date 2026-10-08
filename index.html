@@ -313,7 +313,7 @@
             <h1>Barth Faber</h1>
             <h2>Actor & Model</h2>
             <p class="hero-tagline">Based in The Netherlands &mdash; Available Worldwide</p>
-            <a href="javascript:void(0)" class="showreel-link" onclick="openShowreel()">&#9658; Showreel</a>
+            <a href="javascript:void(0)" class="showreel-link" onclick="openShowreel()">&#9658; Play Showreel</a>
             
             <!-- Socials zichtbaar op mobiel -->
             <div class="mobile-socials">
@@ -326,7 +326,7 @@
         <!-- Enkele Foto Presentatie met Zwart Kader -->
         <div class="hero-image">
             <div class="frame-container" id="photoFrame">
-                <img src="images/gallery/headshots/foto1.webp" alt="Barth Faber - Actor & Model">
+                <img src="images/gallery/headshots/foto1.webp" alt="Barth Faber - Actor & Model" loading="lazy">
             </div>
         </div>
     </section>
@@ -395,26 +395,27 @@
 
         var fadeTimer;
 
-        function startFadeTimer() {
+        // Functie om de timer te starten met een op te geven duur in milliseconden
+        function startFadeTimer(duration) {
             clearTimeout(fadeTimer);
             fadeTimer = setTimeout(function() {
                 var photoFrame = document.getElementById("photoFrame");
                 if (photoFrame) {
                     photoFrame.classList.add("faded");
                 }
-            }, 3000);
+            }, duration);
         }
 
-        // Start de timer direct bij laden
-        startFadeTimer();
+        // Bij het laden van de pagina: 3 seconden (3000 ms) zichtbaar
+        startFadeTimer(3000);
 
-        // Zodra de gebruiker scrollt of tikt op mobiel
+        // Zodra de gebruiker scrollт of tikt op mobiel: 2 seconden (2000 ms) zichtbaar
         function handleUserActivity() {
             if (isMobile()) {
                 var photoFrame = document.getElementById("photoFrame");
                 if (photoFrame) {
                     photoFrame.classList.remove("faded");
-                    startFadeTimer();
+                    startFadeTimer(2000);
                 }
             }
         }
