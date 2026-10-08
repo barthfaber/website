@@ -19,7 +19,7 @@
             flex: 1;
             padding: 40px 40px 60px 110px;
             width: 100%;
-            max-width: 1400px;
+            max-width: 1500px;
             margin: 0 auto;
         }
 
@@ -56,10 +56,10 @@
             margin-top: 5px;
         }
 
-        /* Foto's ongeveer 1,5x zo groot gemaakt (van 250px naar 380px) */
+        /* Altijd exact 4 foto's naast elkaar op desktop */
         .gallery-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+            grid-template-columns: repeat(4, 1fr);
             gap: 16px;
         }
 
@@ -275,10 +275,17 @@
             }
         }
 
-        @media (max-width: 900px) {
+        @media (max-width: 1100px) {
+            /* Op kleinere schermen (tablets) schakelen we handig terug naar 2 of 3 kolommen zodat het mooi blijft passen */
+            .gallery-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 600px) {
             .page-section { padding: 20px 20px 40px 20px; }
             .page-title { font-size: 2rem; margin-bottom: 25px; }
-            .gallery-grid { grid-template-columns: repeat(auto-fill, minmax(100%, 1fr)); gap: 15px; }
+            .gallery-grid { grid-template-columns: 1fr; gap: 15px; } /* Op telefoons 1 foto per rij */
             .lightbox-close { top: 15px; right: 20px; }
             .lightbox-arrow { padding: 8px 12px; font-size: 1.5rem; }
             .lightbox-prev { left: 10px; }
