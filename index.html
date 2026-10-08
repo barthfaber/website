@@ -88,6 +88,34 @@
         }
 
         /* ==========================================
+            AANGEPASTE DESKTOP SOCIALS (UITGELEIND MET TEKST)
+           ========================================== */
+        .social-sidebar {
+            position: absolute;
+            left: 120px;
+            top: 245px; /* Exact uitgelijnd op de hoogte van het tekstblok */
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            z-index: 10;
+        }
+
+        .social-sidebar a {
+            color: #888888;
+            text-decoration: none;
+            font-size: 0.8rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            writing-mode: vertical-rl;
+            transform: rotate(180deg);
+            transition: color 0.3s ease;
+        }
+
+        .social-sidebar a:hover {
+            color: #e74c3c;
+        }
+
+        /* ==========================================
             FOTO PRESENTATIE MET ZWART KADER & FADE-IN
            ========================================== */
         .hero-image {
@@ -239,7 +267,7 @@
             }
 
             .social-sidebar {
-                display: none;
+                display: none; /* Verberg desktop sidebar op mobiel */
             }
 
             .mobile-socials {
@@ -313,7 +341,7 @@
         </nav>
     </header>
 
-    <!-- Socials Sidebar (Desktop) -->
+    <!-- Socials Sidebar (Desktop - nu strak uitgelijnd met de tekst) -->
     <div class="social-sidebar">
         <a href="https://www.youtube.com/@barthfaber3272" target="_blank" rel="noopener noreferrer">Youtube</a>
         <a href="https://www.instagram.com/barthfaber/" target="_blank" rel="noopener noreferrer">Instagram</a>
