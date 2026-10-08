@@ -4,6 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Barth Faber - Actor & Model</title>
+    
+    <!-- PRELOAD: Zorg dat de browser deze zwaardere bestanden direct ophaalt -->
+    <link rel="preload" href="images/gallery/headshots/foto1.webp" as="image">
+    <link rel="preload" href="videos/Showreel 2026(No sound).mp4" as="video" type="video/mp4">
+
     <link rel="stylesheet" href="style.css">
     <style>
         /* ==========================================
@@ -83,7 +88,7 @@
         }
 
         /* ==========================================
-            FOTO PRESENTATIE MET ZWART KADER
+            FOTO PRESENTATIE MET ZWART KADER & FADE-IN
            ========================================== */
         .hero-image {
             position: relative;
@@ -121,6 +126,16 @@
             display: block;
             border-radius: 2px;
             object-fit: cover;
+            animation: fadeInAsset 0.6s ease-in-out;
+        }
+
+        .video-background-container video {
+            animation: fadeInAsset 0.6s ease-in-out;
+        }
+
+        @keyframes fadeInAsset {
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
 
         .video-modal-content iframe {
@@ -149,7 +164,6 @@
                 gap: 8px;
             }
 
-            /* Verticaal: alle 4 opties naast elkaar op één rij */
             @media (orientation: portrait) {
                 header nav ul {
                     display: flex;
@@ -170,7 +184,6 @@
                 }
             }
 
-            /* Horizontaal */
             @media (orientation: landscape) {
                 header nav ul {
                     display: flex;
@@ -281,7 +294,7 @@
         <div class="video-overlay"></div>
     </div>
 
-    <!-- Navigatie (Vertrouwd: Logo links, Menu rechts) -->
+    <!-- Navigatie -->
     <header>
         <div class="logo"><a href="/">Barth Faber</a></div>
         <nav>
@@ -326,17 +339,17 @@
         <!-- Enkele Foto Presentatie met Zwart Kader -->
         <div class="hero-image">
             <div class="frame-container" id="photoFrame">
-                <img src="images/gallery/headshots/foto1.webp" alt="Barth Faber - Actor & Model" loading="lazy">
+                <img src="images/gallery/headshots/foto1.webp" alt="Barth Faber - Actor & Model">
             </div>
         </div>
     </section>
 
-    <!-- Footer (Onderbalk) -->
+    <!-- Footer -->
     <footer>
         <p>&copy; 2026 Barth Faber. Alle rechten voorbehouden.</p>
     </footer>
 
-    <!-- Fullscreen Showreel Pop-up (YouTube Embed) -->
+    <!-- Fullscreen Showreel Pop-up -->
     <div id="videoModal" class="video-modal">
         <div class="video-modal-content">
             <span class="close-modal" onclick="closeShowreel()">&times;</span>
@@ -349,7 +362,7 @@
         </div>
     </div>
 
-    <!-- JavaScript voor de YouTube Pop-up, Klik-menu en Timed Fade-out bij Scroll/Touch -->
+    <!-- JavaScript -->
     <script>
         var youtubeVideoId = "BR2MBug7Xc8"; 
 
@@ -395,7 +408,6 @@
 
         var fadeTimer;
 
-        // Functie om de timer te starten met een op te geven duur in milliseconden
         function startFadeTimer(duration) {
             clearTimeout(fadeTimer);
             fadeTimer = setTimeout(function() {
@@ -406,10 +418,9 @@
             }, duration);
         }
 
-        // Bij het laden van de pagina: 3 seconden (3000 ms) zichtbaar
+        // Bij laden: 2.5 seconden zichtbaar
         startFadeTimer(2500);
 
-        // Zodra de gebruiker scrollт of tikt op mobiel: 1,5 seconden (1500 ms) zichtbaar
         function handleUserActivity() {
             if (isMobile()) {
                 var photoFrame = document.getElementById("photoFrame");
