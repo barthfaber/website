@@ -6,7 +6,7 @@
     <meta name="referrer" content="strict-origin-when-cross-origin">
     <title>Gallery - Barth Faber</title>
     
-    <!-- PRELOAD: Laad de allereerste headshot direct in -->
+    <!-- PRELOAD -->
     <link rel="preload" href="images/gallery/headshots/foto1.webp" as="image">
     <link rel="preload" href="images/gallery/headshots/foto2.webp" as="image">
     <link rel="preload" href="images/gallery/headshots/foto3.webp" as="image">
@@ -56,19 +56,20 @@
             margin-top: 5px;
         }
 
+        /* Naadloos grid zonder witte randen of achtergrond */
         .gallery-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 20px;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 12px;
         }
 
         .gallery-item {
             position: relative;
             aspect-ratio: 3 / 4;
             overflow: hidden;
-            background-color: #ffffff;
-            padding: 10px;
-            border-radius: 2px;
+            background-color: transparent; /* Geen witte achtergrond meer */
+            padding: 0;                    /* Geen witte randen/padding meer */
+            border-radius: 0;              /* Strakke hoeken zoals op de oude site */
             cursor: pointer;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -79,7 +80,7 @@
             height: 100%;
             object-fit: cover;
             display: block;
-            transition: filter 0.3s ease;
+            transition: filter 0.3s ease, transform 0.3s ease;
         }
 
         .gallery-caption {
@@ -87,10 +88,10 @@
             bottom: 0;
             left: 0;
             right: 0;
-            background: rgba(0, 0, 0, 0.75);
+            background: rgba(0, 0, 0, 0.8);
             color: #ffffff;
             font-size: 0.8rem;
-            padding: 8px 10px;
+            padding: 10px;
             text-align: center;
             opacity: 0;
             transition: opacity 0.3s ease;
@@ -101,12 +102,14 @@
         }
 
         .gallery-item:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.7);
+            transform: translateY(-4px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.8);
+            z-index: 2;
         }
 
         .gallery-item:hover img {
-            filter: brightness(1.05);
+            filter: brightness(1.08);
+            transform: scale(1.02);
         }
 
         /* LIGHTBOX STIJLEN */
@@ -117,7 +120,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.92);
+            background-color: rgba(0, 0, 0, 0.95);
             z-index: 1000;
             justify-content: center;
             align-items: center;
@@ -139,8 +142,8 @@
             max-width: 100%;
             max-height: 75vh;
             object-fit: contain;
-            background-color: #ffffff;
-            padding: 12px;
+            background-color: transparent; /* Ook in lightbox geen witte rand om de foto */
+            padding: 0;
             border-radius: 2px;
             box-shadow: 0 15px 40px rgba(0, 0, 0, 0.9);
             pointer-events: none;
@@ -275,7 +278,7 @@
         @media (max-width: 900px) {
             .page-section { padding: 20px 20px 40px 20px; }
             .page-title { font-size: 2rem; margin-bottom: 25px; }
-            .gallery-grid { grid-template-columns: repeat(auto-fill, minmax(100%, 1fr)); gap: 20px; }
+            .gallery-grid { grid-template-columns: repeat(auto-fill, minmax(100%, 1fr)); gap: 15px; }
             .lightbox-close { top: 15px; right: 20px; }
             .lightbox-arrow { padding: 8px 12px; font-size: 1.5rem; }
             .lightbox-prev { left: 10px; }
@@ -421,7 +424,6 @@
                 const fullPath = folderPath + item.file;
                 const captionHtml = item.text ? `<div class="gallery-caption">${item.text}</div>` : '';
                 
-                // De eerste 4 foto's laden we direct in (eager), de rest pas bij scrollen (lazy)
                 const loadingAttr = globalIndex < 4 ? 'eager' : 'lazy';
                 
                 container.innerHTML += `
