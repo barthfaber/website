@@ -56,20 +56,20 @@
             margin-top: 5px;
         }
 
-        /* Naadloos grid zonder witte randen of achtergrond */
+        /* Foto's ongeveer 1,5x zo groot gemaakt (van 250px naar 380px) */
         .gallery-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            gap: 12px;
+            grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+            gap: 16px;
         }
 
         .gallery-item {
             position: relative;
             aspect-ratio: 3 / 4;
             overflow: hidden;
-            background-color: transparent; /* Geen witte achtergrond meer */
-            padding: 0;                    /* Geen witte randen/padding meer */
-            border-radius: 0;              /* Strakke hoeken zoals op de oude site */
+            background-color: transparent;
+            padding: 0;
+            border-radius: 0;
             cursor: pointer;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -142,7 +142,7 @@
             max-width: 100%;
             max-height: 75vh;
             object-fit: contain;
-            background-color: transparent; /* Ook in lightbox geen witte rand om de foto */
+            background-color: transparent;
             padding: 0;
             border-radius: 2px;
             box-shadow: 0 15px 40px rgba(0, 0, 0, 0.9);
