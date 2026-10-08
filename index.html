@@ -409,13 +409,13 @@
         // Bij het laden van de pagina: 3 seconden (3000 ms) zichtbaar
         startFadeTimer(3000);
 
-        // Zodra de gebruiker scrollт of tikt op mobiel: 2 seconden (2000 ms) zichtbaar
+        // Zodra de gebruiker scrollт of tikt op mobiel: 1,5 seconden (1500 ms) zichtbaar
         function handleUserActivity() {
             if (isMobile()) {
                 var photoFrame = document.getElementById("photoFrame");
                 if (photoFrame) {
                     photoFrame.classList.remove("faded");
-                    startFadeTimer(2000);
+                    startFadeTimer(1500);
                 }
             }
         }
