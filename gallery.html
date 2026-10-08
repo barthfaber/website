@@ -19,7 +19,7 @@
             flex: 1;
             padding: 40px 40px 60px 110px;
             width: 100%;
-            max-width: 1500px;
+            max-width: 1600px;
             margin: 0 auto;
         }
 
@@ -56,7 +56,7 @@
             margin-top: 5px;
         }
 
-        /* Altijd exact 4 foto's naast elkaar op desktop */
+        /* Exact 4 kolommen naast elkaar */
         .gallery-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
@@ -65,7 +65,8 @@
 
         .gallery-item {
             position: relative;
-            aspect-ratio: 3 / 4;
+            /* Langwerpig verticaal portretformaat (smal en hoog, vergelijkbaar met je oude site) */
+            aspect-ratio: 2 / 2.8; 
             overflow: hidden;
             background-color: transparent;
             padding: 0;
@@ -276,7 +277,6 @@
         }
 
         @media (max-width: 1100px) {
-            /* Op kleinere schermen (tablets) schakelen we handig terug naar 2 of 3 kolommen zodat het mooi blijft passen */
             .gallery-grid {
                 grid-template-columns: repeat(2, 1fr);
             }
@@ -285,7 +285,7 @@
         @media (max-width: 600px) {
             .page-section { padding: 20px 20px 40px 20px; }
             .page-title { font-size: 2rem; margin-bottom: 25px; }
-            .gallery-grid { grid-template-columns: 1fr; gap: 15px; } /* Op telefoons 1 foto per rij */
+            .gallery-grid { grid-template-columns: 1fr; gap: 15px; }
             .lightbox-close { top: 15px; right: 20px; }
             .lightbox-arrow { padding: 8px 12px; font-size: 1.5rem; }
             .lightbox-prev { left: 10px; }
