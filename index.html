@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Barth Faber - Actor & Model</title>
     
-    <!-- PRELOAD: Zorg dat de browser deze zwaardere bestanden direct ophaalt -->
+    <!-- PRELOAD -->
     <link rel="preload" href="images/gallery/headshots/foto1.webp" as="image">
     <link rel="preload" href="videos/Showreel 2026(No sound).mp4" as="video" type="video/mp4">
 
@@ -64,14 +64,21 @@
             margin-bottom: 35px;
         }
 
-        .showreel-link {
+        /* Container voor de knoppen zodat ze mooi gegroepeerd staan */
+        .hero-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .action-btn {
             display: inline-block;
             color: #ffffff;
             background-color: rgba(255, 255, 255, 0.08);
             border: 1px solid rgba(255, 255, 255, 0.3);
-            padding: 15px 30px;
+            padding: 12px 24px;
             text-decoration: none;
-            font-size: 0.88rem;
+            font-size: 0.85rem;
             letter-spacing: 2px;
             text-transform: uppercase;
             font-weight: bold;
@@ -80,7 +87,7 @@
             transition: all 0.3s ease;
         }
 
-        .showreel-link:hover {
+        .action-btn:hover {
             background-color: #e74c3c;
             border-color: #e74c3c;
             color: #ffffff;
@@ -136,12 +143,6 @@
         @keyframes fadeInAsset {
             from { opacity: 0; }
             to { opacity: 1; }
-        }
-
-        .video-modal-content iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
         }
 
         /* Dropdown achtergrondkleur exact gelijk aan het hoofdmenu */
@@ -287,7 +288,7 @@
 <body>
 
     <!-- Geruisloze Achtergrond Video -->
-    <div class="video-background-container" onclick="openShowreel()">
+    <div class="video-background-container">
         <video autoplay loop muted playsinline id="bgVideo">
             <source src="videos/Showreel 2026(No sound).mp4" type="video/mp4">
         </video>
@@ -326,7 +327,13 @@
             <h1>Barth Faber</h1>
             <h2>Actor & Model</h2>
             <p class="hero-tagline">Based in The Netherlands &mdash; Available Worldwide</p>
-            <a href="javascript:void(0)" class="showreel-link" onclick="openShowreel()">&#9658; Play Showreel</a>
+            
+            <!-- Knoppen-groep (Showreel, Resume, Contact) -->
+            <div class="hero-buttons">
+                <a href="showreel.html" class="action-btn">&#9658; Showreel</a>
+                <a href="resume.html" class="action-btn">Resume</a>
+                <a href="contact.html" class="action-btn">Contact</a>
+            </div>
             
             <!-- Socials zichtbaar op mobiel -->
             <div class="mobile-socials">
@@ -349,58 +356,8 @@
         <p>&copy; 2026 Barth Faber. Alle rechten voorbehouden.</p>
     </footer>
 
-    <!-- Fullscreen Showreel Pop-up -->
-    <div id="videoModal" class="video-modal">
-        <div class="video-modal-content">
-            <span class="close-modal" onclick="closeShowreel()">&times;</span>
-            <iframe id="fullVideo" 
-                    src="" 
-                    title="Barth Faber - Showreel 2026" 
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-                    allowfullscreen>
-            </iframe>
-        </div>
-    </div>
-
     <!-- JavaScript -->
     <script>
-        var youtubeVideoId = "vEOqapYtBpo"; 
-
-        function openShowreel() {
-            var modal = document.getElementById("videoModal");
-            var iframe = document.getElementById("fullVideo");
-            var bgVideo = document.getElementById("bgVideo");
-            
-            // Achtergrondvideo pauzeren zodat de showreel soepel draait zonder stotteren
-            if (bgVideo) {
-                bgVideo.pause();
-            }
-
-            iframe.src = "https://www.youtube.com/embed/" + youtubeVideoId + "?autoplay=1&rel=0&enablejsapi=1";
-            modal.style.display = "flex";
-        }
-
-        function closeShowreel() {
-            var modal = document.getElementById("videoModal");
-            var iframe = document.getElementById("fullVideo");
-            var bgVideo = document.getElementById("bgVideo");
-            
-            // Achtergrondvideo weer laten spelen zodra de modal sluit
-            if (bgVideo) {
-                bgVideo.play();
-            }
-
-            iframe.src = "";
-            modal.style.display = "none";
-        }
-
-        window.onclick = function(event) {
-            var modal = document.getElementById("videoModal");
-            if (event.target == modal) {
-                closeShowreel();
-            }
-        }
-
         function toggleDropdown(event) {
             event.stopPropagation();
             var dropdown = document.getElementById('dropdownToggle');
