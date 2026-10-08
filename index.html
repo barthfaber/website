@@ -14,6 +14,13 @@
         /* ==========================================
             SPECIFIEKE HOMEPAGE HERO STIJLEN
            ========================================== */
+        body {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
         .hero-section {
             position: relative;
             flex: 1;
@@ -34,6 +41,8 @@
         .hero-content {
             max-width: 550px;
             z-index: 5;
+            position: relative;
+            padding-bottom: 40px; /* Ruimte voor de socials eronder */
         }
 
         .hero-content h1 {
@@ -88,15 +97,15 @@
         }
 
         /* ==========================================
-            AANGEPASTE DESKTOP SOCIALS (UITGELEIND MET TEKST)
+            SOCIALS SIDEBAR (Nets uitgelijnd bij de content)
            ========================================== */
         .social-sidebar {
             position: absolute;
             left: 120px;
-            top: 245px; /* Exact uitgelijnd op de hoogte van het tekstblok */
+            bottom: 30px;
             display: flex;
             flex-direction: column;
-            gap: 15px;
+            gap: 8px;
             z-index: 10;
         }
 
@@ -104,10 +113,8 @@
             color: #888888;
             text-decoration: none;
             font-size: 0.8rem;
-            letter-spacing: 2px;
             text-transform: uppercase;
-            writing-mode: vertical-rl;
-            transform: rotate(180deg);
+            letter-spacing: 2px;
             transition: color 0.3s ease;
         }
 
@@ -267,7 +274,7 @@
             }
 
             .social-sidebar {
-                display: none; /* Verberg desktop sidebar op mobiel */
+                display: none;
             }
 
             .mobile-socials {
@@ -341,13 +348,6 @@
         </nav>
     </header>
 
-    <!-- Socials Sidebar (Desktop - nu strak uitgelijnd met de tekst) -->
-    <div class="social-sidebar">
-        <a href="https://www.youtube.com/@barthfaber3272" target="_blank" rel="noopener noreferrer">Youtube</a>
-        <a href="https://www.instagram.com/barthfaber/" target="_blank" rel="noopener noreferrer">Instagram</a>
-        <a href="https://www.facebook.com/profile.php?id=100090867703374" target="_blank" rel="noopener noreferrer">Facebook</a>
-    </div>
-
     <!-- Hero Sectie -->
     <section class="hero-section">
         <div class="hero-content">
@@ -356,6 +356,13 @@
             <p class="hero-tagline">Based in The Netherlands &mdash; Available Worldwide</p>
             <a href="javascript:void(0)" class="showreel-link" onclick="openShowreel()">&#9658; Play Showreel</a>
             
+            <!-- Socials Sidebar (Desktop) - Nu netjes verankerd onder de content -->
+            <div class="social-sidebar">
+                <a href="https://www.youtube.com/@barthfaber3272" target="_blank" rel="noopener noreferrer">Youtube</a>
+                <a href="https://www.instagram.com/barthfaber/" target="_blank" rel="noopener noreferrer">Instagram</a>
+                <a href="https://www.facebook.com/profile.php?id=100090867703374" target="_blank" rel="noopener noreferrer">Facebook</a>
+            </div>
+
             <!-- Socials zichtbaar op mobiel -->
             <div class="mobile-socials">
                 <a href="https://www.youtube.com/@barthfaber3272" target="_blank" rel="noopener noreferrer">Youtube</a>
