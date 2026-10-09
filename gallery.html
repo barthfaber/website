@@ -61,12 +61,6 @@
             background-color: rgba(30, 28, 28, 0.9);
         }
 
-        .category-title-wrapper {
-            display: flex;
-            align-items: baseline;
-            gap: 12px;
-        }
-
         .category-title {
             font-size: 1.3rem;
             font-weight: 400;
@@ -77,14 +71,7 @@
             white-space: nowrap;
         }
 
-        .category-count {
-            font-size: 0.85rem;
-            color: #888888;
-            letter-spacing: 1px;
-            white-space: nowrap;
-        }
-
-        /* Duidelijke actie-knop rechts met een plusteken/minteken */
+        /* Duidelijke actie-knop rechts met show/hide */
         .category-toggle-btn {
             font-size: 0.8rem;
             letter-spacing: 1px;
@@ -113,7 +100,7 @@
 
         /* Wanneer opengeklapt via de .open klasse */
         .gallery-category.open .gallery-grid-wrapper {
-            max-height: 5000px; /* Ruim genoeg zodat alle foto's erin passen */
+            max-height: 5000px;
             transition: max-height 1s ease-in-out;
             padding: 25px;
         }
@@ -352,11 +339,8 @@
             .page-section { padding: 20px 15px 40px 15px; }
             .page-title { font-size: 2rem; margin-bottom: 25px; }
             
-            /* Compacte mobiele stijlen om alles netjes op één lijn te houden */
-            .category-header { padding: 12px 15px; gap: 8px; }
-            .category-title-wrapper { gap: 6px; }
+            .category-header { padding: 12px 15px; }
             .category-title { font-size: 0.85rem; letter-spacing: 0.5px; }
-            .category-count { font-size: 0.7rem; }
             .category-toggle-btn { font-size: 0.65rem; padding: 4px 8px; }
 
             .gallery-grid { grid-template-columns: 1fr; gap: 15px; }
@@ -399,10 +383,7 @@
         <!-- Categorie 1: Headshots -->
         <div class="gallery-category" id="cat-headshots">
             <div class="category-header" onclick="toggleCategory('cat-headshots')">
-                <div class="category-title-wrapper">
-                    <h2 class="category-title">Headshots & Casting</h2>
-                    <span class="category-count" id="count-headshots"></span>
-                </div>
+                <h2 class="category-title">Headshots & Casting</h2>
                 <span class="category-toggle-btn" id="btn-headshots">[ + Show ]</span>
             </div>
             <div class="gallery-grid-wrapper">
@@ -413,10 +394,7 @@
         <!-- Categorie 2: Modeling -->
         <div class="gallery-category" id="cat-modeling">
             <div class="category-header" onclick="toggleCategory('cat-modeling')">
-                <div class="category-title-wrapper">
-                    <h2 class="category-title">Modeling</h2>
-                    <span class="category-count" id="count-modeling"></span>
-                </div>
+                <h2 class="category-title">Modeling</h2>
                 <span class="category-toggle-btn" id="btn-modeling">[ + Show ]</span>
             </div>
             <div class="gallery-grid-wrapper">
@@ -427,10 +405,7 @@
         <!-- Categorie 3: Film Stills -->
         <div class="gallery-category" id="cat-filmstills">
             <div class="category-header" onclick="toggleCategory('cat-filmstills')">
-                <div class="category-title-wrapper">
-                    <h2 class="category-title">Film Stills</h2>
-                    <span class="category-count" id="count-filmstills"></span>
-                </div>
+                <h2 class="category-title">Film Stills</h2>
                 <span class="category-toggle-btn" id="btn-filmstills">[ + Show ]</span>
             </div>
             <div class="gallery-grid-wrapper">
@@ -512,15 +487,12 @@
         
         const allItems = [
             ...headshots.map(item => ({ path: headshotsFolder + item.file, text: item.text })),
-            ...modeling.map(item => ({ path: modelingFolder + item.file, text: item.text })) ,
+            ...modeling.map(item => ({ path: modelingFolder + item.file, text: item.text })),
             ...filmStills.map(item => ({ path: stillsFolder + item.file, text: item.text }))
         ];
 
-        function renderCategory(containerId, itemsArray, folderPath, startIndex, countId) {
+        function renderCategory(containerId, itemsArray, folderPath, startIndex) {
             const container = document.getElementById(containerId);
-            const countElement = document.getElementById(countId);
-            
-            countElement.textContent = `(${itemsArray.length} photos)`;
 
             itemsArray.forEach((item, index) => {
                 const globalIndex = startIndex + index; 
@@ -538,9 +510,9 @@
             });
         }
 
-        renderCategory('grid-headshots', headshots, headshotsFolder, 0, 'count-headshots');
-        renderCategory('grid-modeling', modeling, modelingFolder, headshots.length, 'count-modeling');
-        renderCategory('grid-filmstills', filmStills, stillsFolder, headshots.length + modeling.length, 'count-filmstills');
+        renderCategory('grid-headshots', headshots, headshotsFolder, 0);
+        renderCategory('grid-modeling', modeling, modelingFolder, headshots.length);
+        renderCategory('grid-filmstills', filmStills, stillsFolder, headshots.length + modeling.length);
         
         function toggleCategory(categoryId) {
             const element = document.getElementById(categoryId);
