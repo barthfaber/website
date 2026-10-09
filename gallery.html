@@ -33,27 +33,81 @@
         }
 
         .gallery-category {
-            margin-bottom: 60px;
+            margin-bottom: 25px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 4px;
+            background-color: rgba(20, 19, 18, 0.6);
+            overflow: hidden;
+            transition: border-color 0.3s ease;
         }
 
+        .gallery-category:hover {
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        /* Klikbare header voor de accordion */
         .category-header {
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            padding-bottom: 10px;
-            margin-bottom: 25px;
+            padding: 20px 25px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            user-select: none;
+            background-color: rgba(15, 14, 14, 0.8);
+            transition: background-color 0.3s ease;
+        }
+
+        .category-header:hover {
+            background-color: rgba(30, 28, 28, 0.9);
         }
 
         .category-title {
-            font-size: 1.5rem;
+            font-size: 1.3rem;
             font-weight: 400;
             letter-spacing: 1px;
             color: #e74c3c;
             text-transform: uppercase;
+            margin: 0;
+            white-space: nowrap;
         }
 
-        .category-desc {
-            font-size: 0.9rem;
-            color: #888888;
-            margin-top: 5px;
+        /* Duidelijke actie-knop rechts met show/hide */
+        .category-toggle-btn {
+            font-size: 0.8rem;
+            letter-spacing: 1px;
+            color: #ffffff;
+            background-color: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 6px 14px;
+            border-radius: 2px;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+
+        .category-header:hover .category-toggle-btn {
+            background-color: #e74c3c;
+            border-color: #e74c3c;
+        }
+
+        /* Standaard ingeklapt */
+        .gallery-grid-wrapper {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s cubic-bezier(0, 1, 0, 1);
+            padding: 0 25px;
+        }
+
+        /* Wanneer opengeklapt via de .open klasse */
+        .gallery-category.open .gallery-grid-wrapper {
+            max-height: 5000px;
+            transition: max-height 1s ease-in-out;
+            padding: 25px;
+        }
+
+        .gallery-category.open .category-toggle-btn {
+            background-color: #e74c3c;
+            border-color: #e74c3c;
         }
 
         /* Exact 4 kolommen naast elkaar */
@@ -65,7 +119,6 @@
 
         .gallery-item {
             position: relative;
-            /* Hier ingesteld op het extreem langwerpige 9:16 formaat */
             aspect-ratio: 9 / 16; 
             overflow: hidden;
             background-color: transparent;
@@ -283,8 +336,13 @@
         }
 
         @media (max-width: 600px) {
-            .page-section { padding: 20px 20px 40px 20px; }
+            .page-section { padding: 20px 15px 40px 15px; }
             .page-title { font-size: 2rem; margin-bottom: 25px; }
+            
+            .category-header { padding: 12px 15px; }
+            .category-title { font-size: 0.85rem; letter-spacing: 0.5px; }
+            .category-toggle-btn { font-size: 0.65rem; padding: 4px 8px; }
+
             .gallery-grid { grid-template-columns: 1fr; gap: 15px; }
             .lightbox-close { top: 15px; right: 20px; }
             .lightbox-arrow { padding: 8px 12px; font-size: 1.5rem; }
@@ -322,28 +380,37 @@
     <section class="page-section">
         <h1 class="page-title">Gallery</h1>
         
-        <div class="gallery-category" id="headshots">
-            <div class="category-header">
+        <!-- Categorie 1: Headshots -->
+        <div class="gallery-category" id="cat-headshots">
+            <div class="category-header" onclick="toggleCategory('cat-headshots')">
                 <h2 class="category-title">Headshots & Casting</h2>
-                <p class="category-desc"></p>
+                <span class="category-toggle-btn" id="btn-headshots">[ + Show ]</span>
             </div>
-            <div class="gallery-grid" id="grid-headshots"></div>
+            <div class="gallery-grid-wrapper">
+                <div class="gallery-grid" id="grid-headshots"></div>
+            </div>
         </div>
 
-        <div class="gallery-category" id="modeling">
-            <div class="category-header">
+        <!-- Categorie 2: Modeling -->
+        <div class="gallery-category" id="cat-modeling">
+            <div class="category-header" onclick="toggleCategory('cat-modeling')">
                 <h2 class="category-title">Modeling</h2>
-                <p class="category-desc"></p>
+                <span class="category-toggle-btn" id="btn-modeling">[ + Show ]</span>
             </div>
-            <div class="gallery-grid" id="grid-modeling"></div>
+            <div class="gallery-grid-wrapper">
+                <div class="gallery-grid" id="grid-modeling"></div>
+            </div>
         </div>
 
-        <div class="gallery-category" id="filmstills">
-            <div class="category-header">
+        <!-- Categorie 3: Film Stills -->
+        <div class="gallery-category" id="cat-filmstills">
+            <div class="category-header" onclick="toggleCategory('cat-filmstills')">
                 <h2 class="category-title">Film Stills</h2>
-                <p class="category-desc"></p>
+                <span class="category-toggle-btn" id="btn-filmstills">[ + Show ]</span>
             </div>
-            <div class="gallery-grid" id="grid-filmstills"></div>
+            <div class="gallery-grid-wrapper">
+                <div class="gallery-grid" id="grid-filmstills"></div>
+            </div>
         </div>
     </section>
 
@@ -426,6 +493,7 @@
 
         function renderCategory(containerId, itemsArray, folderPath, startIndex) {
             const container = document.getElementById(containerId);
+
             itemsArray.forEach((item, index) => {
                 const globalIndex = startIndex + index; 
                 const fullPath = folderPath + item.file;
@@ -446,6 +514,20 @@
         renderCategory('grid-modeling', modeling, modelingFolder, headshots.length);
         renderCategory('grid-filmstills', filmStills, stillsFolder, headshots.length + modeling.length);
         
+        function toggleCategory(categoryId) {
+            const element = document.getElementById(categoryId);
+            const isOpen = element.classList.contains('open');
+            const btn = element.querySelector('.category-toggle-btn');
+            
+            element.classList.toggle('open');
+            
+            if (!isOpen) {
+                btn.textContent = '[ - Hide ]';
+            } else {
+                btn.textContent = '[ + Show ]';
+            }
+        }
+
         let currentIndex = 0;
 
         function openLightbox(index) {
