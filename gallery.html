@@ -213,6 +213,28 @@
             min-height: 20px;
         }
 
+        /* Stijl voor de kleur/zwart-wit wisselknop in de lightbox */
+        #color-switch-btn {
+            display: none;
+            margin-top: 10px;
+            background-color: rgba(255, 255, 255, 0.1);
+            color: #ffffff;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            padding: 6px 14px;
+            font-size: 0.75rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            cursor: pointer;
+            border-radius: 2px;
+            transition: all 0.3s ease;
+            pointer-events: auto;
+        }
+
+        #color-switch-btn:hover {
+            background-color: #e74c3c;
+            border-color: #e74c3c;
+        }
+
         .lightbox-close {
             position: absolute;
             top: 25px;
@@ -421,6 +443,7 @@
         <div class="lightbox-container">
             <img id="lightbox-img" class="lightbox-content" src="" alt="Vergrote foto" oncontextmenu="return false;" draggable="false">
             <div id="lightbox-caption"></div>
+            <button id="color-switch-btn" onclick="toggleColorVersion()">Switch to Black & White</button>
         </div>
         
         <div class="lightbox-arrow lightbox-next" onclick="changeSlide(1); event.stopPropagation();">&#10095;</div>
@@ -439,7 +462,11 @@
         ];
 
         const modeling = [
-            { file: "foto1.webp", text: "Photographer: Barth Faber" },
+            { 
+                file: "foto2_kleur(done).webp", 
+                bwFile: "foto2_ZwarWit(Done).webp", // Hier koppel je eenvoudig een zwart-wit versie aan!
+                text: "Photographer: Barth Faber" 
+            },
             { file: "foto.webp", text: "Photographer: Barth Faber" },
             { file: "foto5.webp", text: "Photographer: Barth Faber" },
             { file: "foto2.webp", text: "Photographer: Barth Faber" },
@@ -488,9 +515,9 @@
         const stillsFolder = "images/gallery/filmstills/";
         
         const allItems = [
-            ...headshots.map(item => ({ path: headshotsFolder + item.file, text: item.text })),
-            ...modeling.map(item => ({ path: modelingFolder + item.file, text: item.text })),
-            ...filmStills.map(item => ({ path: stillsFolder + item.file, text: item.text }))
+            ...headshots.map(item => ({ ...item, folder: headshotsFolder })),
+            ...modeling.map(item => ({ ...item, folder: modelingFolder })),
+            ...filmStills.map(item => ({ ...item, folder: stillsFolder }))
         ];
 
         function renderCategory(containerId, itemsArray, folderPath, startIndex) {
@@ -531,9 +558,11 @@
         }
 
         let currentIndex = 0;
+        let isColorVersion = true;
 
         function openLightbox(index) {
             currentIndex = index;
+            isColorVersion = true;
             updateLightboxContent();
             document.getElementById('lightbox').style.display = 'flex';
         }
@@ -555,15 +584,37 @@
             } else if (currentIndex < 0) {
                 currentIndex = allItems.length - 1;
             }
+            isColorVersion = true;
             updateLightboxContent();
         }
 
         function updateLightboxContent() {
             const lightboxImg = document.getElementById('lightbox-img');
             const lightboxCaption = document.getElementById('lightbox-caption');
+            const switchBtn = document.getElementById('color-switch-btn');
             
-            lightboxImg.src = allItems[currentIndex].path;
-            lightboxCaption.textContent = allItems[currentIndex].text;
+            let currentItem = allItems[currentIndex];
+
+            if (currentItem.bwFile) {
+                switchBtn.style.display = 'block';
+                if (isColorVersion) {
+                    lightboxImg.src = currentItem.folder + currentItem.file;
+                    switchBtn.textContent = "Switch to Black & White";
+                } else {
+                    lightboxImg.src = currentItem.folder + currentItem.bwFile;
+                    switchBtn.textContent = "Switch to Color";
+                }
+            } else {
+                switchBtn.style.display = 'none';
+                lightboxImg.src = currentItem.folder + currentItem.file;
+            }
+
+            lightboxCaption.textContent = currentItem.text;
+        }
+
+        function toggleColorVersion() {
+            isColorVersion = !isColorVersion;
+            updateLightboxContent();
         }
 
         function toggleDropdown(event) {
