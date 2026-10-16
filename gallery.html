@@ -192,7 +192,7 @@
             max-height: 90vh;
         }
 
-        /* Wipe Container voor kleur <-> zwart/wit overgang */
+        /* Wipe Container voor kleur <-> zwart/wit overgang & GPU optimalisatie */
         .wipe-container {
             position: relative;
             width: auto;
@@ -201,6 +201,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
+            will-change: transform; /* Dwingt de browser om dit op de grafische kaart te zetten */
         }
 
         .wipe-layer {
@@ -239,23 +240,23 @@
             display: block;
         }
 
-        /* Slide animaties voor het wisselen van foto's */
+        /* Vloeiende hardware-versnelde slide animaties */
         @keyframes slideLeftIn {
-            from { transform: translateX(50px); opacity: 0; }
-            to { transform: translateX(0); opacity: 1; }
+            from { transform: translate3d(50px, 0, 0); opacity: 0; }
+            to { transform: translate3d(0, 0, 0); opacity: 1; }
         }
 
         @keyframes slideRightIn {
-            from { transform: translateX(-50px); opacity: 0; }
-            to { transform: translateX(0); opacity: 1; }
+            from { transform: translate3d(-50px, 0, 0); opacity: 0; }
+            to { transform: translate3d(0, 0, 0); opacity: 1; }
         }
 
         .slide-left {
-            animation: slideLeftIn 0.3s ease-out;
+            animation: slideLeftIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
 
         .slide-right {
-            animation: slideRightIn 0.3s ease-out;
+            animation: slideRightIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
 
         #lightbox-caption {
@@ -529,7 +530,6 @@
                 bwFile: "foto2_ZwarWit(Done).webp", 
                 text: "Photographer: Barth Faber" 
             },
-            { file: "foto.webp", text: "Photographer: Barth Faber" },
             { file: "foto5.webp", text: "Photographer: Barth Faber" },
             { file: "foto2.webp", text: "Photographer: Barth Faber" },
             { file: "PaulinaWesołowska1.webp", text: "Photographer: Paulina Wesołowska" },
@@ -556,14 +556,14 @@
             { file: "Excessen.webp", text: "Excessen (Dir: Daan Verhulst)" },
             { file: "HandenvanZilver.webp", text: "Handen van Zilver (Dir: Mathijs Klingeman)" },
             { file: "Abraham.webp", text: "Abraham (Dir: Tobias Kooijman / Roel Mathijssen)" },
-            { file: "Abraham2.webp", text: "Abraham (Dir: Tobias Kooijman / Roel Mathijssen)" },
+            { file: "Abraham2.webp", text: "Abraham2 (Dir: Tobias Kooijman / Roel Mathijssen)" },
             { file: "Routine.webp", text: "Routine (Dir: Bas van der Steen)" },
             { file: "HetAfscheid.webp", text: "Het Afscheid (Dir: Milan van Helvoort)" },
-            { file: "HetAfscheid3.webp", text: "Het Afscheid (Dir: Milan van Helvoort)" },
+            { file: "HetAfscheid3.webp", text: "Het Afscheid3 (Dir: Milan van Helvoort)" },
             { file: "David.webp", text: "David (Dir: Tijn Severin)" },
-            { file: "David2.webp", text: "David (Dir: Tijn Severin)" },
+            { file: "David2.webp", text: "David2 (Dir: Tijn Severin)" },
             { file: "VaneenAnderPerspectief.webp", text: "Van een Ander Perspectief (Dir: Julian de Bock)" },
-            { file: "VaneenAnderPerspectief2.webp", text: "Van een Ander Perspectief (Dir: Julian de Bock)" },
+            { file: "VaneenAnderPerspectief2.webp", text: "Van een Ander Perspectief 2 (Dir: Julian de Bock)" },
             { file: "GoedHoor.webp", text: "Goed Hoor (Dir: Dylan Geurts)" },
             { file: "HauntingVoice.webp", text: "Haunting Voice (Dir: Madelief Bakker)" },
             { file: "GevallenofGevlogen.webp", text: "Gevallen of Gevlogen (Dir: E. Hoogstrate, T. Kooijman, J. Castelijns)" },
