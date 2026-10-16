@@ -188,48 +188,48 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            max-width: 90%;
-            max-height: 85vh;
-            perspective: 1000px; /* Nodig voor het 3D-omdraai effect */
+            max-width: 90vw;
+            max-height: 90vh;
         }
 
-        /* Wrapper die de flip-animatie uitvoert */
+        /* 3D Flip Card Stijlen */
         .flip-card-inner {
             position: relative;
-            width: 100%;
-            height: 100%;
-            max-height: 75vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            transition: transform 0.6s cubic-bezier(0.4, 0.2, 0.2, 1);
+            width: auto;
+            height: auto;
+            max-height: 78vh;
+            perspective: 1000px;
             transform-style: preserve-3d;
+            transition: transform 0.6s cubic-bezier(0.4, 0.2, 0.2, 1);
         }
 
         .flip-card-inner.is-flipped {
             transform: rotateY(180deg);
         }
 
-        /* Voor- en achterkant van de flip-kaart */
         .flip-card-front, .flip-card-back {
-            position: absolute;
+            position: relative;
             width: 100%;
             height: 100%;
-            max-height: 75vh;
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
             display: flex;
             justify-content: center;
             align-items: center;
-            backface-visibility: hidden;
-            -webkit-backface-visibility: hidden;
         }
 
         .flip-card-back {
+            position: absolute;
+            top: 0;
+            left: 0;
             transform: rotateY(180deg);
         }
 
         .lightbox-content {
-            max-width: 100%;
-            max-height: 75vh;
+            max-width: 85vw;
+            max-height: 78vh;
+            width: auto;
+            height: auto;
             object-fit: contain;
             background-color: transparent;
             padding: 0;
@@ -241,21 +241,21 @@
 
         /* Slide animaties voor het wisselen van foto's */
         @keyframes slideLeftIn {
-            from { transform: translateX(60px); opacity: 0; }
+            from { transform: translateX(50px); opacity: 0; }
             to { transform: translateX(0); opacity: 1; }
         }
 
         @keyframes slideRightIn {
-            from { transform: translateX(-60px); opacity: 0; }
+            from { transform: translateX(-50px); opacity: 0; }
             to { transform: translateX(0); opacity: 1; }
         }
 
         .slide-left {
-            animation: slideLeftIn 0.35s ease-out;
+            animation: slideLeftIn 0.3s ease-out;
         }
 
         .slide-right {
-            animation: slideRightIn 0.35s ease-out;
+            animation: slideRightIn 0.3s ease-out;
         }
 
         #lightbox-caption {
@@ -495,7 +495,7 @@
         <div class="lightbox-arrow lightbox-prev" onclick="changeSlide(-1); event.stopPropagation();">&#10094;</div>
         
         <div class="lightbox-container">
-            <!-- 3D Flip Card Container voor kleur / zwart-wit achterkant -->
+            <!-- 3D Flip Card Container -->
             <div class="flip-card-inner" id="flipCard">
                 <div class="flip-card-front">
                     <img id="lightbox-img-front" class="lightbox-content" src="" alt="Vergrote foto" oncontextmenu="return false;" draggable="false">
@@ -526,7 +526,7 @@
         const modeling = [
             { 
                 file: "foto2_kleur(done).webp", 
-                bwFile: "foto2_ZwarWit(Done).webp", // Achterkant / zwart-wit variant
+                bwFile: "foto2_ZwarWit(Done).webp", 
                 text: "Photographer: Barth Faber" 
             },
             { file: "foto.webp", text: "Photographer: Barth Faber" },
@@ -650,7 +650,6 @@
             isColorVersion = true;
             document.getElementById('flipCard').classList.remove('is-flipped');
             
-            // Bepaal de richtingsanimatie (rechts of links inschuiven)
             const slideClass = direction > 0 ? 'slide-left' : 'slide-right';
             updateLightboxContent(slideClass);
         }
@@ -664,16 +663,14 @@
             
             let currentItem = allItems[currentIndex];
 
-            // Pas animatie toe op de flip card container
             if (animationClass && animationClass !== 'none') {
                 flipCard.classList.remove('slide-left', 'slide-right');
-                void flipCard.offsetWidth; // Herstart animatie
+                void flipCard.offsetWidth;
                 flipCard.classList.add(animationClass);
             } else {
                 flipCard.classList.remove('slide-left', 'slide-right');
             }
 
-            // Vul voor- en achterkant
             imgFront.src = currentItem.folder + currentItem.file;
 
             if (currentItem.bwFile) {
