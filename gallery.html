@@ -166,7 +166,7 @@
             transform: scale(1.02);
         }
 
-        /* LIGHTBOX STIJLEN */
+        /* LIGHTBOX STIJLEN & WIPE CONTAINER */
         .lightbox {
             display: none;
             position: fixed;
@@ -188,13 +188,53 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            max-width: 90%;
-            max-height: 85vh;
+            max-width: 90vw;
+            max-height: 90vh;
+        }
+
+        .wipe-container {
+            position: relative;
+            width: auto;
+            height: auto;
+            max-height: 78vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            animation: lightFadeIn 0.25s ease-out; /* Superlichte, haperingsvrije fade bij elke foto */
+        }
+
+        @keyframes lightFadeIn {
+            from { opacity: 0.4; }
+            to { opacity: 1; }
+        }
+
+        .wipe-layer {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* De zwart-wit laag ligt eroverheen en schuift open/dicht via clip-path */
+        .wipe-layer-back {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            clip-path: inset(0 100% 0 0);
+            transition: clip-path 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .wipe-container.is-bw .wipe-layer-back {
+            clip-path: inset(0 0 0 0);
         }
 
         .lightbox-content {
-            max-width: 100%;
-            max-height: 90vh;
+            max-width: 85vw;
+            max-height: 78vh;
+            width: auto;
+            height: auto;
             object-fit: contain;
             background-color: transparent;
             padding: 0;
@@ -441,7 +481,15 @@
         <div class="lightbox-arrow lightbox-prev" onclick="changeSlide(-1); event.stopPropagation();">&#10094;</div>
         
         <div class="lightbox-container">
-            <img id="lightbox-img" class="lightbox-content" src="" alt="Vergrote foto" oncontextmenu="return false;" draggable="false">
+            <!-- Wipe Container voor de schuivende kleur <-> zwart/wit overgang -->
+            <div class="wipe-container" id="wipeContainer">
+                <div class="wipe-layer wipe-layer-front">
+                    <img id="lightbox-img-front" class="lightbox-content" src="" alt="Vergrote foto" oncontextmenu="return false;" draggable="false">
+                </div>
+                <div class="wipe-layer wipe-layer-back">
+                    <img id="lightbox-img-back" class="lightbox-content" src="" alt="Zwart-wit variant" oncontextmenu="return false;" draggable="false">
+                </div>
+            </div>
             <div id="lightbox-caption"></div>
             <button id="color-switch-btn" onclick="toggleColorVersion()">Switch to Black & White</button>
         </div>
@@ -464,10 +512,9 @@
         const modeling = [
             { 
                 file: "foto2_kleur(done).webp", 
-                bwFile: "foto2_ZwarWit(Done).webp", // Hier koppel je eenvoudig een zwart-wit versie aan!
+                bwFile: "foto2_ZwarWit(Done).webp", 
                 text: "Photographer: Barth Faber" 
             },
-            { file: "foto.webp", text: "Photographer: Barth Faber" },
             { file: "foto5.webp", text: "Photographer: Barth Faber" },
             { file: "foto2.webp", text: "Photographer: Barth Faber" },
             { file: "PaulinaWesołowska1.webp", text: "Photographer: Paulina Wesołowska" },
@@ -494,14 +541,14 @@
             { file: "Excessen.webp", text: "Excessen (Dir: Daan Verhulst)" },
             { file: "HandenvanZilver.webp", text: "Handen van Zilver (Dir: Mathijs Klingeman)" },
             { file: "Abraham.webp", text: "Abraham (Dir: Tobias Kooijman / Roel Mathijssen)" },
-            { file: "Abraham2.webp", text: "Abraham (Dir: Tobias Kooijman / Roel Mathijssen)" },
+            { file: "Abraham2.webp", text: "Abraham2 (Dir: Tobias Kooijman / Roel Mathijssen)" },
             { file: "Routine.webp", text: "Routine (Dir: Bas van der Steen)" },
             { file: "HetAfscheid.webp", text: "Het Afscheid (Dir: Milan van Helvoort)" },
-            { file: "HetAfscheid3.webp", text: "Het Afscheid (Dir: Milan van Helvoort)" },
+            { file: "HetAfscheid3.webp", text: "Het Afscheid3 (Dir: Milan van Helvoort)" },
             { file: "David.webp", text: "David (Dir: Tijn Severin)" },
-            { file: "David2.webp", text: "David (Dir: Tijn Severin)" },
+            { file: "David2.webp", text: "David2 (Dir: Tijn Severin)" },
             { file: "VaneenAnderPerspectief.webp", text: "Van een Ander Perspectief (Dir: Julian de Bock)" },
-            { file: "VaneenAnderPerspectief2.webp", text: "Van een Ander Perspectief (Dir: Julian de Bock)" },
+            { file: "VaneenAnderPerspectief2.webp", text: "Van een Ander Perspectief 2 (Dir: Julian de Bock)" },
             { file: "GoedHoor.webp", text: "Goed Hoor (Dir: Dylan Geurts)" },
             { file: "HauntingVoice.webp", text: "Haunting Voice (Dir: Madelief Bakker)" },
             { file: "GevallenofGevlogen.webp", text: "Gevallen of Gevlogen (Dir: E. Hoogstrate, T. Kooijman, J. Castelijns)" },
@@ -563,6 +610,7 @@
         function openLightbox(index) {
             currentIndex = index;
             isColorVersion = true;
+            document.getElementById('wipeContainer').classList.remove('is-bw');
             updateLightboxContent();
             document.getElementById('lightbox').style.display = 'flex';
         }
@@ -585,36 +633,49 @@
                 currentIndex = allItems.length - 1;
             }
             isColorVersion = true;
+            document.getElementById('wipeContainer').classList.remove('is-bw');
             updateLightboxContent();
         }
 
         function updateLightboxContent() {
-            const lightboxImg = document.getElementById('lightbox-img');
+            const imgFront = document.getElementById('lightbox-img-front');
+            const imgBack = document.getElementById('lightbox-img-back');
             const lightboxCaption = document.getElementById('lightbox-caption');
             const switchBtn = document.getElementById('color-switch-btn');
             
             let currentItem = allItems[currentIndex];
 
+            imgFront.src = currentItem.folder + currentItem.file;
+
             if (currentItem.bwFile) {
                 switchBtn.style.display = 'block';
+                imgBack.src = currentItem.folder + currentItem.bwFile;
+                
                 if (isColorVersion) {
-                    lightboxImg.src = currentItem.folder + currentItem.file;
                     switchBtn.textContent = "Switch to Black & White";
                 } else {
-                    lightboxImg.src = currentItem.folder + currentItem.bwFile;
                     switchBtn.textContent = "Switch to Color";
                 }
             } else {
                 switchBtn.style.display = 'none';
-                lightboxImg.src = currentItem.folder + currentItem.file;
+                imgBack.src = '';
             }
 
             lightboxCaption.textContent = currentItem.text;
         }
 
         function toggleColorVersion() {
+            const wipeContainer = document.getElementById('wipeContainer');
             isColorVersion = !isColorVersion;
-            updateLightboxContent();
+            const switchBtn = document.getElementById('color-switch-btn');
+
+            if (!isColorVersion) {
+                wipeContainer.classList.add('is-bw');
+                switchBtn.textContent = "Switch to Color";
+            } else {
+                wipeContainer.classList.remove('is-bw');
+                switchBtn.textContent = "Switch to Black & White";
+            }
         }
 
         function toggleDropdown(event) {
