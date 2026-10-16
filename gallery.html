@@ -200,6 +200,12 @@
             display: flex;
             justify-content: center;
             align-items: center;
+            animation: lightFadeIn 0.25s ease-out; /* Superlichte, haperingsvrije fade bij elke foto */
+        }
+
+        @keyframes lightFadeIn {
+            from { opacity: 0.4; }
+            to { opacity: 1; }
         }
 
         .wipe-layer {
@@ -236,27 +242,6 @@
             box-shadow: 0 15px 40px rgba(0, 0, 0, 0.9);
             pointer-events: none;
             display: block;
-        }
-
-        /* Vloeiende hardware-versnelde slide animaties op de afbeeldingen zelf */
-        @keyframes slideLeftIn {
-            0% { transform: translate3d(50px, 0, 0); opacity: 0; }
-            100% { transform: translate3d(0, 0, 0); opacity: 1; }
-        }
-
-        @keyframes slideRightIn {
-            0% { transform: translate3d(-50px, 0, 0); opacity: 0; }
-            100% { transform: translate3d(0, 0, 0); opacity: 1; }
-        }
-
-        .slide-left {
-            animation: slideLeftIn 0.28s cubic-bezier(0.1, 0.9, 0.2, 1) forwards;
-            will-change: transform, opacity;
-        }
-
-        .slide-right {
-            animation: slideRightIn 0.28s cubic-bezier(0.1, 0.9, 0.2, 1) forwards;
-            will-change: transform, opacity;
         }
 
         #lightbox-caption {
@@ -622,15 +607,11 @@
         let currentIndex = 0;
         let isColorVersion = true;
 
- class AnimationHelper {
-            // Hulpfunctie om animatie klassen netjes op te schonen
-        }
-
         function openLightbox(index) {
             currentIndex = index;
             isColorVersion = true;
             document.getElementById('wipeContainer').classList.remove('is-bw');
-            updateLightboxContent('none');
+            updateLightboxContent();
             document.getElementById('lightbox').style.display = 'flex';
         }
 
@@ -653,24 +634,16 @@
             }
             isColorVersion = true;
             document.getElementById('wipeContainer').classList.remove('is-bw');
-            
-            const slideClass = direction > 0 ? 'slide-left' : 'slide-right';
-            updateLightboxContent(slideClass);
+            updateLightboxContent();
         }
 
-        function updateLightboxContent(animationClass) {
+        function updateLightboxContent() {
             const imgFront = document.getElementById('lightbox-img-front');
             const imgBack = document.getElementById('lightbox-img-back');
             const lightboxCaption = document.getElementById('lightbox-caption');
             const switchBtn = document.getElementById('color-switch-btn');
-            const wipeContainer = document.getElementById('wipeContainer');
             
             let currentItem = allItems[currentIndex];
-
-            // Verwijder eerst de klassen en forceer reflow
-            imgFront.classList.remove('slide-left', 'slide-right');
-            imgBack.classList.remove('slide-left', 'slide-right');
-            void imgFront.offsetWidth;
 
             imgFront.src = currentItem.folder + currentItem.file;
 
@@ -686,12 +659,6 @@
             } else {
                 switchBtn.style.display = 'none';
                 imgBack.src = '';
-            }
-
-            // Voeg de animatie toe aan beide lagen zodat ze samen strak inschuiven
-            if (animationClass && animationClass !== 'none') {
-                imgFront.classList.add(animationClass);
-                imgBack.classList.add(animationClass);
             }
 
             lightboxCaption.textContent = currentItem.text;
