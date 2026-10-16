@@ -166,7 +166,7 @@
             transform: scale(1.02);
         }
 
-        /* LIGHTBOX STIJLEN & 3D FLIP CONTAINER */
+        /* LIGHTBOX STIJLEN & WIPE CONTAINER */
         .lightbox {
             display: none;
             position: fixed;
@@ -192,37 +192,37 @@
             max-height: 90vh;
         }
 
-        /* 3D Flip Card Stijlen */
-        .flip-card-inner {
+        /* Wipe Container voor kleur <-> zwart/wit overgang */
+        .wipe-container {
             position: relative;
             width: auto;
             height: auto;
             max-height: 78vh;
-            perspective: 1000px;
-            transform-style: preserve-3d;
-            transition: transform 0.6s cubic-bezier(0.4, 0.2, 0.2, 1);
-        }
-
-        .flip-card-inner.is-flipped {
-            transform: rotateY(180deg);
-        }
-
-        .flip-card-front, .flip-card-back {
-            position: relative;
-            width: 100%;
-            height: 100%;
-            backface-visibility: hidden;
-            -webkit-backface-visibility: hidden;
             display: flex;
             justify-content: center;
             align-items: center;
         }
 
-        .flip-card-back {
+        .wipe-layer {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* De zwart-wit laag ligt eroverheen en schuift open/dicht via clip-path */
+        .wipe-layer-back {
             position: absolute;
             top: 0;
             left: 0;
-            transform: rotateY(180deg);
+            width: 100%;
+            height: 100%;
+            clip-path: inset(0 100% 0 0); /* Start volledig verborgen (geen zwart-wit zichtbaar) */
+            transition: clip-path 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .wipe-container.is-bw .wipe-layer-back {
+            clip-path: inset(0 0 0 0); /* Schuift volledig open naar rechts (volledig zwart-wit) */
         }
 
         .lightbox-content {
@@ -495,12 +495,12 @@
         <div class="lightbox-arrow lightbox-prev" onclick="changeSlide(-1); event.stopPropagation();">&#10094;</div>
         
         <div class="lightbox-container">
-            <!-- 3D Flip Card Container -->
-            <div class="flip-card-inner" id="flipCard">
-                <div class="flip-card-front">
+            <!-- Wipe Container voor de schuivende kleur <-> zwart/wit overgang -->
+            <div class="wipe-container" id="wipeContainer">
+                <div class="wipe-layer wipe-layer-front">
                     <img id="lightbox-img-front" class="lightbox-content" src="" alt="Vergrote foto" oncontextmenu="return false;" draggable="false">
                 </div>
-                <div class="flip-card-back">
+                <div class="wipe-layer wipe-layer-back">
                     <img id="lightbox-img-back" class="lightbox-content" src="" alt="Zwart-wit variant" oncontextmenu="return false;" draggable="false">
                 </div>
             </div>
@@ -625,7 +625,7 @@
         function openLightbox(index) {
             currentIndex = index;
             isColorVersion = true;
-            document.getElementById('flipCard').classList.remove('is-flipped');
+            document.getElementById('wipeContainer').classList.remove('is-bw');
             updateLightboxContent('none');
             document.getElementById('lightbox').style.display = 'flex';
         }
@@ -648,7 +648,7 @@
                 currentIndex = allItems.length - 1;
             }
             isColorVersion = true;
-            document.getElementById('flipCard').classList.remove('is-flipped');
+            document.getElementById('wipeContainer').classList.remove('is-bw');
             
             const slideClass = direction > 0 ? 'slide-left' : 'slide-right';
             updateLightboxContent(slideClass);
@@ -659,16 +659,16 @@
             const imgBack = document.getElementById('lightbox-img-back');
             const lightboxCaption = document.getElementById('lightbox-caption');
             const switchBtn = document.getElementById('color-switch-btn');
-            const flipCard = document.getElementById('flipCard');
+            const wipeContainer = document.getElementById('wipeContainer');
             
             let currentItem = allItems[currentIndex];
 
             if (animationClass && animationClass !== 'none') {
-                flipCard.classList.remove('slide-left', 'slide-right');
-                void flipCard.offsetWidth;
-                flipCard.classList.add(animationClass);
+                wipeContainer.classList.remove('slide-left', 'slide-right');
+                void wipeContainer.offsetWidth;
+                wipeContainer.classList.add(animationClass);
             } else {
-                flipCard.classList.remove('slide-left', 'slide-right');
+                wipeContainer.classList.remove('slide-left', 'slide-right');
             }
 
             imgFront.src = currentItem.folder + currentItem.file;
@@ -691,15 +691,15 @@
         }
 
         function toggleColorVersion() {
-            const flipCard = document.getElementById('flipCard');
+            const wipeContainer = document.getElementById('wipeContainer');
             isColorVersion = !isColorVersion;
             const switchBtn = document.getElementById('color-switch-btn');
 
             if (!isColorVersion) {
-                flipCard.classList.add('is-flipped');
+                wipeContainer.classList.add('is-bw');
                 switchBtn.textContent = "Switch to Color";
             } else {
-                flipCard.classList.remove('is-flipped');
+                wipeContainer.classList.remove('is-bw');
                 switchBtn.textContent = "Switch to Black & White";
             }
         }
