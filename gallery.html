@@ -166,7 +166,7 @@
             transform: scale(1.02);
         }
 
-        /* LIGHTBOX STIJLEN */
+        /* LIGHTBOX STIJLEN & 3D FLIP CONTAINER */
         .lightbox {
             display: none;
             position: fixed;
@@ -190,11 +190,46 @@
             justify-content: center;
             max-width: 90%;
             max-height: 85vh;
+            perspective: 1000px; /* Nodig voor het 3D-omdraai effect */
+        }
+
+        /* Wrapper die de flip-animatie uitvoert */
+        .flip-card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            max-height: 75vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: transform 0.6s cubic-bezier(0.4, 0.2, 0.2, 1);
+            transform-style: preserve-3d;
+        }
+
+        .flip-card-inner.is-flipped {
+            transform: rotateY(180deg);
+        }
+
+        /* Voor- en achterkant van de flip-kaart */
+        .flip-card-front, .flip-card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            max-height: 75vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+        }
+
+        .flip-card-back {
+            transform: rotateY(180deg);
         }
 
         .lightbox-content {
             max-width: 100%;
-            max-height: 90vh;
+            max-height: 75vh;
             object-fit: contain;
             background-color: transparent;
             padding: 0;
@@ -204,20 +239,23 @@
             display: block;
         }
 
-        /* Subtiele fade/zoom-animatie voor het wisselen van foto's */
-        @keyframes fadeInOut {
-            from {
-                opacity: 0;
-                transform: scale(0.97);
-            }
-            to {
-                opacity: 1;
-                transform: scale(1);
-            }
+        /* Slide animaties voor het wisselen van foto's */
+        @keyframes slideLeftIn {
+            from { transform: translateX(60px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
         }
 
-        .lightbox-content-animate {
-            animation: fadeInOut 0.3s ease-in-out;
+        @keyframes slideRightIn {
+            from { transform: translateX(-60px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        .slide-left {
+            animation: slideLeftIn 0.35s ease-out;
+        }
+
+        .slide-right {
+            animation: slideRightIn 0.35s ease-out;
         }
 
         #lightbox-caption {
@@ -457,7 +495,15 @@
         <div class="lightbox-arrow lightbox-prev" onclick="changeSlide(-1); event.stopPropagation();">&#10094;</div>
         
         <div class="lightbox-container">
-            <img id="lightbox-img" class="lightbox-content" src="" alt="Vergrote foto" oncontextmenu="return false;" draggable="false">
+            <!-- 3D Flip Card Container voor kleur / zwart-wit achterkant -->
+            <div class="flip-card-inner" id="flipCard">
+                <div class="flip-card-front">
+                    <img id="lightbox-img-front" class="lightbox-content" src="" alt="Vergrote foto" oncontextmenu="return false;" draggable="false">
+                </div>
+                <div class="flip-card-back">
+                    <img id="lightbox-img-back" class="lightbox-content" src="" alt="Zwart-wit variant" oncontextmenu="return false;" draggable="false">
+                </div>
+            </div>
             <div id="lightbox-caption"></div>
             <button id="color-switch-btn" onclick="toggleColorVersion()">Switch to Black & White</button>
         </div>
@@ -480,7 +526,7 @@
         const modeling = [
             { 
                 file: "foto2_kleur(done).webp", 
-                bwFile: "foto2.webp", // Hier koppel je eenvoudig een zwart-wit versie aan!
+                bwFile: "foto2_ZwarWit(Done).webp", // Achterkant / zwart-wit variant
                 text: "Photographer: Barth Faber" 
             },
             { file: "foto.webp", text: "Photographer: Barth Faber" },
@@ -579,7 +625,8 @@
         function openLightbox(index) {
             currentIndex = index;
             isColorVersion = true;
-            updateLightboxContent();
+            document.getElementById('flipCard').classList.remove('is-flipped');
+            updateLightboxContent('none');
             document.getElementById('lightbox').style.display = 'flex';
         }
 
@@ -601,41 +648,63 @@
                 currentIndex = allItems.length - 1;
             }
             isColorVersion = true;
-            updateLightboxContent();
+            document.getElementById('flipCard').classList.remove('is-flipped');
+            
+            // Bepaal de richtingsanimatie (rechts of links inschuiven)
+            const slideClass = direction > 0 ? 'slide-left' : 'slide-right';
+            updateLightboxContent(slideClass);
         }
 
-        function updateLightboxContent() {
-            const lightboxImg = document.getElementById('lightbox-img');
+        function updateLightboxContent(animationClass) {
+            const imgFront = document.getElementById('lightbox-img-front');
+            const imgBack = document.getElementById('lightbox-img-back');
             const lightboxCaption = document.getElementById('lightbox-caption');
             const switchBtn = document.getElementById('color-switch-btn');
+            const flipCard = document.getElementById('flipCard');
             
             let currentItem = allItems[currentIndex];
 
-            // Trigger de fade/zoom animatie opnieuw
-            lightboxImg.classList.remove('lightbox-content-animate');
-            void lightboxImg.offsetWidth;
-            lightboxImg.classList.add('lightbox-content-animate');
+            // Pas animatie toe op de flip card container
+            if (animationClass && animationClass !== 'none') {
+                flipCard.classList.remove('slide-left', 'slide-right');
+                void flipCard.offsetWidth; // Herstart animatie
+                flipCard.classList.add(animationClass);
+            } else {
+                flipCard.classList.remove('slide-left', 'slide-right');
+            }
+
+            // Vul voor- en achterkant
+            imgFront.src = currentItem.folder + currentItem.file;
 
             if (currentItem.bwFile) {
                 switchBtn.style.display = 'block';
+                imgBack.src = currentItem.folder + currentItem.bwFile;
+                
                 if (isColorVersion) {
-                    lightboxImg.src = currentItem.folder + currentItem.file;
                     switchBtn.textContent = "Switch to Black & White";
                 } else {
-                    lightboxImg.src = currentItem.folder + currentItem.bwFile;
                     switchBtn.textContent = "Switch to Color";
                 }
             } else {
                 switchBtn.style.display = 'none';
-                lightboxImg.src = currentItem.folder + currentItem.file;
+                imgBack.src = '';
             }
 
             lightboxCaption.textContent = currentItem.text;
         }
 
         function toggleColorVersion() {
+            const flipCard = document.getElementById('flipCard');
             isColorVersion = !isColorVersion;
-            updateLightboxContent();
+            const switchBtn = document.getElementById('color-switch-btn');
+
+            if (!isColorVersion) {
+                flipCard.classList.add('is-flipped');
+                switchBtn.textContent = "Switch to Color";
+            } else {
+                flipCard.classList.remove('is-flipped');
+                switchBtn.textContent = "Switch to Black & White";
+            }
         }
 
         function toggleDropdown(event) {
