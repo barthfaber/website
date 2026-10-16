@@ -204,6 +204,22 @@
             display: block;
         }
 
+        /* Subtiele fade/zoom-animatie voor het wisselen van foto's */
+        @keyframes fadeInOut {
+            from {
+                opacity: 0;
+                transform: scale(0.97);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .lightbox-content-animate {
+            animation: fadeInOut 0.3s ease-in-out;
+        }
+
         #lightbox-caption {
             color: #ffffff;
             margin-top: 15px;
@@ -464,7 +480,7 @@
         const modeling = [
             { 
                 file: "foto2_kleur(done).webp", 
-                bwFile: "foto2_ZwarWit(Done).webp", // Hier koppel je eenvoudig een zwart-wit versie aan!
+                bwFile: "foto2.webp", // Hier koppel je eenvoudig een zwart-wit versie aan!
                 text: "Photographer: Barth Faber" 
             },
             { file: "foto.webp", text: "Photographer: Barth Faber" },
@@ -594,6 +610,11 @@
             const switchBtn = document.getElementById('color-switch-btn');
             
             let currentItem = allItems[currentIndex];
+
+            // Trigger de fade/zoom animatie opnieuw
+            lightboxImg.classList.remove('lightbox-content-animate');
+            void lightboxImg.offsetWidth;
+            lightboxImg.classList.add('lightbox-content-animate');
 
             if (currentItem.bwFile) {
                 switchBtn.style.display = 'block';
