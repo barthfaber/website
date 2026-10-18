@@ -114,11 +114,12 @@
             box-shadow: 0px 25px 60px rgba(0, 0, 0, 0.85);
             opacity: 1;
             transition: opacity 0.8s ease, box-shadow 0.4s ease;
+            cursor: pointer;
         }
 
         .frame-container.faded {
             opacity: 0;
-            pointer-events: auto;
+            pointer-events: none; /* Zorgt ervoor dat je er niet per ongeluk doorheen klikt als hij onzichtbaar is */
         }
 
         .frame-container:hover,
@@ -390,7 +391,7 @@
             <h2>Actor & Model</h2>
             <p class="hero-tagline">Based in The Netherlands &mdash; Available Worldwide</p>
             
-            <!-- Knoppen-groep (Showreel opent nu direct de popup popup-player) -->
+            <!-- Knoppen-groep -->
             <div class="hero-buttons">
                 <a href="javascript:void(0)" onclick="openVideoModal()" class="action-btn">&#9658; Showreel</a>
                 <a href="resume.html" class="action-btn desktop-only-btn">Resume</a>
@@ -407,7 +408,7 @@
 
         <!-- Enkele Foto Presentatie met Zwart Kader -->
         <div class="hero-image">
-            <div class="frame-container" id="photoFrame">
+            <div class="frame-container" id="photoFrame" onclick="handlePhotoTap()">
                 <img src="images/gallery/modeling/foto2_kleur(done).webp" alt="Barth Faber - Actor & Model">
             </div>
         </div>
@@ -417,7 +418,6 @@
     <div id="videoModal" class="video-lightbox" onclick="closeVideoModalOnBg(event)">
         <span class="video-lightbox-close" onclick="closeVideoModal()">&times;</span>
         <div class="video-lightbox-container">
-            <!-- VERVANG HIERONDER DE YOUTUBE EMBED URL MET JOUW ECHTE SHOWREEL LINK -->
             <iframe id="youtubeIframe" src="" title="Barth Faber Showreel" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
         </div>
     </div>
@@ -449,9 +449,7 @@
             var modal = document.getElementById('videoModal');
             var iframe = document.getElementById('youtubeIframe');
             
-            // LET OP: Zet hieronder je eigen YouTube embed URL neer (bijv. https://www.youtube.com/embed/JOUW_VIDEO_ID?autoplay=1)
             iframe.src = "https://www.youtube.com/embed/vEOqapYtBpo?autoplay=1&cc_load_policy=0";
-            
             modal.style.display = 'flex';
         }
 
@@ -460,7 +458,6 @@
             var iframe = document.getElementById('youtubeIframe');
             
             modal.style.display = 'none';
-            // Stop de video door de src leeg te halen
             iframe.src = "";
         }
 
@@ -470,7 +467,6 @@
             }
         }
 
-        // Sluit ook via Escape-toets
         document.addEventListener('keydown', function(event) {
             if (event.key === 'Escape') {
                 closeVideoModal();
@@ -498,6 +494,13 @@
 
         // Bij laden: 2.5 seconden zichtbaar
         startFadeTimer(2500);
+
+        // Als je op mobiel op de foto tikt, laat hem direct de timer starten om weg te faden
+        function handlePhotoTap() {
+            if (isMobile()) {
+                startFadeTimer(800); // Faden na 0.8 seconde nadat je de foto hebt aangetikt
+            }
+        }
 
         function handleUserActivity() {
             if (isMobile()) {
