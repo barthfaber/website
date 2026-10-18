@@ -115,11 +115,15 @@
             opacity: 1;
             transition: opacity 0.8s ease, box-shadow 0.4s ease;
             cursor: pointer;
+            /* Voorkomt blauw selecteren/markeren op mobiel */
+            -webkit-tap-highlight-color: transparent;
+            -webkit-touch-callout: none;
+            user-select: none;
         }
 
         .frame-container.faded {
             opacity: 0;
-            pointer-events: none; /* Zorgt ervoor dat je er niet per ongeluk doorheen klikt als hij onzichtbaar is */
+            pointer-events: none;
         }
 
         .frame-container:hover,
@@ -135,6 +139,7 @@
             border-radius: 2px;
             object-fit: cover;
             animation: fadeInAsset 0.6s ease-in-out;
+            pointer-events: none; /* Zorgt dat de touch direct op de container valt */
         }
 
         .video-background-container video {
@@ -495,10 +500,13 @@
         // Bij laden: 2.5 seconden zichtbaar
         startFadeTimer(2500);
 
-        // Als je op mobiel op de foto tikt, laat hem direct de timer starten om weg te faden
+        // Als je op mobiel op de foto tikt, laat hem direct en netjes wegfaden
         function handlePhotoTap() {
             if (isMobile()) {
-                startFadeTimer(800); // Faden na 0.8 seconde nadat je de foto hebt aangetikt
+                var photoFrame = document.getElementById("photoFrame");
+                if (photoFrame) {
+                    photoFrame.classList.add("faded");
+                }
             }
         }
 
